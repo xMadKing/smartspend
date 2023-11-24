@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:numpad/numpad.dart';
+import 'package:smartspend/progress_bar.dart';
 import 'package:smartspend/main.dart';
 
 class PassPage extends StatefulWidget {
@@ -72,11 +73,26 @@ class _PassPageState extends State<PassPage>{
                               pin += "$val";
                             });
                           }
-                          print(pin);
+                          if (pin == "1234") {
+                            print("PASSWORD DETECTED");
+                            //can send user to post passcode page here
+                          }
+                          else if (pin.length >= 4 && pin != "1234") {
+                            print("INVALID PASSCODE, TRY AGAIN");
+                            pin = "";
+                          }
                         },
                       )
                   )
-              )
+              ),
+              Center(
+                  child: ProgressBarWidget(
+                    barColor: Colors.green,
+                    barFillColor: Colors.green.shade800,
+                    bgColor: Colors.grey,
+                    width: 50,
+                  ),
+              ),
             ],
           )
       ),
