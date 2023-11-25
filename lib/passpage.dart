@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:numpad/numpad.dart';
-import 'package:smartspend/progress_bar.dart';
-import 'package:smartspend/main.dart';
-import 'package:smartspend/homepage.dart';
+import 'package:smartspend/numpad.dart';
 
 class PassPage extends StatefulWidget {
-  const PassPage({super.key});
+  final TextEditingController controller = TextEditingController();
+  final String pin = "1234";
+
+  PassPage({super.key});
 
   @override
   State<PassPage> createState() => _PassPageState();
 }
 
 class _PassPageState extends State<PassPage>{
-  String pin = "";
 
   @override
   Widget build(BuildContext context) {
@@ -59,36 +58,19 @@ class _PassPageState extends State<PassPage>{
                 ),
               ),
               Container(
-                padding: const EdgeInsets.all(16),
-                  child: Align(
-                    alignment: Alignment(0,0.5),
-                      child: NumPad(
-                        backgroundColor: Colors.transparent,
-                        onTap: (val) {
-                          if (val == 99) {
-                            setState(() {
-                              pin = pin.substring(0, pin.length -1);
-                            });
-                          } else {
-                            setState(() {
-                              pin += "$val";
-                            });
-                          }
-                          if (pin == "1234") {
-                            print("PASSWORD DETECTED");
-                            Navigator.push(context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomePage()));
-                          }
-                          else if (pin.length >= 4 && pin != "1234") {
-                            print("INVALID PASSCODE, TRY AGAIN");
-                            pin = "";
-                          }
-                        },
-                      )
+                padding: const EdgeInsets.only(top: 300),
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment(0,0),
+                        child: NumpadWidget(
+                          controller: widget.controller,
+                          pin: widget.pin,
+                        )
+                      ),
+                    ],
                   )
               ),
-
             ],
           )
       ),

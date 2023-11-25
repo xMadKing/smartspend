@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartspend/progress_bar.dart';
 import 'package:pie_chart/pie_chart.dart';
-import 'package:smartspend/main.dart';
+import 'package:smartspend/categorywidget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:Stack (
+      body: Stack (
         children: [
           Container(
               decoration: BoxDecoration(
@@ -92,93 +92,133 @@ class _HomePageState extends State<HomePage>{
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
-              width: 380,
-              height: 420,
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFFF5F5F5),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30)
+              ),
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF5F5F5),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30)
                     ),
                   ),
-                  Container(
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: PieChart(
-                        centerWidget: Text(
-                          "4953kr",
-                          style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        dataMap: this.dataMap,
-                        animationDuration: Duration(milliseconds: 500),
-                        chartType: ChartType.ring,
-                        chartRadius: 170,
-                        ringStrokeWidth: 40,
-                        chartValuesOptions: ChartValuesOptions(
-                          showChartValues: false,
-                        ),
-                        legendOptions: LegendOptions(
-                          showLegends: false,
-                        ),
-                        colorList: [
-                          Colors.green.shade800,
-                          Colors.orange.shade800,
-                          Colors.blueGrey.shade800,
-                          Colors.blue.shade800
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      print("HELLOTHERE");
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      width: 380,
-                      height: 40,
-                      child: Stack(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(left: 20),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Spending by Category",
-                              style: TextStyle(
-                                color: Color(0xFF1E2038),
-                                fontSize: 16,
-                                fontFamily: 'Montserrat',
+                  width: 380,
+                  height: 420,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            print("HELLOTHERE");
+                          },
+                          child: Container(
+                              margin: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF5F5F5),
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                            ),
-                          ),
-                          Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                  onPressed: () {print("HELLOTHERE!");},
-                                  icon: Icon(Icons.keyboard_arrow_right)
+                              width: 380,
+                              height: 40,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 20),
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "Spending by Category",
+                                      style: TextStyle(
+                                        color: Color(0xFF1E2038),
+                                        fontSize: 16,
+                                        fontFamily: 'Montserrat',
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      alignment: Alignment.centerRight,
+                                      child: IconButton(
+                                          onPressed: () {
+                                          },
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_right,
+                                            size: 25,
+                                          )
+                                      )
+                                  ),
+                                ],
                               )
                           ),
-                        ],
-                      )
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFF5F5F5),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(20),
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: PieChart(
+                              centerWidget: Text(
+                                "4953kr",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              dataMap: this.dataMap,
+                              animationDuration: Duration(milliseconds: 500),
+                              chartType: ChartType.ring,
+                              chartRadius: 170,
+                              ringStrokeWidth: 40,
+                              chartValuesOptions: ChartValuesOptions(
+                                showChartValues: false,
+                              ),
+                              legendOptions: LegendOptions(
+                                showLegends: false,
+                              ),
+                              colorList: [
+                                Colors.green.shade800,
+                                Colors.orange.shade800,
+                                Colors.blueGrey.shade800,
+                                Colors.blue.shade800
+                              ],
+                            ),
+                          ),
+                        ),
+                        CategoryWidget(
+                          name: "Food",
+                          color: Colors.green,
+                          number: 4000,
+                        ),
+                        CategoryWidget(
+                          name: "Entertainment",
+                          color: Colors.orange,
+                          number: 2400,
+                        ),
+                        CategoryWidget(
+                          name: "Transportation",
+                          color: Colors.blue,
+                          number: 3344,
+                        ),
+                        CategoryWidget(
+                          name: "Medical",
+                          color: Colors.green,
+                          number: 599,
+                        )
+                      ],
                     ),
-                  ),
-                ],
+                  )
               ),
-
             ),
           ),
         ],
