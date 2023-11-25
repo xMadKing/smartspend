@@ -7,12 +7,14 @@ class ProgressBarWidget extends StatefulWidget {
   final Color barFillColor;
   final Color bgColor;
   final double width;
+  final String text;
 
   const ProgressBarWidget({super.key,
     required this.barColor,
     required this.barFillColor,
     required this.bgColor,
     required this.width,
+    required this.text,
   });
 
   @override
@@ -28,7 +30,7 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
         color: widget.bgColor,
         borderRadius: BorderRadius.circular(20)
       ),
-      width: 300,
+      width: 380,
       height: 80,
       child: Stack(
         children: [
@@ -36,18 +38,18 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
             left: 0,
             top: 0,
             child: Container(
-              width: 316,
-              height: 82,
+              width: 380,
+              height: 80,
               child: Stack(
                 children: [
                   Positioned(
-                    left: 283,
-                    top: 41,
+                    left: 280,
+                    top: 40,
                     child: Container(width: 2),
                   ),
                   Positioned(
-                    left: 19,
-                    top: 12,
+                    left: 20,
+                    top: 15,
                     child: Container(
                       width: 100,
                       height: 15,
@@ -57,7 +59,7 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'Monthly Budget',
+                            widget.text,
                             style: TextStyle(
                               color: Color(0xFF1E2038),
                               fontSize: 12,
@@ -79,21 +81,23 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
             top: 40,
             child: Stack(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: widget.barColor,
-                      borderRadius: BorderRadius.circular(10)
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: widget.barColor,
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    width: 340,
+                    height: 20,
                   ),
-                  width: 260,
-                  height: 18,
                 ),
                 Container(
                   decoration: BoxDecoration(
                       color: widget.barFillColor,
                       borderRadius: BorderRadius.circular(10)
                   ),
-                  width: widget.width,
-                  height: 18,
+                  width: widget.width * 340,
+                  height: 20,
                 ),
               ],
             )

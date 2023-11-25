@@ -21,7 +21,8 @@ class BoardingPage extends StatelessWidget {
       body: Center(
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => PassPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PassPage()));
             },
             child: Text("Let's get started!"),
           )

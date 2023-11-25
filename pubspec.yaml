@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   numpad: ^0.0.2
   encrypt: ^5.0.3
+  pie_chart: ^5.4.0
 
 dev_dependencies:
   flutter_test:
