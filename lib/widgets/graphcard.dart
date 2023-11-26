@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartspend/bargraph.dart';
+import 'package:smartspend/widgets/bargraph.dart';
 
 class GraphCard extends StatefulWidget {
   final String cardName;
@@ -26,8 +26,8 @@ class _GraphCard extends State<GraphCard>{
   Widget build(BuildContext context) {
     double sum = _getSum();
     return Container(
-      width: 380,
-      height: 300,
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.35,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -87,7 +87,7 @@ class _GraphCard extends State<GraphCard>{
                 margin: const EdgeInsets.all(20),
                 child: BarChart(
                   barColor: widget.barColor,
-                  width: 330,
+                  width: MediaQuery.of(context).size.width * 0.8,
                   dataMap: widget.dataMap,
                 )
               ),

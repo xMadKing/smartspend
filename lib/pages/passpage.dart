@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartspend/numpad.dart';
+import 'package:smartspend/widgets/numpad.dart';
 
 class PassPage extends StatefulWidget {
   final TextEditingController controller = TextEditingController();

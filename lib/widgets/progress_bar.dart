@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smartspend/main.dart';
-
 
 class ProgressBarWidget extends StatefulWidget {
   final Color barColor;
@@ -30,7 +28,7 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
         color: widget.bgColor,
         borderRadius: BorderRadius.circular(20)
       ),
-      width: 380,
+      width: MediaQuery.of(context).size.width * 0.9,
       height: 80,
       child: Stack(
         children: [
@@ -38,12 +36,12 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
             left: 0,
             top: 0,
             child: Container(
-              width: 380,
+              width: MediaQuery.of(context).size.width * 0.9,
               height: 80,
               child: Stack(
                 children: [
                   Positioned(
-                    left: 280,
+                    left: (MediaQuery.of(context).size.width * 0.9)-100,
                     top: 40,
                     child: Container(width: 2),
                   ),
@@ -86,7 +84,7 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
                         color: widget.barColor,
                         borderRadius: BorderRadius.circular(10)
                     ),
-                    width: 340,
+                    width: (MediaQuery.of(context).size.width * 0.8),
                     height: 20,
                   ),
                 ),
@@ -95,7 +93,7 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
                       color: widget.barFillColor,
                       borderRadius: BorderRadius.circular(10)
                   ),
-                  width: widget.width * 340,
+                  width: widget.width * (MediaQuery.of(context).size.width * 0.8),
                   height: 20,
                 ),
               ],

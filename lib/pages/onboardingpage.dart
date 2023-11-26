@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartspend/passpage.dart';
+import 'package:smartspend/pages/passpage.dart';
 
 class BoardingPage extends StatefulWidget {
   const BoardingPage({super.key, required this.title});

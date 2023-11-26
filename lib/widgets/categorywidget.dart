@@ -4,8 +4,10 @@ class CategoryWidget extends StatelessWidget {
   final String name;
   final Color color;
   final double number;
+  final Color bgColor;
 
-  CategoryWidget({required this.name, required this.color, required this.number});
+  CategoryWidget({required this.name, required this.color, required this.number,
+    required this.bgColor});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +18,11 @@ class CategoryWidget extends StatelessWidget {
       child: Container(
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: bgColor,
             borderRadius: BorderRadius.circular(20),
           ),
-          width: 380,
-          height: 60,
+          width: MediaQuery.of(context).size.width * 0.86,
+          height: MediaQuery.of(context).size.height * 0.08,
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

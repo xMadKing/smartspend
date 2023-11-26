@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class BarChart extends StatelessWidget{
   final double width;
@@ -26,8 +25,8 @@ class BarChart extends StatelessWidget{
     List<String> keys = dataMap.keys.toList();
     double max = normalizeData();
     return Container(
-      width: width,
-      height: 160,
+      width: width * 0.95,
+      height: MediaQuery.of(context).size.height * 0.175,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -48,8 +47,8 @@ class BarChart extends StatelessWidget{
                           ),
                           color: barColor,
                         ),
-                        width: 30,
-                        height: values[0] * 140,
+                        width: MediaQuery.of(context).size.width * 0.08,
+                        height: values[0] * (MediaQuery.of(context).size.height * 0.15),
                       ),
                       Container(
                         child: Text(keys[0].substring(0, 3),
@@ -71,8 +70,8 @@ class BarChart extends StatelessWidget{
                           ),
                           color: barColor,
                         ),
-                        width: 30,
-                        height: values[1] * 140,
+                        width: MediaQuery.of(context).size.width * 0.08,
+                        height: values[1] * (MediaQuery.of(context).size.height * 0.15),
                       ),
                       Container(
                         child: Text(keys[1].substring(0, 3),
@@ -94,8 +93,8 @@ class BarChart extends StatelessWidget{
                           ),
                           color: barColor,
                         ),
-                        width: 30,
-                        height: values[2] * 140,
+                        width: MediaQuery.of(context).size.width * 0.08,
+                        height: values[2] * (MediaQuery.of(context).size.height * 0.15),
                       ),
                       Container(
                         child: Text(keys[2].substring(0, 3),
@@ -117,8 +116,8 @@ class BarChart extends StatelessWidget{
                           ),
                           color: barColor,
                         ),
-                        width: 30,
-                        height: values[3] * 140,
+                        width: MediaQuery.of(context).size.width * 0.08,
+                        height: values[3] * (MediaQuery.of(context).size.height * 0.15),
                       ),
                       Container(
                         child: Text(keys[3].substring(0, 3),
@@ -140,8 +139,8 @@ class BarChart extends StatelessWidget{
                           ),
                           color: barColor,
                         ),
-                        width: 30,
-                        height: values[4] * 140,
+                        width: MediaQuery.of(context).size.width * 0.08,
+                        height: values[4] * (MediaQuery.of(context).size.height * 0.15),
                       ),
                       Container(
                         child: Text(keys[4].substring(0, 3),
@@ -163,8 +162,8 @@ class BarChart extends StatelessWidget{
                           ),
                           color: barColor,
                         ),
-                        width: 30,
-                        height: values[5] * 140,
+                        width: MediaQuery.of(context).size.width * 0.08,
+                        height: values[5] * (MediaQuery.of(context).size.height * 0.15),
                       ),
                       Container(
                         child: Text(
@@ -187,8 +186,8 @@ class BarChart extends StatelessWidget{
                           ),
                           color: barColor,
                         ),
-                        width: 30,
-                        height: values[6] * 140,
+                        width: MediaQuery.of(context).size.width * 0.08,
+                        height: values[6] * (MediaQuery.of(context).size.height * 0.15),
                       ),
                       Container(
                         child: Text(
@@ -207,7 +206,7 @@ class BarChart extends StatelessWidget{
                 bottom: 15,
                 child:Container(
                   height: 2,
-                  width: 330,
+                  width: MediaQuery.of(context).size.width * 0.75,
                   color: Colors.grey,
                 ),
               ),
@@ -216,7 +215,7 @@ class BarChart extends StatelessWidget{
                 child: Container(
                   alignment: Alignment.center,
                   height: 1,
-                  width: 300,
+                  width: MediaQuery.of(context).size.width * 0.7,
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.centerLeft,

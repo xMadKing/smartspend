@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smartspend/graphcard.dart';
+import 'package:smartspend/widgets/graphcard.dart';
+import 'package:smartspend/widgets/trajectorywidget.dart';
+import 'package:fl_chart/fl_chart.dart';
+
 
 class MonthlyBudgetPage extends StatelessWidget{
 
@@ -60,7 +63,7 @@ class MonthlyBudgetPage extends StatelessWidget{
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GraphCard(
-                      cardName: "Daily spending Last 7 days spending",
+                      cardName: "Daily spending over last 7 days",
                       barColor: Colors.blue,
                       dataMap: {
                         "Monday" : 3660,
@@ -74,41 +77,22 @@ class MonthlyBudgetPage extends StatelessWidget{
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GraphCard(
-                      cardName: "Daily spending on Food",
-                      barColor: Colors.deepPurpleAccent,
-                      dataMap: {
-                        "Monday" : 300,
-                        "Tuesday" : 500,
-                        "Wednesday" : 4000,
-                        "Thursday" : 600,
-                        "Friday" : 1304,
-                        "Saturday" : 729,
-                        "Sunday" : 209,
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GraphCard(
-                      cardName: "Daily spending on Food",
-                      barColor: Colors.amber.shade800,
-                      dataMap: {
-                        "Monday" : 310,
-                        "Tuesday" : 760,
-                        "Wednesday" : 900,
-                        "Thursday" : 459,
-                        "Friday" : 99,
-                        "Saturday" : 770,
-                        "Sunday" : 214,
-                      },
+                    TrajectoryData(
+                       data: [
+                          FlSpot(0, 1),
+                          FlSpot(1, 3),
+                          FlSpot(2, 10),
+                          FlSpot(3, 7),
+                          FlSpot(4, 12),
+                          FlSpot(5, 13),
+                          FlSpot(6, 17),
+                          FlSpot(7, 15),
+                          FlSpot(8, 20),
+                        ],
                     ),
                   ],
                 )

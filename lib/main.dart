@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartspend/passpage.dart';
-import 'package:smartspend/onboardingpage.dart';
+import 'package:smartspend/pages/onboardingpage.dart';
 
 void main() {
   runApp(MaterialApp(

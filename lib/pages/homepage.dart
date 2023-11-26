@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smartspend/progress_bar.dart';
+import 'package:smartspend/widgets/progress_bar.dart';
 import 'package:pie_chart/pie_chart.dart';
-import 'package:smartspend/categorywidget.dart';
-import 'package:smartspend/monthlybudgetpage.dart';
+import 'package:smartspend/widgets/categorywidget.dart';
+import 'package:smartspend/pages/monthlybudgetpage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -111,8 +111,8 @@ class _HomePageState extends State<HomePage>{
                         topRight: Radius.circular(30)
                     ),
                   ),
-                  width: 380,
-                  height: 420,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: MediaQuery.of(context).size.height * 0.5,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -204,21 +204,25 @@ class _HomePageState extends State<HomePage>{
                         CategoryWidget(
                           name: "Food",
                           color: Colors.green,
+                          bgColor: Colors.white,
                           number: 4000,
                         ),
                         CategoryWidget(
                           name: "Entertainment",
                           color: Colors.orange,
+                          bgColor: Colors.white,
                           number: 2400,
                         ),
                         CategoryWidget(
                           name: "Transportation",
                           color: Colors.blue,
+                          bgColor: Colors.white,
                           number: 3344,
                         ),
                         CategoryWidget(
                           name: "Medical",
                           color: Colors.green,
+                          bgColor: Colors.white,
                           number: 599,
                         )
                       ],

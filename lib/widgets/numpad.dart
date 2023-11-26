@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smartspend/homepage.dart';
+import 'package:smartspend/pages/homepage.dart';
 
 class NumpadWidget extends StatefulWidget{
   final TextEditingController controller;
   int dotsNumber = 0;
   final String pin;
+  double buttonHeight = 0;
 
   NumpadWidget({super.key, required this.controller, required this.pin});
 
@@ -21,6 +22,7 @@ class _NumpadWidget extends State<NumpadWidget>{
 
   @override
   Widget build(BuildContext context){
+    widget.buttonHeight = MediaQuery.of(context).size.width * 0.2;
     return Container(
       margin: const EdgeInsets.all(30),
       child: Column(
@@ -32,24 +34,24 @@ class _NumpadWidget extends State<NumpadWidget>{
             children: [
               NumberButton(
                 number: 1,
-                height: 100,
-                width: 70,
+                height: widget.buttonHeight,
+                width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
                 pin: widget.pin,
               ),
               NumberButton(
                 number: 2,
-                height: 100,
-                width: 70,
+                height: widget.buttonHeight,
+                width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
                 pin: widget.pin,
               ),
               NumberButton(
                 number: 3,
-                height: 100,
-                width: 70,
+                height: widget.buttonHeight,
+                width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
                 pin: widget.pin,
@@ -61,24 +63,24 @@ class _NumpadWidget extends State<NumpadWidget>{
             children: [
               NumberButton(
                 number: 4,
-                height: 100,
-                width: 70,
+                height: widget.buttonHeight,
+                width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
                 pin: widget.pin,
               ),
               NumberButton(
                 number: 5,
-                height: 100,
-                width: 70,
+                height: widget.buttonHeight,
+                width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
                 pin: widget.pin,
               ),
               NumberButton(
                 number: 6,
-                height: 100,
-                width: 70,
+                height: widget.buttonHeight,
+                width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
                 pin: widget.pin,
@@ -90,24 +92,24 @@ class _NumpadWidget extends State<NumpadWidget>{
             children: [
               NumberButton(
                 number: 7,
-                height: 100,
-                width: 70,
+                height: widget.buttonHeight,
+                width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
                 pin: widget.pin,
               ),
               NumberButton(
                 number: 8,
-                height: 100,
-                width: 70,
+                height: widget.buttonHeight,
+                width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
                 pin: widget.pin,
               ),
               NumberButton(
                 number: 9,
-                height: 100,
-                width: 70,
+                height: widget.buttonHeight,
+                width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
                 pin: widget.pin,
@@ -119,24 +121,24 @@ class _NumpadWidget extends State<NumpadWidget>{
             children: [
               NumberButton(
                 number: 10,
-                height: 100,
-                width: 90,
+                height: widget.buttonHeight+10,
+                width: widget.buttonHeight+10,
                 controller: widget.controller,
                 update: _update,
                 pin: widget.pin,
               ),
               NumberButton(
                 number: 0,
-                height: 100,
-                width: 70,
+                height: widget.buttonHeight,
+                width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
                 pin: widget.pin,
               ),
               NumberButton(
                 number: 11,
-                height: 100,
-                width: 90,
+                height: widget.buttonHeight+10,
+                width: widget.buttonHeight+10,
                 controller: widget.controller,
                 update: _update,
                 pin: widget.pin,
@@ -164,7 +166,7 @@ class NumberButton extends StatelessWidget {
 
   Widget build(BuildContext context){
     if (number == 10) {buttonText = "ENT";}
-    else if (number == 11) {buttonText = "DEL";}
+    else if (number == 11) {buttonText = "≪";}
     else {buttonText = "$number";}
     return Container(
       height: height,
