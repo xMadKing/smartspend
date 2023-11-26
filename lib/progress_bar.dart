@@ -51,7 +51,6 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
                     left: 20,
                     top: 15,
                     child: Container(
-                      width: 100,
                       height: 15,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -64,7 +63,7 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
                               color: Color(0xFF1E2038),
                               fontSize: 12,
                               fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                               height: 0,
                             ),
                           ),

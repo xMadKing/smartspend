@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   encrypt: ^5.0.3
   pie_chart: ^5.4.0
+  fl_chart: ^0.65.0
+  graphic: ^2.2.1
 
 dev_dependencies:
   flutter_test:
@@ -73,15 +75,17 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
+
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  #
+  fonts:
+      - family: Montserrat
+        fonts:
+         - asset: assets/fonts/Montserrat.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

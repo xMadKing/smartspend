@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smartspend/progress_bar.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:smartspend/categorywidget.dart';
+import 'package:smartspend/monthlybudgetpage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,18 +37,23 @@ class _HomePageState extends State<HomePage>{
               ),
           ),
           Center(
-              child: Container(
-                child: Align(
-                  alignment: Alignment(0, -0.2),
-                  child: ProgressBarWidget(
-                    width: 0.5,
-                    bgColor: const Color(0xFFF5F5F5),
-                    barColor: Colors.purple.shade200,
-                    barFillColor: Colors.purple.shade900,
-                    text: "HELLO WORLD",
+              child: GestureDetector(
+                onDoubleTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MonthlyBudgetPage()));
+                },
+                child: Container(
+                  child: Align(
+                    alignment: Alignment(0, -0.2),
+                    child: ProgressBarWidget(
+                      width: 0.5,
+                      bgColor: const Color(0xFFF5F5F5),
+                      barColor: Colors.purple.shade200,
+                      barFillColor: Colors.purple.shade900,
+                      text: "Monthly Budget",
+                    ),
                   ),
                 ),
-              ),
+              )
           ),
           Container(
             child: Align(
