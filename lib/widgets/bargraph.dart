@@ -54,6 +54,7 @@ class BarChart extends StatelessWidget{
                         child: Text(keys[0].substring(0, 3),
                           style: TextStyle(
                             fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w700,
                             fontSize: 12,
                           ),
                         ),
@@ -77,6 +78,7 @@ class BarChart extends StatelessWidget{
                         child: Text(keys[1].substring(0, 3),
                           style: TextStyle(
                             fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w700,
                             fontSize: 12,
                           ),
                         ),
@@ -100,6 +102,7 @@ class BarChart extends StatelessWidget{
                         child: Text(keys[2].substring(0, 3),
                           style: TextStyle(
                             fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w700,
                             fontSize: 12,
                           ),
                         ),
@@ -123,6 +126,7 @@ class BarChart extends StatelessWidget{
                         child: Text(keys[3].substring(0, 3),
                           style: TextStyle(
                             fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w700,
                             fontSize: 12,
                           ),
                         ),
@@ -146,6 +150,7 @@ class BarChart extends StatelessWidget{
                         child: Text(keys[4].substring(0, 3),
                           style: TextStyle(
                             fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w700,
                             fontSize: 12,
                           ),
                         ),
@@ -170,6 +175,7 @@ class BarChart extends StatelessWidget{
                           keys[5].substring(0, 3),
                           style: TextStyle(
                             fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w700,
                             fontSize: 12,
                           ),
                         ),
@@ -194,6 +200,7 @@ class BarChart extends StatelessWidget{
                           keys[6].substring(0, 3),
                           style: TextStyle(
                             fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w700,
                             fontSize: 12,
                           ),
                         ),
@@ -235,6 +242,7 @@ class BarChart extends StatelessWidget{
                   style: TextStyle(
                     fontFamily: "Montserrat",
                     fontSize: 12,
+                    fontWeight: FontWeight.w700
                   ),
                 ),
               )

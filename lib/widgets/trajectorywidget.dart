@@ -12,17 +12,28 @@ class TrajectoryData extends StatefulWidget {
 
 class _TrajectoryData extends State<TrajectoryData> {
 
+  double getAvgSpending(){
+    double sum = 0;
+    widget.data.forEach((element) {
+      sum += element.y;
+    });
+    double res = sum / widget.data.length;
+    return res.roundToDouble();
+  }
+
   @override
   Widget build(BuildContext context){
+    double avgspending = getAvgSpending();
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.width * 1.05,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
       child: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -35,6 +46,7 @@ class _TrajectoryData extends State<TrajectoryData> {
                       fontSize: 16,
                       fontFamily: "Montserrat",
                       fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w700
                     ),
                   ),
                 ),
@@ -67,7 +79,7 @@ class _TrajectoryData extends State<TrajectoryData> {
                         ),
                       ),
                       minX: 0,
-                      maxX: 11,
+                      maxX: 30,
                       minY: 0,
                       maxY: 10000,
                       gridData: FlGridData(
@@ -83,20 +95,7 @@ class _TrajectoryData extends State<TrajectoryData> {
                       ),
                       lineBarsData: [
                         LineChartBarData(
-                          spots: [
-                            FlSpot(0, 2000),
-                            FlSpot(1, 3000),
-                            FlSpot(2, 4500),
-                            FlSpot(3, 5000),
-                            FlSpot(4, 6000),
-                            FlSpot(5, 7700),
-                            FlSpot(6, 8200),
-                            FlSpot(7, 9000),
-                            FlSpot(8, 5000),
-                            FlSpot(9, 2000),
-                            FlSpot(10, 2100),
-                            FlSpot(11, 5500),
-                          ],
+                          spots: widget.data,
                           isCurved: true,
                           gradient: LinearGradient(
                             begin: Alignment.centerRight,
@@ -124,6 +123,40 @@ class _TrajectoryData extends State<TrajectoryData> {
                   ),
                 ),
               ],
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 10, top: 5),
+              child: Row(
+                children: [
+                  Text(
+                      "Average spending:",
+                      style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700
+                      ),
+                  ),
+                  SizedBox(width: 10),
+                  Text("$avgspending /day"),
+                ],
+              )
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 10, top: 5),
+              child: Row(
+                children: [
+                  Text(
+                    "Projected to run out of money in:",
+                    style: TextStyle(
+                      fontFamily: "Montserrat",
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Text("10 days")
+                ],
+              )
             )
           ],
         ),

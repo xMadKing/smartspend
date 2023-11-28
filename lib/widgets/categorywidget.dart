@@ -5,12 +5,21 @@ class CategoryWidget extends StatelessWidget {
   final Color color;
   final double number;
   final Color bgColor;
+  final double limit;
 
   CategoryWidget({required this.name, required this.color, required this.number,
-    required this.bgColor});
+    required this.bgColor, required this.limit});
+
+  Color getFontColor(){
+    if (number > limit){
+      return Colors.red;
+    }
+    return Color(0xFF1E2038);
+  }
 
   @override
   Widget build(BuildContext context) {
+    Color fontColor = getFontColor();
     return GestureDetector(
       onTap: () {
         print("HELLOTHERE");
@@ -59,7 +68,7 @@ class CategoryWidget extends StatelessWidget {
                   child: Text(
                     "$number",
                     style: TextStyle(
-                      color: Color(0xFF1E2038),
+                      color: fontColor,
                       fontSize: 16,
                       fontFamily: 'Montserrat',
                     ),

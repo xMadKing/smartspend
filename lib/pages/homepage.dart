@@ -206,24 +206,28 @@ class _HomePageState extends State<HomePage>{
                           color: Colors.green,
                           bgColor: Colors.white,
                           number: 4000,
+                          limit: 3500,
                         ),
                         CategoryWidget(
                           name: "Entertainment",
                           color: Colors.orange,
                           bgColor: Colors.white,
                           number: 2400,
+                          limit: 3000,
                         ),
                         CategoryWidget(
                           name: "Transportation",
                           color: Colors.blue,
                           bgColor: Colors.white,
                           number: 3344,
+                          limit: 3000,
                         ),
                         CategoryWidget(
                           name: "Medical",
                           color: Colors.green,
                           bgColor: Colors.white,
                           number: 599,
+                          limit: 1000,
                         )
                       ],
                     ),

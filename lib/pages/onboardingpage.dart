@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartspend/pages/passpage.dart';
+import 'package:smartspend/pages/registerpage.dart';
 
 class BoardingPage extends StatefulWidget {
   const BoardingPage({super.key, required this.title});
@@ -110,8 +111,23 @@ class _BoardingPageState extends State<BoardingPage>
                   ),
                 ),
               ),
+            ),
+            Align(
+              alignment: Alignment(0, 0.7),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                },
+                child: Text(
+                  "New user? Register here!",
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontFamily: 'Montserrat',
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
             )
-
           ],
         ),
       ),

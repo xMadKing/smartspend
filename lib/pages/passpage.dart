@@ -46,15 +46,20 @@ class _PassPageState extends State<PassPage>{
               Container(
                 child: Align(
                   alignment: Alignment(-0.9,-0.9),
-                  child: Text(
-                    "BACK",
-                    style: TextStyle(
-                        color: Colors.white70,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        fontFamily: "Montserrat"
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "BACK",
+                      style: TextStyle(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          fontFamily: "Montserrat"
+                      ),
                     ),
-                  ),
+                  )
                 ),
               ),
               Container(
