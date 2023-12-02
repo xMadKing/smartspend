@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:encrypt/encrypt.dart'; //external library
 
 class User {
   final String name;

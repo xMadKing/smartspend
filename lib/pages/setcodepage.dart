@@ -2,17 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:smartspend/widgets/numpad.dart';
 import 'package:smartspend/pages/homepage.dart';
 
-class PassPage extends StatefulWidget {
+class SetCodePage extends StatefulWidget {
   final TextEditingController controller = TextEditingController();
-  final String pin = "1234";
+  String displayText = "Choose a passcode";
+  String pin = "";
 
-  PassPage({super.key});
+  SetCodePage({super.key});
 
   @override
-  State<PassPage> createState() => _PassPageState();
+  State<SetCodePage> createState() => _SetCodePage();
 }
 
-class _PassPageState extends State<PassPage>{
+class _SetCodePage extends State<SetCodePage>{
+
+  void setPin(String newPin){
+    setState(() {
+      widget.pin = newPin;
+      widget.displayText = "Re-enter passcode";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +42,7 @@ class _PassPageState extends State<PassPage>{
                 child: Align(
                   alignment: Alignment(0,-0.4),
                   child: Text(
-                    "Enter Password",
+                    widget.displayText,
                     style: TextStyle(
                         fontSize: 20,
                         fontFamily: 'Montserrat',
@@ -46,36 +54,36 @@ class _PassPageState extends State<PassPage>{
               ),
               Container(
                 child: Align(
-                  alignment: Alignment(-0.9,-0.9),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "BACK",
-                      style: TextStyle(
-                          color: Colors.white70,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          fontFamily: "Montserrat"
+                    alignment: Alignment(-0.9,-0.9),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "BACK",
+                        style: TextStyle(
+                            color: Colors.white70,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            fontFamily: "Montserrat"
+                        ),
                       ),
-                    ),
-                  )
+                    )
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(top: 300),
+                  padding: const EdgeInsets.only(top: 300),
                   child: Stack(
                     children: [
                       Align(
-                        alignment: Alignment(0,0),
-                        child: NumpadWidget(
-                          controller: widget.controller,
-                          pin: widget.pin,
-                          setPin: (str){},
-                          register: false,
-                          route: MaterialPageRoute(builder: (context) => HomePage()),
-                        )
+                          alignment: Alignment(0,0),
+                          child: NumpadWidget(
+                            controller: widget.controller,
+                            pin: widget.pin,
+                            register: true,
+                            setPin: setPin,
+                            route: MaterialPageRoute(builder: (context) => HomePage()),
+                          )
                       ),
                     ],
                   )

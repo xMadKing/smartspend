@@ -7,8 +7,13 @@ class NumpadWidget extends StatefulWidget{
   int dotsNumber = 0;
   final String pin;
   double buttonHeight = 0;
+  MaterialPageRoute route;
+  bool register = false;
+  final ValueChanged<String> setPin;
 
-  NumpadWidget({super.key, required this.controller, required this.pin});
+
+  NumpadWidget({super.key, required this.controller, required this.pin,
+    required this.route, required this.register, required this.setPin});
 
   @override
   State<NumpadWidget> createState() => _NumpadWidget();
@@ -38,7 +43,10 @@ class _NumpadWidget extends State<NumpadWidget>{
                 width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
+                setPin: widget.setPin,
+                route: widget.route,
                 pin: widget.pin,
+                register: widget.register,
               ),
               NumberButton(
                 number: 2,
@@ -46,7 +54,10 @@ class _NumpadWidget extends State<NumpadWidget>{
                 width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
+                setPin: widget.setPin,
+                route: widget.route,
                 pin: widget.pin,
+                register: widget.register,
               ),
               NumberButton(
                 number: 3,
@@ -54,7 +65,10 @@ class _NumpadWidget extends State<NumpadWidget>{
                 width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
+                setPin: widget.setPin,
+                route: widget.route,
                 pin: widget.pin,
+                register: widget.register,
               ),
             ],
           ),
@@ -67,7 +81,10 @@ class _NumpadWidget extends State<NumpadWidget>{
                 width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
+                setPin: widget.setPin,
+                route: widget.route,
                 pin: widget.pin,
+                register: widget.register,
               ),
               NumberButton(
                 number: 5,
@@ -75,7 +92,10 @@ class _NumpadWidget extends State<NumpadWidget>{
                 width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
+                setPin: widget.setPin,
+                route: widget.route,
                 pin: widget.pin,
+                register: widget.register,
               ),
               NumberButton(
                 number: 6,
@@ -83,7 +103,10 @@ class _NumpadWidget extends State<NumpadWidget>{
                 width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
+                setPin: widget.setPin,
+                route: widget.route,
                 pin: widget.pin,
+                register: widget.register,
               ),
             ],
           ),
@@ -95,16 +118,22 @@ class _NumpadWidget extends State<NumpadWidget>{
                 height: widget.buttonHeight,
                 width: widget.buttonHeight,
                 controller: widget.controller,
+                route: widget.route,
+                setPin: widget.setPin,
                 update: _update,
                 pin: widget.pin,
+                register: widget.register,
               ),
               NumberButton(
                 number: 8,
                 height: widget.buttonHeight,
                 width: widget.buttonHeight,
                 controller: widget.controller,
+                route: widget.route,
+                setPin: widget.setPin,
                 update: _update,
                 pin: widget.pin,
+                register: widget.register,
               ),
               NumberButton(
                 number: 9,
@@ -112,7 +141,10 @@ class _NumpadWidget extends State<NumpadWidget>{
                 width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
+                setPin: widget.setPin,
+                route: widget.route,
                 pin: widget.pin,
+                register: widget.register,
               ),
             ],
           ),
@@ -125,7 +157,10 @@ class _NumpadWidget extends State<NumpadWidget>{
                 width: widget.buttonHeight+10,
                 controller: widget.controller,
                 update: _update,
+                setPin: widget.setPin,
+                route: widget.route,
                 pin: widget.pin,
+                register: widget.register,
               ),
               NumberButton(
                 number: 0,
@@ -133,7 +168,10 @@ class _NumpadWidget extends State<NumpadWidget>{
                 width: widget.buttonHeight,
                 controller: widget.controller,
                 update: _update,
+                setPin: widget.setPin,
+                route: widget.route,
                 pin: widget.pin,
+                register: widget.register,
               ),
               NumberButton(
                 number: 11,
@@ -141,7 +179,10 @@ class _NumpadWidget extends State<NumpadWidget>{
                 width: widget.buttonHeight+10,
                 controller: widget.controller,
                 update: _update,
+                setPin: widget.setPin,
+                route: widget.route,
                 pin: widget.pin,
+                register: widget.register,
               ),
             ],
           )
@@ -158,35 +199,65 @@ class NumberButton extends StatelessWidget {
   final double height;
   final TextEditingController controller;
   final ValueChanged<int> update;
+  final ValueChanged<String> setPin;
+  final MaterialPageRoute route;
+  final bool register;
   String pin;
+  bool enabled = true;
 
   NumberButton({super.key, required this.number, required this.height,
   required this.width, required this.controller, required this.update,
-    required this.pin});
+    required this.pin, required this.route, required this.register,
+  required this.setPin});
 
   Widget build(BuildContext context){
-    if (number == 10) {buttonText = "ENT";}
+    if (number == 10) {
+      if (register){
+        buttonText = "ENT";
+      } else {
+        buttonText = "";
+        enabled = false;
+      }
+    }
     else if (number == 11) {buttonText = "≪";}
     else {buttonText = "$number";}
     return Container(
       height: height,
       width: width,
       child: TextButton(
-        onPressed: () {
+        onPressed: !enabled ? null : () {
           if(number == 11){
             controller.text = controller.text.substring(0, controller.text.length-1);
           } else if (number == 10) {
-            print(controller.text);
+            if(controller.text.length == 4) {
+              if (pin != ""){
+                if (controller.text != pin) {
+                  print("PIN DOEST NOT MATCH $pin != " + controller.text);
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage()));
+                }
+              } else {
+                print(controller.text);
+                pin = controller.text;
+                setPin(pin);
+                controller.text = "";
+              }
+            } else {
+              print(controller.text);
+            }
           } else {
             controller.text += number.toString();
-          }
-          update(controller.text.length);
-          if(controller.text ==  pin) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-          } else if (controller.text.length >= 4) {
-            controller.text = "";
             update(controller.text.length);
-            SystemSound.play(SystemSoundType.alert);
+          }
+          if(!register){
+            if(controller.text ==  pin) {
+              Navigator.push(context, route);
+            } else if (controller.text.length >= 4) {
+              controller.text = "";
+              update(controller.text.length);
+              SystemSound.play(SystemSoundType.alert);
+            }
           }
         },
 

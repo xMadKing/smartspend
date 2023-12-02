@@ -39,7 +39,8 @@ class _HomePageState extends State<HomePage>{
           Center(
               child: GestureDetector(
                 onDoubleTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MonthlyBudgetPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MonthlyBudgetPage()));
                 },
                 child: Container(
                   child: Align(
@@ -118,7 +119,9 @@ class _HomePageState extends State<HomePage>{
                       children: [
                         GestureDetector(
                           onTap: () {
-                            print("HELLOTHERE");
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context)
+                                => MonthlyBudgetPage()));
                           },
                           child: Container(
                               margin: const EdgeInsets.all(5),
@@ -148,6 +151,9 @@ class _HomePageState extends State<HomePage>{
                                       alignment: Alignment.centerRight,
                                       child: IconButton(
                                           onPressed: () {
+                                            Navigator.push(context,
+                                                MaterialPageRoute(builder:
+                                                    (context) => MonthlyBudgetPage()));
                                           },
                                           icon: Icon(
                                             Icons.keyboard_arrow_right,
