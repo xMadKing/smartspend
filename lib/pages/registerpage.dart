@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:smartspend/pages/setcodepage.dart';
+import 'package:smartspend/backend/user.dart';
+
 
 class RegisterPage extends StatefulWidget {
   List<TextEditingController> controllers = [
     TextEditingController(),
     TextEditingController(),
   ];
+  final User client;
   int dataAvailable = 0;
   Icon tosButton = Icon(Icons.circle_outlined, size: 20);
   bool tosIsAgreed = false;
@@ -40,7 +43,7 @@ class RegisterPage extends StatefulWidget {
       "to make your own independent judgment regarding your interaction with "
       "these Linked Sites.";
 
-  RegisterPage({super.key});
+  RegisterPage({super.key, required this.client});
 
   @override
   State<RegisterPage> createState() => _RegisterPage();
@@ -241,8 +244,12 @@ class _RegisterPage extends State<RegisterPage>{
                 ),
                 child: TextButton(
                   onPressed: !isActivated() ? null : () {
+                    widget.client.name = widget.controllers[0].text;
+                    widget.client.birthDate = widget.controllers[1].text;
                     Navigator.push(context, MaterialPageRoute(builder: (context)
-                    => SetCodePage()));
+                    => SetCodePage(
+                      client: widget.client,
+                    )));
                   },
                   child: Text(
                     "NEXT",

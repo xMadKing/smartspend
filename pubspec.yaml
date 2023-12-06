@@ -39,6 +39,10 @@ dependencies:
   pie_chart: ^5.4.0
   fl_chart: ^0.65.0
   graphic: ^2.2.1
+  shared_preferences: ^2.2.2
+  path_provider: ^2.1.1
+  sqflite: ^2.3.0
+  path: ^1.8.3
 
 dev_dependencies:
   flutter_test:

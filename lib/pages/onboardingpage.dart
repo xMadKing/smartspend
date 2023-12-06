@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:smartspend/pages/loginpage.dart';
+import 'package:smartspend/pages/passpage.dart';
+import 'package:smartspend/backend/wyrm/database.dart';
+import 'package:smartspend/backend/user.dart';
 
 class BoardingPage extends StatefulWidget {
-  const BoardingPage({super.key, required this.title});
+  BoardingPage({super.key, required this.title, required this.client});
 
+  final User client;
   final String title;
 
   @override
@@ -95,9 +99,18 @@ class _BoardingPageState extends State<BoardingPage>
                 ),
                 height: 40,
                 child: TextButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  onPressed: () async {
+                    if(widget.client.newUser == 0) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage(
+                            client: widget.client,
+                          )));
+                    } else {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => PassPage(
+                            client: widget.client,
+                          )));
+                    }
                   },
                   child: const Text(
                     'Spend Smart, Spend Wise',

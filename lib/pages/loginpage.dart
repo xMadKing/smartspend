@@ -1,12 +1,14 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:smartspend/pages/registerpage.dart';
+import 'package:smartspend/backend/user.dart';
+
 
 
 class LoginPage extends StatefulWidget{
-  LoginPage({super.key});
+  final User client;
   bool visible = true;
+
+  LoginPage({super.key, required this.client});
 
   @override
   State<LoginPage> createState() => _LoginPage();
@@ -117,7 +119,9 @@ class _LoginPage extends State<LoginPage>{
               margin: EdgeInsets.only(top: 20),
               child: TextButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage(
+                    client: widget.client,
+                  )));
                 },
                 child: Text(
                   "LOGIN MANUALLY",

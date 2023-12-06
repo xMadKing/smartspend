@@ -3,9 +3,13 @@ import 'package:smartspend/widgets/progress_bar.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:smartspend/widgets/categorywidget.dart';
 import 'package:smartspend/pages/monthlybudgetpage.dart';
+import 'package:smartspend/backend/wyrm/database.dart';
+import 'package:smartspend/backend/user.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final User client;
+
+  const HomePage({super.key, required this.client});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -21,6 +25,7 @@ class _HomePageState extends State<HomePage>{
 
   @override
   Widget build(BuildContext context) {
+    String name = widget.client.name;
     return Scaffold(
       body: Stack (
         children: [
@@ -87,7 +92,7 @@ class _HomePageState extends State<HomePage>{
             child: Align(
               alignment:  Alignment(-.9, -0.55),
               child: Text(
-                "Ahmad",
+                "$name",
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   color: Colors.white,

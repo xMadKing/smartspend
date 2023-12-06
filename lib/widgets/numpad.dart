@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:graphic/graphic.dart';
 import 'package:smartspend/pages/homepage.dart';
 
 class NumpadWidget extends StatefulWidget{
@@ -9,7 +10,7 @@ class NumpadWidget extends StatefulWidget{
   double buttonHeight = 0;
   MaterialPageRoute route;
   bool register = false;
-  final ValueChanged<String> setPin;
+  final ValueChanged<Map<String, dynamic>> setPin;
 
 
   NumpadWidget({super.key, required this.controller, required this.pin,
@@ -199,7 +200,7 @@ class NumberButton extends StatelessWidget {
   final double height;
   final TextEditingController controller;
   final ValueChanged<int> update;
-  final ValueChanged<String> setPin;
+  final ValueChanged<Tuple> setPin;
   final MaterialPageRoute route;
   final bool register;
   String pin;
@@ -234,13 +235,19 @@ class NumberButton extends StatelessWidget {
                 if (controller.text != pin) {
                   print("PIN DOEST NOT MATCH $pin != " + controller.text);
                 } else {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
+                  setPin({
+                    "pin" : pin,
+                    "confirmed" : true,
+                  });
+                  Navigator.push(context, route);
                 }
               } else {
                 print(controller.text);
                 pin = controller.text;
-                setPin(pin);
+                setPin({
+                  "pin" : pin,
+                  "confirmed" : false,
+                });
                 controller.text = "";
               }
             } else {

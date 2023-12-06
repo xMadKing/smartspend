@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:smartspend/widgets/numpad.dart';
 import 'package:smartspend/pages/homepage.dart';
+import 'package:smartspend/backend/user.dart';
+import 'package:smartspend/backend/wyrm/database.dart';
+
 
 class SetCodePage extends StatefulWidget {
   final TextEditingController controller = TextEditingController();
   String displayText = "Choose a passcode";
+  final User client;
   String pin = "";
 
-  SetCodePage({super.key});
+
+  SetCodePage({super.key, required this.client});
 
   @override
   State<SetCodePage> createState() => _SetCodePage();
@@ -15,11 +20,22 @@ class SetCodePage extends StatefulWidget {
 
 class _SetCodePage extends State<SetCodePage>{
 
-  void setPin(String newPin){
+  Future<void> setPin(Map<String, dynamic> data) async {
     setState(() {
-      widget.pin = newPin;
+      widget.pin = data['pin'];
       widget.displayText = "Re-enter passcode";
     });
+    if(data['confirmed']){
+      widget.client.passcode = data['pin'];
+      widget.client.newUser = 1;
+      await updateDB(widget.client);
+    }
+  }
+
+  Future<void> updateDB(User client) async{
+    DB database = DB(name: "wyrm");
+    await database.updateEntryInTable('user', "userID", 1, client);
+    print(await database.users());
   }
 
   @override
@@ -82,7 +98,9 @@ class _SetCodePage extends State<SetCodePage>{
                             pin: widget.pin,
                             register: true,
                             setPin: setPin,
-                            route: MaterialPageRoute(builder: (context) => HomePage()),
+                            route: MaterialPageRoute(builder: (context) => HomePage(
+                              client: widget.client,
+                            )),
                           )
                       ),
                     ],

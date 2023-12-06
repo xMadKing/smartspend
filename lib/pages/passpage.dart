@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:smartspend/widgets/numpad.dart';
 import 'package:smartspend/pages/homepage.dart';
+import 'package:smartspend/backend/user.dart';
 
 class PassPage extends StatefulWidget {
   final TextEditingController controller = TextEditingController();
-  final String pin = "1234";
+  final User client;
 
-  PassPage({super.key});
+  PassPage({super.key, required this.client});
 
   @override
   State<PassPage> createState() => _PassPageState();
@@ -71,10 +72,10 @@ class _PassPageState extends State<PassPage>{
                         alignment: Alignment(0,0),
                         child: NumpadWidget(
                           controller: widget.controller,
-                          pin: widget.pin,
+                          pin: widget.client.passcode,
                           setPin: (str){},
                           register: false,
-                          route: MaterialPageRoute(builder: (context) => HomePage()),
+                          route: MaterialPageRoute(builder: (context) => HomePage(client: widget.client)),
                         )
                       ),
                     ],
