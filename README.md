@@ -1,16 +1,29 @@
-# smartspend
+# Smartspend
 
-Budgeting App
+Welcome to SmartSpend, you very own **LOCAL** budgeting application!
 
-## Getting Started
+## What is SmartSpend?
 
-This project is a starting point for a Flutter application.
+SmartSpend is an application that allowes to track your spending by:
+1. logging payments to specific categories.
+2. view graphs and spending in the past 7 days/ month.
+3. Add new your very own categories to customize the app just for you!
+4. view spending trajectory to see how your budget is going to look in the future.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Future plans
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Smart spend is written in flutter & dart, , it is currently on available for android, although we do
+plan to add it to even more platforms in the future. We also plan to add more features to improve 
+user experience, such as Bank integration, Spending analytics and behaviour predictions, and much more...
+
+## How to use?
+
+SmartSpend is very intuitive and self explanatory. Our best suggestion is to download the application
+and try it out yourself. 
+
+However, the main gist of it is: 
+1. to create an account (which is local on your device, your information does not leave your device!). 
+2. App has 4 default categories, which you can add more to, you adjust the spending limit for each category, as well as other settings.
+3. Start logging payments in each category.
+4. The app will do the rest!

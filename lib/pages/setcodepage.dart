@@ -35,7 +35,6 @@ class _SetCodePage extends State<SetCodePage>{
   Future<void> updateDB(User client) async{
     DB database = DB(name: "wyrm");
     await database.updateEntryInTable('user', "userID", 1, client);
-    print(await database.users());
   }
 
   @override
