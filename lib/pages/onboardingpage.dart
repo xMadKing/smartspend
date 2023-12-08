@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:smartspend/pages/loginpage.dart';
 import 'package:smartspend/pages/passpage.dart';
-import 'package:smartspend/backend/wyrm/database.dart';
 import 'package:smartspend/backend/user.dart';
 
 class BoardingPage extends StatefulWidget {
-  BoardingPage({super.key, required this.title, required this.client});
+  const BoardingPage({super.key, required this.title, required this.client});
 
   final User client;
   final String title;
@@ -34,62 +33,57 @@ class _BoardingPageState extends State<BoardingPage>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                Color.fromARGB(255, 21, 7, 52),
+                Color(0xFF1E2038),
                 Color.fromARGB(255, 26, 26, 42),
               ],
             )
         ),
         child: Stack(
           children: <Widget>[
-            Container(
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment(0,-.7),
-                    child: FadeTransition(
-                      opacity: _animation,
-                      child: const Text(
-                        'Smart',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 60,
-                          color: Colors.white,
-                        ),
+            Stack(
+              children: [
+                Align(
+                  alignment: const Alignment(0,-.7),
+                  child: FadeTransition(
+                    opacity: _animation,
+                    child: const Text(
+                      'Smart',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 60,
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment(0,-.57),
-                    child: const Text(
-                      'Spend',
-                      style: TextStyle(
-                        fontSize: 60,
-                        color: Colors.white,
-                        fontStyle: FontStyle.italic,
-                      ),
+                ),
+                const Align(
+                  alignment: Alignment(0,-.57),
+                  child: Text(
+                    'Spend',
+                    style: TextStyle(
+                      fontSize: 60,
+                      color: Colors.white,
+                      fontStyle: FontStyle.italic,
                     ),
-                  )
-                ]
-              )
+                  ),
+                )
+              ]
             ),
             Container(
-              alignment: Alignment(0,0),
-              child:
-                Container(
-                  child: Image.asset('assets/logo.png'),
-                ),
+              alignment: const Alignment(0,0),
+              child: Image.asset('assets/logo.png'),
               ),
             Align(
-              alignment: Alignment(0, 0.6),
+              alignment: const Alignment(0, 0.6),
               child: Container(
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 21, 7, 52),
+                decoration: const BoxDecoration(
+                  color:  Color(0xFF1E2038),
                   borderRadius: BorderRadius.all(Radius.circular(25)),
                   boxShadow: [
                     BoxShadow(

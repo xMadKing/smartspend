@@ -267,18 +267,17 @@ class NumberButton extends StatelessWidget {
             }
           }
         },
-
+        style: TextButton.styleFrom(
+          backgroundColor: Colors.transparent,
+        ),
         child: Text(
           buttonText,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: 'Montserrat',
             color: Colors.white70,
             fontSize: 30
           ),
-        ),
-        style: TextButton.styleFrom(
-          backgroundColor: Colors.transparent,
         ),
       ),
     );

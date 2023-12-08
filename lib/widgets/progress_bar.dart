@@ -57,7 +57,7 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
                         children: [
                           Text(
                             widget.text,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Color(0xFF1E2038),
                               fontSize: 12,
                               fontFamily: 'Montserrat',

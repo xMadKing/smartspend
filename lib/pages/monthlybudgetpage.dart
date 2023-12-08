@@ -14,12 +14,12 @@ class MonthlyBudgetPage extends StatelessWidget{
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
                   colors: [
-                    Color.fromARGB(255, 21, 7, 52),
+                    Color(0xFF1E2038),
                     Color.fromARGB(255, 26, 26, 42),
                   ],
                 )
@@ -31,7 +31,7 @@ class MonthlyBudgetPage extends StatelessWidget{
                 Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 50, left: 20),
+                      margin: const EdgeInsets.only(top: 50, left: 20),
                       child: IconButton(
                         onPressed: () {
                           Navigator.pop(context);
@@ -44,9 +44,9 @@ class MonthlyBudgetPage extends StatelessWidget{
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 50),
+                      margin: const EdgeInsets.only(top: 50),
                       alignment: Alignment.topCenter,
-                      child: Text(
+                      child: const Text(
                         "Monthly Budget",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -58,8 +58,8 @@ class MonthlyBudgetPage extends StatelessWidget{
                     ),
                   ],
                 ),
-                SizedBox(height: 40,),
-                Row(
+                const SizedBox(height: 40,),
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GraphCard(
@@ -77,8 +77,8 @@ class MonthlyBudgetPage extends StatelessWidget{
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
-                Row(
+                const SizedBox(height: 20),
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TrajectoryData(

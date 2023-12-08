@@ -82,12 +82,12 @@ class _RegisterPage extends State<RegisterPage>{
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                Color.fromARGB(255, 21, 7, 52),
+                Color(0xFF1E2038),
                 Color.fromARGB(255, 26, 26, 42),
               ],
             )),
@@ -100,7 +100,7 @@ class _RegisterPage extends State<RegisterPage>{
                   bottom: 40,
                 ),
                 alignment: Alignment.center,
-                child: Text(
+                child: const Text(
                   "REGISTER",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -111,8 +111,8 @@ class _RegisterPage extends State<RegisterPage>{
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 10),
-                margin: EdgeInsets.all(5),
+                padding: const EdgeInsets.only(left: 10),
+                margin: const EdgeInsets.all(5),
                 width: MediaQuery.of(context).size.width * 0.8,
                 height: MediaQuery.of(context).size.height * 0.06,
                 decoration: BoxDecoration(
@@ -121,7 +121,7 @@ class _RegisterPage extends State<RegisterPage>{
                 ),
                 child: TextField(
                   controller: widget.controllers[0],
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     icon: Icon(
                       Icons.person
                     ),
@@ -136,8 +136,8 @@ class _RegisterPage extends State<RegisterPage>{
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 10),
-                margin: EdgeInsets.all(5),
+                padding: const EdgeInsets.only(left: 10),
+                margin: const EdgeInsets.all(5),
                 width: MediaQuery.of(context).size.width * 0.8,
                 height: MediaQuery.of(context).size.height * 0.06,
                 decoration: BoxDecoration(
@@ -158,13 +158,11 @@ class _RegisterPage extends State<RegisterPage>{
                     if (date != null){
                       setState(() {
                           widget.controllers[1].text =
-                              date.day.toString()
-                              +"/"+ date.month.toString()
-                              +"/"+ date.year.toString();
+                              "${date.day}/${date.month}/${date.year}";
                       });
                     }
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     icon: Icon(
                       Icons.date_range_rounded,
                     ),
@@ -190,14 +188,14 @@ class _RegisterPage extends State<RegisterPage>{
                       setState((){
                         if(widget.tosIsAgreed == true) {
                           updateTos();
-                          widget.tosButton = Icon(
+                          widget.tosButton = const Icon(
                             Icons.circle_outlined,
                             color: Colors.grey,
                             size: 20,
                           );
                         } else {
                           updateTos();
-                          widget.tosButton = Icon(
+                          widget.tosButton = const Icon(
                             Icons.check_circle,
                             color: Colors.deepOrangeAccent,
                             size: 20,
@@ -207,7 +205,7 @@ class _RegisterPage extends State<RegisterPage>{
                     },
                     icon: widget.tosButton,
                   ),
-                  Text(
+                  const Text(
                     "I agree to the",
                     style: TextStyle(
                       fontFamily: "Montserrat",
@@ -221,7 +219,7 @@ class _RegisterPage extends State<RegisterPage>{
                         widget.loadTOS = true;
                       });
                     },
-                    child: Text(
+                    child: const Text(
                       "terms and conditions",
                       style: TextStyle(
                           fontFamily: "Montserrat",
@@ -235,7 +233,7 @@ class _RegisterPage extends State<RegisterPage>{
                 ],
               ),
               Container(
-                margin: EdgeInsets.only(top: 70),
+                margin: const EdgeInsets.only(top: 70),
                 width: MediaQuery.of(context).size.width * 0.9,
                 height: 50,
                 decoration: BoxDecoration(
@@ -251,7 +249,7 @@ class _RegisterPage extends State<RegisterPage>{
                       client: widget.client,
                     )));
                   },
-                  child: Text(
+                  child: const Text(
                     "NEXT",
                     style: TextStyle(
                         color: Colors.white,
@@ -263,12 +261,12 @@ class _RegisterPage extends State<RegisterPage>{
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 child: TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text(
+                  child: const Text(
                     "Cancel",
                     style: TextStyle(
                       fontSize: 14,
@@ -311,7 +309,7 @@ class _RegisterPage extends State<RegisterPage>{
                     margin: EdgeInsets.all(40),
                     child: Text(
                       widget.tos,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: "Montserrat",
                         fontSize: 12,
                       ),

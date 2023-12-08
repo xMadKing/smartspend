@@ -31,15 +31,8 @@ class _HomePageState extends State<HomePage>{
           body: Stack (
             children: [
               Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        Color.fromARGB(255, 21, 7, 52),
-                        Color.fromARGB(255, 26, 26, 42),
-                      ],
-                    )
+                decoration: const BoxDecoration(
+                    color: Color(0xFF1E2038),
                 ),
               ),
               Center(
@@ -49,8 +42,9 @@ class _HomePageState extends State<HomePage>{
                           MaterialPageRoute(builder: (context) => MonthlyBudgetPage()));
                     },
                     child: Container(
+                      padding: const EdgeInsets.only(bottom: 20),
                       child: Align(
-                        alignment: Alignment(0, -0.2),
+                        alignment: const Alignment(0, -0.2),
                         child: ProgressBarWidget(
                           width: 0.5,
                           bgColor: const Color(0xFFF5F5F5),
@@ -62,56 +56,50 @@ class _HomePageState extends State<HomePage>{
                     ),
                   )
               ),
-              Container(
-                child: Align(
-                  alignment: Alignment(-0.9, -0.8),
-                  child: Text(
-                    "Home",
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                      fontSize: 40,
-                    ),
+              const Align(
+                alignment: Alignment(-0.9, -0.8),
+                child: Text(
+                  "Home",
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    color: Colors.white,
+                    fontSize: 40,
                   ),
                 ),
               ),
-              Container(
-                child: Align(
-                  alignment:  Alignment(-.9, -0.65),
-                  child: Text(
-                    "Hello,",
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                      fontStyle: FontStyle.italic,
-                      fontSize: 25,
-                    ),
+              const Align(
+                alignment:  Alignment(-.9, -0.65),
+                child: Text(
+                  "Hello,",
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 25,
                   ),
                 ),
               ),
-              Container(
-                child: Align(
-                  alignment:  Alignment(-.9, -0.55),
-                  child: Text(
-                    "$name",
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 50,
-                    ),
+              Align(
+                alignment:  const Alignment(-.9, -0.55),
+                child: Text(
+                  name,
+                  style: const TextStyle(
+                    fontFamily: 'Montserrat',
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 50,
                   ),
                 ),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30)
                   ),
                   child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: const Color(0xFFF5F5F5),
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(30),
@@ -143,7 +131,7 @@ class _HomePageState extends State<HomePage>{
                                       Container(
                                         margin: const EdgeInsets.only(left: 20),
                                         alignment: Alignment.centerLeft,
-                                        child: Text(
+                                        child: const Text(
                                           "Spending by Category",
                                           style: TextStyle(
                                             color: Color(0xFF1E2038),
@@ -161,7 +149,7 @@ class _HomePageState extends State<HomePage>{
                                                     MaterialPageRoute(builder:
                                                         (context) => MonthlyBudgetPage()));
                                               },
-                                              icon: Icon(
+                                              icon: const Icon(
                                                 Icons.keyboard_arrow_right,
                                                 size: 25,
                                               )
@@ -172,7 +160,7 @@ class _HomePageState extends State<HomePage>{
                               ),
                             ),
                             Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0xFFF5F5F5),
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(20),
@@ -181,7 +169,7 @@ class _HomePageState extends State<HomePage>{
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.all(20),
+                              margin: const EdgeInsets.all(20),
                               child: Align(
                                 alignment: Alignment.topCenter,
                                 child: PieChart(
@@ -193,15 +181,15 @@ class _HomePageState extends State<HomePage>{
                                       fontSize: 20,
                                     ),
                                   ),
-                                  dataMap: this.dataMap,
-                                  animationDuration: Duration(milliseconds: 500),
+                                  dataMap: dataMap,
+                                  animationDuration: const Duration(milliseconds: 500),
                                   chartType: ChartType.ring,
                                   chartRadius: 170,
                                   ringStrokeWidth: 40,
-                                  chartValuesOptions: ChartValuesOptions(
+                                  chartValuesOptions: const ChartValuesOptions(
                                     showChartValues: false,
                                   ),
-                                  legendOptions: LegendOptions(
+                                  legendOptions: const LegendOptions(
                                     showLegends: false,
                                   ),
                                   colorList: [

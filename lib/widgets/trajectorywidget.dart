@@ -39,8 +39,8 @@ class _TrajectoryData extends State<TrajectoryData> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.all(15),
-                  child: Text(
+                  margin: const EdgeInsets.all(15),
+                  child: const Text(
                       "Monthly spending trajectory",
                     style: TextStyle(
                       fontSize: 16,
@@ -60,7 +60,7 @@ class _TrajectoryData extends State<TrajectoryData> {
                   height: MediaQuery.of(context).size.height * 0.35,
                   child: LineChart(
                     LineChartData(
-                      titlesData: FlTitlesData(
+                      titlesData: const FlTitlesData(
                         show: true,
                         topTitles: AxisTitles(
                           sideTitles: SideTitles(
@@ -82,7 +82,7 @@ class _TrajectoryData extends State<TrajectoryData> {
                       maxX: 30,
                       minY: 0,
                       maxY: 10000,
-                      gridData: FlGridData(
+                      gridData: const FlGridData(
                         show: true,
                       ),
                       borderData: FlBorderData(
@@ -97,7 +97,7 @@ class _TrajectoryData extends State<TrajectoryData> {
                         LineChartBarData(
                           spots: widget.data,
                           isCurved: true,
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             begin: Alignment.centerRight,
                             end: Alignment.centerLeft,
                             colors: [
@@ -112,8 +112,8 @@ class _TrajectoryData extends State<TrajectoryData> {
                               begin: Alignment.centerRight,
                               end: Alignment.centerLeft,
                               colors: [
-                                Color.fromARGB(255, 46, 86, 246),
-                                Color.fromARGB(255, 61, 166, 62),
+                                const Color.fromARGB(255, 46, 86, 246),
+                                const Color.fromARGB(255, 61, 166, 62),
                               ].map((color) => color.withOpacity(0.3)).toList(),
                             ),
                           ),
@@ -125,10 +125,10 @@ class _TrajectoryData extends State<TrajectoryData> {
               ],
             ),
             Container(
-              margin: EdgeInsets.only(left: 10, top: 5),
+              margin: const EdgeInsets.only(left: 10, top: 5),
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                       "Average spending:",
                       style: TextStyle(
                           fontFamily: "Montserrat",
@@ -136,14 +136,14 @@ class _TrajectoryData extends State<TrajectoryData> {
                           fontWeight: FontWeight.w700
                       ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Text("$avgspending /day"),
                 ],
               )
             ),
             Container(
-              margin: EdgeInsets.only(left: 10, top: 5),
-              child: Row(
+              margin: const EdgeInsets.only(left: 10, top: 5),
+              child: const Row(
                 children: [
                   Text(
                     "Projected to run out of money in:",

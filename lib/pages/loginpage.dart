@@ -20,12 +20,12 @@ class _LoginPage extends State<LoginPage>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [
-              Color.fromARGB(255, 21, 7, 52),
+              Color(0xFF1E2038),
               Color.fromARGB(255, 26, 26, 42),
             ],
           ),
@@ -38,7 +38,7 @@ class _LoginPage extends State<LoginPage>{
                 bottom: 40,
               ),
               alignment: Alignment.center,
-              child: Text(
+              child: const Text(
                 "LOGIN",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class _LoginPage extends State<LoginPage>{
             Visibility(
               visible: widget.visible,
               child: Container(
-                margin: EdgeInsets.only(top: 70),
+                margin: const EdgeInsets.only(top: 70),
                 width: MediaQuery.of(context).size.width * 0.9,
                 height: 50,
                 decoration: BoxDecoration(
@@ -64,7 +64,7 @@ class _LoginPage extends State<LoginPage>{
                       widget.visible = false;
                     });
                   },
-                  child: Text(
+                  child: const Text(
                     "Link to Bank Account",
                     style: TextStyle(
                         color: Colors.white,
@@ -79,14 +79,14 @@ class _LoginPage extends State<LoginPage>{
             Visibility(
               visible: !widget.visible,
               child: Container(
-                margin: EdgeInsets.only(top: 35),
+                margin: const EdgeInsets.only(top: 35),
                 width: MediaQuery.of(context).size.width * 0.9,
                 height: 120,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10)
                 ),
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
@@ -116,14 +116,14 @@ class _LoginPage extends State<LoginPage>{
               )
             ),
             Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.only(top: 20),
               child: TextButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage(
                     client: widget.client,
                   )));
                 },
-                child: Text(
+                child: const Text(
                   "LOGIN MANUALLY",
                   style: TextStyle(
                     fontSize: 14,
