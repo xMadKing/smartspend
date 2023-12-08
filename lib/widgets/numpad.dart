@@ -233,19 +233,26 @@ class NumberButton extends StatelessWidget {
             if(controller.text.length == 4) {
               if (pin != ""){
                 if (controller.text != pin) {
-                  print("PIN DOEST NOT MATCH $pin != " + controller.text);
+                  setPin({
+                    "pin" : "",
+                    "text" : "Did not match! Try again",
+                    "confirmed" : false,
+                  });
+                  update(0);
+                  controller.text = '';
                 } else {
                   setPin({
                     "pin" : pin,
+                    "text" : "Confirmed!",
                     "confirmed" : true,
                   });
                   Navigator.push(context, route);
                 }
               } else {
-                print(controller.text);
                 pin = controller.text;
                 setPin({
                   "pin" : pin,
+                  "text" : "Re-enter your passcode",
                   "confirmed" : false,
                 });
                 controller.text = "";

@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage>{
                   ),
                   child: Container(
                       decoration: const BoxDecoration(
-                        color: const Color(0xFFF5F5F5),
+                        color: Color(0xFFF5F5F5),
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(30),
                             topRight: Radius.circular(30)
@@ -173,7 +173,7 @@ class _HomePageState extends State<HomePage>{
                               child: Align(
                                 alignment: Alignment.topCenter,
                                 child: PieChart(
-                                  centerWidget: Text(
+                                  centerWidget: const Text(
                                     "4953kr",
                                     style: TextStyle(
                                       fontFamily: "Montserrat",

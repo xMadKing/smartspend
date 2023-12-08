@@ -14,9 +14,9 @@ class _TrajectoryData extends State<TrajectoryData> {
 
   double getAvgSpending(){
     double sum = 0;
-    widget.data.forEach((element) {
+    for (var element in widget.data) {
       sum += element.y;
-    });
+    }
     double res = sum / widget.data.length;
     return res.roundToDouble();
   }

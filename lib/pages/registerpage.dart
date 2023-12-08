@@ -10,7 +10,7 @@ class RegisterPage extends StatefulWidget {
   ];
   final User client;
   int dataAvailable = 0;
-  Icon tosButton = Icon(Icons.circle_outlined, size: 20);
+  Icon tosButton = const Icon(Icons.circle_outlined, size: 20);
   bool tosIsAgreed = false;
   bool loadTOS = false;
   String tos = "Last Revised: December 16, 2013\n"
@@ -79,247 +79,251 @@ class _RegisterPage extends State<RegisterPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color(0xFF1E2038),
-                Color.fromARGB(255, 26, 26, 42),
-              ],
-            )),
-          ),
-          Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.25,
-                  bottom: 40,
-                ),
-                alignment: Alignment.center,
-                child: const Text(
-                  "REGISTER",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Montserrat',
-                    fontSize: 32,
-                    color: Colors.white,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      Color(0xFF1E2038),
+                      Color.fromARGB(255, 26, 26, 42),
+                    ],
+                  )),
+            ),
+            Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.25,
+                    bottom: 40,
                   ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(left: 10),
-                margin: const EdgeInsets.all(5),
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: MediaQuery.of(context).size.height * 0.06,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  controller: widget.controllers[0],
-                  decoration: const InputDecoration(
-                    icon: Icon(
-                      Icons.person
-                    ),
-                    border: InputBorder.none,
-                    hintText: "Nickname",
-                    hintStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 18,
-                    ),
-                    contentPadding: EdgeInsets.only(left: 10),
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(left: 10),
-                margin: const EdgeInsets.all(5),
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: MediaQuery.of(context).size.height * 0.06,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  readOnly: true,
-                  controller: widget.controllers[1],
-                  onTap: () async{
-                    DateTime? date = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime.now(),
-                    );
-
-                    if (date != null){
-                      setState(() {
-                          widget.controllers[1].text =
-                              "${date.day}/${date.month}/${date.year}";
-                      });
-                    }
-                  },
-                  decoration: const InputDecoration(
-                    icon: Icon(
-                      Icons.date_range_rounded,
-                    ),
-                    border: InputBorder.none,
-                    hintText: "Birth-date",
-                    hintStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 18,
-                    ),
-                    contentPadding: EdgeInsets.only(left: 10),
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 10,
-                    height: MediaQuery.of(context).size.height * 0.1
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      setState((){
-                        if(widget.tosIsAgreed == true) {
-                          updateTos();
-                          widget.tosButton = const Icon(
-                            Icons.circle_outlined,
-                            color: Colors.grey,
-                            size: 20,
-                          );
-                        } else {
-                          updateTos();
-                          widget.tosButton = const Icon(
-                            Icons.check_circle,
-                            color: Colors.deepOrangeAccent,
-                            size: 20,
-                          );
-                        }
-                      });
-                    },
-                    icon: widget.tosButton,
-                  ),
-                  const Text(
-                    "I agree to the",
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "REGISTER",
                     style: TextStyle(
-                      fontFamily: "Montserrat",
-                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
+                      fontSize: 32,
                       color: Colors.white,
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        widget.loadTOS = true;
-                      });
-                    },
-                    child: const Text(
-                      "terms and conditions",
-                      style: TextStyle(
-                          fontFamily: "Montserrat",
-                          fontSize: 12,
-                          decoration: TextDecoration.underline,
-                          decorationColor: Colors.deepOrangeAccent,
-                          color: Colors.deepOrangeAccent
-                      ),
-                    )
-                  ),
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 70),
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: getButtonColor(),
-                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: TextButton(
-                  onPressed: !isActivated() ? null : () {
-                    widget.client.name = widget.controllers[0].text;
-                    widget.client.birthDate = widget.controllers[1].text;
-                    Navigator.push(context, MaterialPageRoute(builder: (context)
-                    => SetCodePage(
-                      client: widget.client,
-                    )));
-                  },
-                  child: const Text(
-                    "NEXT",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: "Montserrat",
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    "Cancel",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontFamily: "Montserrat",
-                      color: Colors.grey,
-                      decorationColor: Colors.grey,
-                      fontStyle: FontStyle.italic,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-          Visibility(
-            visible: widget.loadTOS,
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  widget.loadTOS = false;
-                });
-              },
-              child: Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.1,
-                    top:  MediaQuery.of(context).size.height * 0.1),
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: MediaQuery.of(context).size.height * 0.8,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
+                Container(
+                  padding: const EdgeInsets.only(left: 10),
+                  margin: const EdgeInsets.all(5),
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  decoration: BoxDecoration(
                     color: Colors.white,
-                    boxShadow: [BoxShadow(
-                      spreadRadius: 2,
-                      blurRadius: 10,
-                      color: Colors.grey.shade700,
-                    )]
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextField(
+                    controller: widget.controllers[0],
+                    decoration: const InputDecoration(
+                      icon: Icon(
+                          Icons.person
+                      ),
+                      border: InputBorder.none,
+                      hintText: "Nickname",
+                      hintStyle: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 18,
+                      ),
+                      contentPadding: EdgeInsets.only(left: 10),
+                    ),
+                  ),
                 ),
-                child: SingleChildScrollView(
-                  child: Container(
-                    margin: EdgeInsets.all(40),
-                    child: Text(
-                      widget.tos,
-                      style: const TextStyle(
+                Container(
+                  padding: const EdgeInsets.only(left: 10),
+                  margin: const EdgeInsets.all(5),
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextField(
+                    readOnly: true,
+                    controller: widget.controllers[1],
+                    onTap: () async{
+                      DateTime? date = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now(),
+                      );
+
+                      if (date != null){
+                        setState(() {
+                          widget.controllers[1].text =
+                          "${date.day}/${date.month}/${date.year}";
+                        });
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      icon: Icon(
+                        Icons.date_range_rounded,
+                      ),
+                      border: InputBorder.none,
+                      hintText: "Birth-date",
+                      hintStyle: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 18,
+                      ),
+                      contentPadding: EdgeInsets.only(left: 10),
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                        width: 10,
+                        height: MediaQuery.of(context).size.height * 0.1
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState((){
+                          if(widget.tosIsAgreed == true) {
+                            updateTos();
+                            widget.tosButton = const Icon(
+                              Icons.circle_outlined,
+                              color: Colors.grey,
+                              size: 20,
+                            );
+                          } else {
+                            updateTos();
+                            widget.tosButton = const Icon(
+                              Icons.check_circle,
+                              color: Colors.deepOrangeAccent,
+                              size: 20,
+                            );
+                          }
+                        });
+                      },
+                      icon: widget.tosButton,
+                    ),
+                    const Text(
+                      "I agree to the",
+                      style: TextStyle(
                         fontFamily: "Montserrat",
                         fontSize: 12,
+                        color: Colors.white,
                       ),
                     ),
-                  )
+                    TextButton(
+                        onPressed: () {
+                          setState(() {
+                            widget.loadTOS = true;
+                          });
+                        },
+                        child: const Text(
+                          "terms and conditions",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 12,
+                              decoration: TextDecoration.underline,
+                              decorationColor: Colors.deepOrangeAccent,
+                              color: Colors.deepOrangeAccent
+                          ),
+                        )
+                    ),
+                  ],
                 ),
-              ),
+                Container(
+                  margin: const EdgeInsets.only(top: 70),
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: getButtonColor(),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextButton(
+                    onPressed: !isActivated() ? null : () {
+                      widget.client.name = widget.controllers[0].text;
+                      widget.client.birthDate = widget.controllers[1].text;
+                      Navigator.push(context, MaterialPageRoute(builder: (context)
+                      => SetCodePage(
+                        client: widget.client,
+                      )));
+                    },
+                    child: const Text(
+                      "NEXT",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "Montserrat",
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      "Cancel",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: "Montserrat",
+                        color: Colors.grey,
+                        decorationColor: Colors.grey,
+                        fontStyle: FontStyle.italic,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Visibility(
+                visible: widget.loadTOS,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      widget.loadTOS = false;
+                    });
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.1,
+                        top:  MediaQuery.of(context).size.height * 0.1),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.8,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.white,
+                        boxShadow: [BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          color: Colors.grey.shade700,
+                        )]
+                    ),
+                    child: SingleChildScrollView(
+                        child: Container(
+                          margin: EdgeInsets.all(40),
+                          child: Text(
+                            widget.tos,
+                            style: const TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 12,
+                            ),
+                          ),
+                        )
+                    ),
+                  ),
+                )
             )
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

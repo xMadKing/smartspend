@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smartspend/widgets/numpad.dart';
-import 'package:smartspend/pages/homepage.dart';
 import 'package:smartspend/backend/user.dart';
 import 'package:smartspend/backend/wyrm/database.dart';
+import 'package:smartspend/widgets/navbar.dart';
 
 
 class SetCodePage extends StatefulWidget {
@@ -23,7 +23,7 @@ class _SetCodePage extends State<SetCodePage>{
   Future<void> setPin(Map<String, dynamic> data) async {
     setState(() {
       widget.pin = data['pin'];
-      widget.displayText = "Re-enter passcode";
+      widget.displayText = data['text'];
     });
     if(data['confirmed']){
       widget.client.passcode = data['pin'];
@@ -33,7 +33,7 @@ class _SetCodePage extends State<SetCodePage>{
   }
 
   Future<void> updateDB(User client) async{
-    DB database = DB(name: "wyrm");
+    Wyrm database = Wyrm();
     await database.updateEntryInTable('user', "userID", 1, client);
   }
 
@@ -93,7 +93,7 @@ class _SetCodePage extends State<SetCodePage>{
                             pin: widget.pin,
                             register: true,
                             setPin: setPin,
-                            route: MaterialPageRoute(builder: (context) => HomePage(
+                            route: MaterialPageRoute(builder: (context) => NavBar(
                               client: widget.client,
                             )),
                           )
