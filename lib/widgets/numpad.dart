@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphic/graphic.dart';
-import 'package:smartspend/pages/homepage.dart';
 
 class NumpadWidget extends StatefulWidget{
   final TextEditingController controller;
@@ -228,7 +227,10 @@ class NumberButton extends StatelessWidget {
       child: TextButton(
         onPressed: !enabled ? null : () {
           if(number == 11){
-            controller.text = controller.text.substring(0, controller.text.length-1);
+            if(controller.text.isNotEmpty){
+              controller.text = controller.text.substring(0, controller.text.length-1);
+              update(controller.text.length);
+            }
           } else if (number == 10) {
             if(controller.text.length == 4) {
               if (pin != ""){

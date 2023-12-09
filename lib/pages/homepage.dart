@@ -1,9 +1,13 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:smartspend/backend/category.dart';
 import 'package:smartspend/widgets/progress_bar.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:smartspend/widgets/categorywidget.dart';
 import 'package:smartspend/pages/monthlybudgetpage.dart';
 import 'package:smartspend/backend/user.dart';
+import 'package:smartspend/backend/wyrm/database.dart';
 
 class HomePage extends StatefulWidget {
   final User client;
@@ -15,15 +19,63 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>{
-  Map<String, double> dataMap = {
-    "Entertainment": 1999,
-    "Travel/Transport": 1000,
-    "Food": 2400,
-    "Medical": 400,
-  }; //temp data
+  late List<Category> categories;
+  Map<String, double> dataMap = {};
+  bool _loading = true;
+  Wyrm database = Wyrm();
+
+  @override
+  void initState() {
+    super.initState();
+    initArgs();
+  }
+
+  Future<void> initArgs() async {
+    categories = await database.categories();
+    setState(() {
+      _loading = false;
+    });
+  }
+
+  double getTotalSpending() {
+    double res = 0;
+    for (var element in categories) {
+      res += element.currentSpending.toDouble();
+    }
+    print(res);
+    return res;
+  }
+
+  List<Widget> categoryWidgets() {
+    List<Widget> res = [];
+    for (var element in categories) {
+      res.add(CategoryWidget(
+        name: element.categoryName,
+        color: Color(element.categoryColor),
+        bgColor: Colors.white,
+        number: element.currentSpending.toDouble(),
+        limit: element.spendingLimit.toDouble(),
+      ));
+    }
+    return res;
+  }
 
   @override
   Widget build(BuildContext context) {
+    if(_loading){
+      return const CircularProgressIndicator();
+    }
+    for (var element in categories) {
+      dataMap.addEntries([MapEntry(element.categoryName, element.currentSpending.toDouble())]);
+    }
+    double width = getTotalSpending() / widget.client.monthlyIncome;
+    Color barColor = Colors.purple.shade800;
+    if(width >= 0.8){
+      barColor = Colors.red.shade700;
+      if(width > 1) {
+        width = 1;
+      }
+    }
     String name = widget.client.name;
     return PopScope(
       canPop: false,
@@ -37,19 +89,25 @@ class _HomePageState extends State<HomePage>{
               ),
               Center(
                   child: GestureDetector(
-                    onDoubleTap: (){
+                    onDoubleTap: () async {
+                      List<Category> categories = await database.categories();
+                      for (var category in categories) {
+                        await category.loadSpending();
+                      }
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MonthlyBudgetPage()));
+                          MaterialPageRoute(builder: (context) => MonthlyBudgetPage(
+                            categories: categories,
+                          )));
                     },
                     child: Container(
                       padding: const EdgeInsets.only(bottom: 20),
                       child: Align(
                         alignment: const Alignment(0, -0.2),
                         child: ProgressBarWidget(
-                          width: 0.5,
+                          width: width,
                           bgColor: const Color(0xFFF5F5F5),
-                          barColor: Colors.purple.shade200,
-                          barFillColor: Colors.purple.shade900,
+                          barColor: Colors.purple.shade300,
+                          barFillColor: barColor,
                           text: "Monthly Budget",
                         ),
                       ),
@@ -107,15 +165,21 @@ class _HomePageState extends State<HomePage>{
                         ),
                       ),
                       width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.47,
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
                             GestureDetector(
-                              onTap: () {
+                              onTap: () async {
+                                List<Category> categories = await database.categories();
+                                for (var category in categories) {
+                                  await category.loadSpending();
+                                }
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context)
-                                    => MonthlyBudgetPage()));
+                                    => MonthlyBudgetPage(
+                                      categories: categories,
+                                    )));
                               },
                               child: Container(
                                   margin: const EdgeInsets.all(5),
@@ -144,10 +208,16 @@ class _HomePageState extends State<HomePage>{
                                           margin: const EdgeInsets.only(right: 10),
                                           alignment: Alignment.centerRight,
                                           child: IconButton(
-                                              onPressed: () {
+                                              onPressed: () async {
+                                                List<Category> categories = await database.categories();
+                                                for (var category in categories) {
+                                                  await category.loadSpending();
+                                                }
                                                 Navigator.push(context,
                                                     MaterialPageRoute(builder:
-                                                        (context) => MonthlyBudgetPage()));
+                                                        (context) => MonthlyBudgetPage(
+                                                          categories: categories,
+                                                        )));
                                               },
                                               icon: const Icon(
                                                 Icons.keyboard_arrow_right,
@@ -173,9 +243,9 @@ class _HomePageState extends State<HomePage>{
                               child: Align(
                                 alignment: Alignment.topCenter,
                                 child: PieChart(
-                                  centerWidget: const Text(
-                                    "4953kr",
-                                    style: TextStyle(
+                                  centerWidget: Text(
+                                    getTotalSpending().toString(),
+                                    style: const TextStyle(
                                       fontFamily: "Montserrat",
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
@@ -201,34 +271,9 @@ class _HomePageState extends State<HomePage>{
                                 ),
                               ),
                             ),
-                            CategoryWidget(
-                              name: "Food",
-                              color: Colors.green,
-                              bgColor: Colors.white,
-                              number: 4000,
-                              limit: 3500,
+                            Column(
+                              children: categoryWidgets(),
                             ),
-                            CategoryWidget(
-                              name: "Entertainment",
-                              color: Colors.orange,
-                              bgColor: Colors.white,
-                              number: 2400,
-                              limit: 3000,
-                            ),
-                            CategoryWidget(
-                              name: "Transportation",
-                              color: Colors.blue,
-                              bgColor: Colors.white,
-                              number: 3344,
-                              limit: 3000,
-                            ),
-                            CategoryWidget(
-                              name: "Medical",
-                              color: Colors.green,
-                              bgColor: Colors.white,
-                              number: 599,
-                              limit: 1000,
-                            )
                           ],
                         ),
                       )

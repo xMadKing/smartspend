@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 class BarChart extends StatelessWidget{
   final double width;
   final Color barColor;
-  final Map<String, double> dataMap;
+  final Map<String, num> dataMap;
   List<double> values = [];
 
   BarChart({super.key, required this.dataMap, required this.width, required this.barColor});
 
-  double normalizeData(){
+  num normalizeData(){
     List<String> keys = dataMap.keys.toList();
-    List<double> vals = dataMap.values.toList();
+    List<num> vals = dataMap.values.toList();
     vals.sort();
-    double min = 0;
-    double max = vals[vals.length-1];
+    num min = 0;
+    num max = vals[vals.length-1];
     for(int i = 0; i < keys.length; i++){
       values.add(((dataMap[keys[i]] !- min) / (max - min)));
     }
@@ -23,8 +23,8 @@ class BarChart extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     List<String> keys = dataMap.keys.toList();
-    double max = normalizeData();
-    return Container(
+    num max = normalizeData();
+    return SizedBox(
       width: width * 0.95,
       height: MediaQuery.of(context).size.height * 0.175,
       child: Column(

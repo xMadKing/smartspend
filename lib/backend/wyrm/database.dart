@@ -20,22 +20,34 @@ class Wyrm {
       join(await getDatabasesPath(), '$name.db'),
       onCreate: (db, version) async {
         await db.execute(
-            'CREATE TABLE user '
-            '(userID INT PRIMARY KEY, '
-            'name TEXT, '
-            'passcode TEXT, '
-            'birthDate TEXT, '
-            'isNewUser TINYINT, '
+            'CREATE TABLE user'
+            '(userID INT PRIMARY KEY,'
+            'name TEXT,'
+            'passcode TEXT,'
+            'birthDate TEXT,'
+            'isNewUser TINYINT,'
             'monthlyincome DECIMAL)'
         );
         await db.execute(
             'CREATE TABLE category'
             '(categoryID INT PRIMARY KEY,'
-            'userID INT, '
-            'categoryName TEXT, '
-            'spendingLimit DECIMAL, '
-            'currentSpending DECIMAL, '
+            'userID INT,'
+            'categoryName TEXT,'
+            'spendingLimit DECIMAL,'
+            'currentSpending DECIMAL,'
             'categoryColor INT)'
+        );
+        await db.execute(
+          'CREATE TABLE weeklyspending('
+          'categoryID INT,'
+          'Monday DECIMAL,'
+          'Tuesday DECIMAL,'
+          'Wednesday DECIMAL,'
+          'Thursday DECIMAL,'
+          'Friday DECIMAL,'
+          'Saturday DECIMAL,'
+          'Sunday DECIMAL,'
+          'FOREIGN KEY (categoryID) REFERENCES category(categoryID))'
         );
         return;
       },
@@ -47,10 +59,39 @@ class Wyrm {
     await initDB();
     final db = database;
 
+    Map<String, dynamic> data;
+
+    try {
+      data = entry.toMap();
+    } catch (e) {
+      data = entry;
+    }
+
     await db.insert(
-        table, entry.toMap(),
+        table, data,
         conflictAlgorithm: ConflictAlgorithm.replace
     );
+  }
+
+  Future<List<Map<String, num>>> weeklySpending(int categoryID) async {
+    await initDB();
+    final db = database;
+
+    final List<Map<String, dynamic>> maps = await db.query('weeklyspending',
+    where: 'categoryID = ?', whereArgs: [categoryID]);
+
+    return List.generate(maps.length, (i) {
+      return {
+        "categoryID" : maps[i]['categoryID'] as int,
+        "Monday" : maps[i]['Monday'] as num,
+        "Tuesday" : maps[i]['Tuesday'] as num,
+        "Wednesday" : maps[i]['Wednesday'] as num,
+        "Thursday" : maps[i]['Thursday'] as num,
+        "Friday" : maps[i]['Friday'] as num,
+        "Saturday" : maps[i]['Saturday'] as num,
+        "Sunday" : maps[i]['Sunday'] as num,
+      };
+    });
   }
 
   Future<List<Category>> categories() async {
@@ -106,10 +147,17 @@ class Wyrm {
       (String table, String keyName, dynamic key, dynamic entry) async {
     await initDB();
     final db = database;
+    Map<String, dynamic> data;
+
+    try {
+      data = entry.toMap();
+    } catch (e) {
+      data = entry;
+    }
 
     await db.update(
       table,
-      entry.toMap(),
+      data,
       where: '$keyName = ?',
       whereArgs: [key]
     );

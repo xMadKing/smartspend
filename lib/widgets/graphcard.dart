@@ -4,7 +4,7 @@ import 'package:smartspend/widgets/bargraph.dart';
 class GraphCard extends StatefulWidget {
   final String cardName;
   final Color barColor;
-  final Map<String, double> dataMap;
+  final Map<String, num> dataMap;
 
   const GraphCard({super.key, required this.cardName, required this.barColor,
     required this.dataMap});
@@ -17,7 +17,7 @@ class _GraphCard extends State<GraphCard>{
 
   double _getSum(){
     double sum = 0;
-    widget.dataMap.values.forEach((element) {sum += element;});
+    for (var element in widget.dataMap.values) {sum += element;}
     return sum;
   }
 
