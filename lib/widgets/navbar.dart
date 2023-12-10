@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graphic/graphic.dart';
 import 'package:smartspend/pages/homepage.dart';
 import 'package:smartspend/backend/user.dart';
 
@@ -19,7 +18,7 @@ class _NavBar extends State<NavBar>{
       client: widget.client,
     ),
     const Text(
-      'placeholder1',
+      'placeholder2',
       style: TextStyle(
           fontFamily: 'Montserrat',
           fontSize: 12,

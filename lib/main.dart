@@ -8,14 +8,24 @@ void main() async {
   Wyrm database = Wyrm();
   User client = await initClient(database);
   List<Category> categories = await initCategories(database, client);
-  runApp(MaterialApp(
-    home: BoardingPage(
-      client: client,
-      title: "SmartSpend",
-    ),
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(primarySwatch: Colors.green),
-  ));
+  runApp(MyApp(client: client));
+}
+
+class MyApp extends StatelessWidget {
+  User client;
+
+  MyApp({super.key, required this.client});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: BoardingPage(
+        client: client,
+      ),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.green),
+    );
+  }
 }
 
 Future<User> initClient(Wyrm database) async {

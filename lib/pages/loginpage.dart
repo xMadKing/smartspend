@@ -48,72 +48,76 @@ class _LoginPage extends State<LoginPage>{
                 ),
               ),
             ),
-            Visibility(
-              visible: widget.visible,
-              child: Container(
-                margin: const EdgeInsets.only(top: 70),
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.deepOrange,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextButton(
-                  onPressed: () {
-                    setState(() {
-                      widget.visible = false;
-                    });
-                  },
-                  child: const Text(
-                    "Link to Bank Account",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: "Montserrat",
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold
+            Stack(
+              children:[
+                Visibility(
+                  visible: widget.visible,
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 70),
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.deepOrange,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          widget.visible = false;
+                        });
+                      },
+                      child: const Text(
+                        "Link to Bank Account",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Montserrat",
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-            Visibility(
-              visible: !widget.visible,
-              child: Container(
-                margin: const EdgeInsets.only(top: 35),
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.cancel_sharp,
-                      color: Colors.red,
+                Visibility(
+                  visible: !widget.visible,
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 35),
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: 120,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)
                     ),
-                    Text(
-                      "We are sorry.",
-                      style: TextStyle(
-                        fontFamily: "Montserrat",
-                        fontStyle: FontStyle.italic,
-                        fontSize: 13,
-                        color: Colors.black
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.cancel_sharp,
+                          color: Colors.red,
+                        ),
+                        Text(
+                          "We are sorry.",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontStyle: FontStyle.italic,
+                              fontSize: 13,
+                              color: Colors.black
+                          ),
+                        ),
+                        Text(
+                          "This function is not currently supported.",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontStyle: FontStyle.italic,
+                              fontSize: 13,
+                              color: Colors.black
+                          ),
+                        )
+                      ],
                     ),
-                    Text(
-                      "This function is not currently supported.",
-                      style: TextStyle(
-                          fontFamily: "Montserrat",
-                          fontStyle: FontStyle.italic,
-                          fontSize: 13,
-                          color: Colors.black
-                      ),
-                    )
-                  ],
+                  )
                 ),
-              )
+              ]
             ),
             Container(
               margin: const EdgeInsets.only(top: 20),
@@ -124,7 +128,7 @@ class _LoginPage extends State<LoginPage>{
                   )));
                 },
                 child: const Text(
-                  "LOGIN MANUALLY",
+                  "SIGN UP MANUALLY",
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,
