@@ -21,8 +21,8 @@ class NumpadWidget extends StatefulWidget{
 
 class _NumpadWidget extends State<NumpadWidget>{
 
-  void _update(_dotsNumber){
-    setState(() => widget.dotsNumber = _dotsNumber);
+  void _update(dotsNumber){
+    setState(() => widget.dotsNumber = dotsNumber);
   }
 
   @override
