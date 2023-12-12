@@ -40,7 +40,10 @@ class _SetCodePage extends State<SetCodePage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topRight,
@@ -103,7 +106,8 @@ class _SetCodePage extends State<SetCodePage>{
               ),
             ],
           )
-      ),
+        ),
+      )
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartspend/pages/addexpense.dart';
 import 'package:smartspend/pages/homepage.dart';
 import 'package:smartspend/backend/user.dart';
 
@@ -17,14 +18,7 @@ class _NavBar extends State<NavBar>{
     HomePage(
       client: widget.client,
     ),
-    const Text(
-      'placeholder2',
-      style: TextStyle(
-          fontFamily: 'Montserrat',
-          fontSize: 12,
-          fontWeight: FontWeight.bold
-      ),
-    ),
+    AddExpensePage(),
     const Text(
       'placeholder2',
       style: TextStyle(

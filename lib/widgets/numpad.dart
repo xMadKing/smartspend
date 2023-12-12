@@ -28,165 +28,167 @@ class _NumpadWidget extends State<NumpadWidget>{
   @override
   Widget build(BuildContext context){
     widget.buttonHeight = MediaQuery.of(context).size.width * 0.2;
-    return Container(
-      margin: const EdgeInsets.all(30),
-      child: Column(
-        children: [
-          InputDots(dotsNumber: widget.dotsNumber),
-          const SizedBox(height: 30),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
+    return SingleChildScrollView(
+      child: Container(
+        margin: const EdgeInsets.all(30),
+        child: Column(
+          children: [
+            InputDots(dotsNumber: widget.dotsNumber),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                NumberButton(
+                  number: 1,
+                  height: widget.buttonHeight,
+                  width: widget.buttonHeight,
+                  controller: widget.controller,
+                  update: _update,
+                  setPin: widget.setPin,
+                  route: widget.route,
+                  pin: widget.pin,
+                  register: widget.register,
+                ),
+                NumberButton(
+                  number: 2,
+                  height: widget.buttonHeight,
+                  width: widget.buttonHeight,
+                  controller: widget.controller,
+                  update: _update,
+                  setPin: widget.setPin,
+                  route: widget.route,
+                  pin: widget.pin,
+                  register: widget.register,
+                ),
+                NumberButton(
+                  number: 3,
+                  height: widget.buttonHeight,
+                  width: widget.buttonHeight,
+                  controller: widget.controller,
+                  update: _update,
+                  setPin: widget.setPin,
+                  route: widget.route,
+                  pin: widget.pin,
+                  register: widget.register,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                NumberButton(
+                  number: 4,
+                  height: widget.buttonHeight,
+                  width: widget.buttonHeight,
+                  controller: widget.controller,
+                  update: _update,
+                  setPin: widget.setPin,
+                  route: widget.route,
+                  pin: widget.pin,
+                  register: widget.register,
+                ),
+                NumberButton(
+                  number: 5,
+                  height: widget.buttonHeight,
+                  width: widget.buttonHeight,
+                  controller: widget.controller,
+                  update: _update,
+                  setPin: widget.setPin,
+                  route: widget.route,
+                  pin: widget.pin,
+                  register: widget.register,
+                ),
+                NumberButton(
+                  number: 6,
+                  height: widget.buttonHeight,
+                  width: widget.buttonHeight,
+                  controller: widget.controller,
+                  update: _update,
+                  setPin: widget.setPin,
+                  route: widget.route,
+                  pin: widget.pin,
+                  register: widget.register,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                NumberButton(
+                  number: 7,
+                  height: widget.buttonHeight,
+                  width: widget.buttonHeight,
+                  controller: widget.controller,
+                  route: widget.route,
+                  setPin: widget.setPin,
+                  update: _update,
+                  pin: widget.pin,
+                  register: widget.register,
+                ),
+                NumberButton(
+                  number: 8,
+                  height: widget.buttonHeight,
+                  width: widget.buttonHeight,
+                  controller: widget.controller,
+                  route: widget.route,
+                  setPin: widget.setPin,
+                  update: _update,
+                  pin: widget.pin,
+                  register: widget.register,
+                ),
+                NumberButton(
+                  number: 9,
+                  height: widget.buttonHeight,
+                  width: widget.buttonHeight,
+                  controller: widget.controller,
+                  update: _update,
+                  setPin: widget.setPin,
+                  route: widget.route,
+                  pin: widget.pin,
+                  register: widget.register,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
               NumberButton(
-                number: 1,
-                height: widget.buttonHeight,
-                width: widget.buttonHeight,
-                controller: widget.controller,
-                update: _update,
-                setPin: widget.setPin,
-                route: widget.route,
-                pin: widget.pin,
-                register: widget.register,
-              ),
-              NumberButton(
-                number: 2,
-                height: widget.buttonHeight,
-                width: widget.buttonHeight,
-                controller: widget.controller,
-                update: _update,
-                setPin: widget.setPin,
-                route: widget.route,
-                pin: widget.pin,
-                register: widget.register,
-              ),
-              NumberButton(
-                number: 3,
-                height: widget.buttonHeight,
-                width: widget.buttonHeight,
-                controller: widget.controller,
-                update: _update,
-                setPin: widget.setPin,
-                route: widget.route,
-                pin: widget.pin,
-                register: widget.register,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              NumberButton(
-                number: 4,
-                height: widget.buttonHeight,
-                width: widget.buttonHeight,
-                controller: widget.controller,
-                update: _update,
-                setPin: widget.setPin,
-                route: widget.route,
-                pin: widget.pin,
-                register: widget.register,
-              ),
-              NumberButton(
-                number: 5,
-                height: widget.buttonHeight,
-                width: widget.buttonHeight,
-                controller: widget.controller,
-                update: _update,
-                setPin: widget.setPin,
-                route: widget.route,
-                pin: widget.pin,
-                register: widget.register,
-              ),
-              NumberButton(
-                number: 6,
-                height: widget.buttonHeight,
-                width: widget.buttonHeight,
-                controller: widget.controller,
-                update: _update,
-                setPin: widget.setPin,
-                route: widget.route,
-                pin: widget.pin,
-                register: widget.register,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              NumberButton(
-                number: 7,
-                height: widget.buttonHeight,
-                width: widget.buttonHeight,
-                controller: widget.controller,
-                route: widget.route,
-                setPin: widget.setPin,
-                update: _update,
-                pin: widget.pin,
-                register: widget.register,
-              ),
-              NumberButton(
-                number: 8,
-                height: widget.buttonHeight,
-                width: widget.buttonHeight,
-                controller: widget.controller,
-                route: widget.route,
-                setPin: widget.setPin,
-                update: _update,
-                pin: widget.pin,
-                register: widget.register,
-              ),
-              NumberButton(
-                number: 9,
-                height: widget.buttonHeight,
-                width: widget.buttonHeight,
-                controller: widget.controller,
-                update: _update,
-                setPin: widget.setPin,
-                route: widget.route,
-                pin: widget.pin,
-                register: widget.register,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              NumberButton(
-                number: 10,
-                height: widget.buttonHeight+10,
-                width: widget.buttonHeight+10,
-                controller: widget.controller,
-                update: _update,
-                setPin: widget.setPin,
-                route: widget.route,
-                pin: widget.pin,
-                register: widget.register,
-              ),
-              NumberButton(
-                number: 0,
-                height: widget.buttonHeight,
-                width: widget.buttonHeight,
-                controller: widget.controller,
-                update: _update,
-                setPin: widget.setPin,
-                route: widget.route,
-                pin: widget.pin,
-                register: widget.register,
-              ),
-              NumberButton(
-                number: 11,
-                height: widget.buttonHeight+10,
-                width: widget.buttonHeight+10,
-                controller: widget.controller,
-                update: _update,
-                setPin: widget.setPin,
-                route: widget.route,
-                pin: widget.pin,
-                register: widget.register,
-              ),
-            ],
-          )
-        ],
+                  number: 10,
+                  height: widget.buttonHeight,
+                  width: widget.buttonHeight,
+                  controller: widget.controller,
+                  update: _update,
+                  setPin: widget.setPin,
+                  route: widget.route,
+                  pin: widget.pin,
+                  register: widget.register,
+                ),
+                NumberButton(
+                  number: 0,
+                  height: widget.buttonHeight,
+                  width: widget.buttonHeight,
+                  controller: widget.controller,
+                  update: _update,
+                  setPin: widget.setPin,
+                  route: widget.route,
+                  pin: widget.pin,
+                  register: widget.register,
+                ),
+                NumberButton(
+                  number: 11,
+                  height: widget.buttonHeight,
+                  width: widget.buttonHeight,
+                  controller: widget.controller,
+                  update: _update,
+                  setPin: widget.setPin,
+                  route: widget.route,
+                  pin: widget.pin,
+                  register: widget.register,
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -210,6 +212,7 @@ class NumberButton extends StatelessWidget {
     required this.pin, required this.route, required this.register,
   required this.setPin});
 
+  @override
   Widget build(BuildContext context){
     if (number == 10) {
       if (register){
@@ -221,11 +224,14 @@ class NumberButton extends StatelessWidget {
     }
     else if (number == 11) {buttonText = "≪";}
     else {buttonText = "$number";}
-    return Container(
+    return SizedBox(
       height: height,
       width: width,
       child: TextButton(
         onPressed: !enabled ? null : () {
+          if(controller.text.length == 4 && number != 11 && number != 10){
+            return;
+          }
           if(number == 11){
             if(controller.text.isNotEmpty){
               controller.text = controller.text.substring(0, controller.text.length-1);
@@ -259,8 +265,6 @@ class NumberButton extends StatelessWidget {
                 });
                 controller.text = "";
               }
-            } else {
-              print(controller.text);
             }
           } else {
             controller.text += number.toString();
