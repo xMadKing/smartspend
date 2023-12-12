@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,7 +7,7 @@ import 'package:smartspend/widgets/numpad.dart';
 
 
 void main() {
-  testWidgets('Test Boarding Page', (WidgetTester tester) async {
+  testWidgets('Test SetCodePage', (WidgetTester tester) async {
     Future<void> testSetCodePage(WidgetTester tester) async {
       User client = User(
           userID: 0,
@@ -51,11 +49,53 @@ void main() {
 
       expect(find.byIcon(Icons.circle), findsNWidgets(4));
 
+      //I think the tester has the keyboard showing, and we need to scroll until
+      //the button becomes visable... weird bug but yeah only way to deal with it really
+      await tester.scrollUntilVisible(find.widgetWithText(TextButton, "ENT"), 0);
       await tester.pumpAndSettle();
+
       await tester.tap(find.widgetWithText(TextButton, "ENT"));
       await tester.pumpAndSettle();
 
       expect(find.text("Re-enter your passcode"), findsOneWidget);
+
+      await tester.scrollUntilVisible(find.widgetWithText(TextButton, "1"), 0);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.widgetWithText(TextButton, "1"));
+      await tester.tap(find.widgetWithText(TextButton, "2"));
+      await tester.tap(find.widgetWithText(TextButton, "2"));
+      await tester.tap(find.widgetWithText(TextButton, "1"));
+
+      await tester.scrollUntilVisible(find.widgetWithText(TextButton, "ENT"), 0);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.widgetWithText(TextButton, "ENT"));
+      await tester.pumpAndSettle();
+
+      expect(find.text("Did not match! Try again"), findsOneWidget);
+
+      await tester.scrollUntilVisible(find.widgetWithText(TextButton, "1"), 0);
+      await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(TextButton, "1"));
+      await tester.tap(find.widgetWithText(TextButton, "2"));
+      await tester.tap(find.widgetWithText(TextButton, "2"));
+      await tester.tap(find.widgetWithText(TextButton, "1"));
+
+      await tester.scrollUntilVisible(find.widgetWithText(TextButton, "ENT"), 0);
+      await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(TextButton, "ENT"));
+      await tester.pumpAndSettle();
+
+      await tester.scrollUntilVisible(find.widgetWithText(TextButton, "1"), 0);
+      await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(TextButton, "1"));
+      await tester.tap(find.widgetWithText(TextButton, "2"));
+      await tester.tap(find.widgetWithText(TextButton, "2"));
+      await tester.tap(find.widgetWithText(TextButton, "1"));
+
+      await tester.scrollUntilVisible(find.widgetWithText(TextButton, "ENT"), 0);
+      await tester.pumpAndSettle();
     }
     testSetCodePage(tester);
   });
