@@ -88,7 +88,7 @@ class _LoginPage extends State<LoginPage>{
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10)
                     ),
-                    child: Column(
+                    child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(

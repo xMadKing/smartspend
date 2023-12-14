@@ -35,7 +35,7 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
           Positioned(
             left: 0,
             top: 0,
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
               height: 80,
               child: Stack(
@@ -48,7 +48,7 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
                   Positioned(
                     left: 20,
                     top: 15,
-                    child: Container(
+                    child: SizedBox(
                       height: 15,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,

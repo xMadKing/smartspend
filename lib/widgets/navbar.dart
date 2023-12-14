@@ -18,7 +18,7 @@ class _NavBar extends State<NavBar>{
     HomePage(
       client: widget.client,
     ),
-    AddExpensePage(),
+    const AddExpensePage(),
     const Text(
       'placeholder2',
       style: TextStyle(

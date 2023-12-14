@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 
 
 class AddExpensePage extends StatefulWidget {
+  const AddExpensePage({super.key});
+
   @override
   _AddExpensePageState createState() => _AddExpensePageState();
 }
@@ -11,7 +13,7 @@ class _AddExpensePageState extends State<AddExpensePage> {
   double _amount = 50.00; // Assuming a default or last entered amount
   String _selectedCategory = 'Food';
   DateTime _selectedDate = DateTime.now();
-  TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -32,7 +34,7 @@ class _AddExpensePageState extends State<AddExpensePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Expense'),
+        title: const Text('Add Expense'),
         backgroundColor: Colors.blueGrey[900], // Adjusted to a dark color
       ),
       body: Container(
@@ -49,22 +51,22 @@ class _AddExpensePageState extends State<AddExpensePage> {
                   children: [
                     TextFormField(
                       initialValue: '50.00', // Set the initial value
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Amount (SEK)',
                         border: OutlineInputBorder(),
                       ),
                       keyboardType:
-                      TextInputType.numberWithOptions(decimal: true),
+                      const TextInputType.numberWithOptions(decimal: true),
                       onChanged: (value) {
                         setState(() {
                           _amount = double.tryParse(value) ?? 0;
                         });
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     DropdownButtonFormField<String>(
                       value: _selectedCategory,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Category',
                         border: OutlineInputBorder(),
                       ),
@@ -85,33 +87,33 @@ class _AddExpensePageState extends State<AddExpensePage> {
                         );
                       }).toList(),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       controller: _descriptionController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Description',
                         border: OutlineInputBorder(),
                       ),
                       maxLines: 3,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ListTile(
                       title: Text(
                         DateFormat('EEE, MMM d, yyyy').format(
                             _selectedDate), // Use intl package to format the date
                       ),
-                      trailing: Icon(Icons.calendar_today),
+                      trailing: const Icon(Icons.calendar_today),
                       onTap: () => _selectDate(context),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
                         // TODO: Add expense confirmation logic
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.green, // Button color
+                        backgroundColor: Colors.green, // Button color
                       ),
-                      child: Text('Confirm Expense'),
+                      child: const Text('Confirm Expense'),
                     ),
                   ],
                 ),

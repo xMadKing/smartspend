@@ -41,7 +41,7 @@ class BarChart extends StatelessWidget{
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5),
                               topRight: Radius.circular(5)
                           ),
@@ -52,7 +52,7 @@ class BarChart extends StatelessWidget{
                       ),
                       Container(
                         child: Text(keys[0].substring(0, 3),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w700,
                             fontSize: 12,
@@ -65,7 +65,7 @@ class BarChart extends StatelessWidget{
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5),
                               topRight: Radius.circular(5)
                           ),
@@ -76,7 +76,7 @@ class BarChart extends StatelessWidget{
                       ),
                       Container(
                         child: Text(keys[1].substring(0, 3),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w700,
                             fontSize: 12,
@@ -89,7 +89,7 @@ class BarChart extends StatelessWidget{
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5),
                               topRight: Radius.circular(5)
                           ),
@@ -100,7 +100,7 @@ class BarChart extends StatelessWidget{
                       ),
                       Container(
                         child: Text(keys[2].substring(0, 3),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w700,
                             fontSize: 12,
@@ -113,7 +113,7 @@ class BarChart extends StatelessWidget{
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5),
                               topRight: Radius.circular(5)
                           ),
@@ -124,7 +124,7 @@ class BarChart extends StatelessWidget{
                       ),
                       Container(
                         child: Text(keys[3].substring(0, 3),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w700,
                             fontSize: 12,
@@ -137,7 +137,7 @@ class BarChart extends StatelessWidget{
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5),
                               topRight: Radius.circular(5)
                           ),
@@ -148,7 +148,7 @@ class BarChart extends StatelessWidget{
                       ),
                       Container(
                         child: Text(keys[4].substring(0, 3),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w700,
                             fontSize: 12,
@@ -161,7 +161,7 @@ class BarChart extends StatelessWidget{
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5),
                               topRight: Radius.circular(5)
                           ),
@@ -173,7 +173,7 @@ class BarChart extends StatelessWidget{
                       Container(
                         child: Text(
                           keys[5].substring(0, 3),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w700,
                             fontSize: 12,
@@ -186,7 +186,7 @@ class BarChart extends StatelessWidget{
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5),
                               topRight: Radius.circular(5)
                           ),
@@ -198,7 +198,7 @@ class BarChart extends StatelessWidget{
                       Container(
                         child: Text(
                           keys[6].substring(0, 3),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w700,
                             fontSize: 12,
@@ -239,7 +239,7 @@ class BarChart extends StatelessWidget{
                 top: 0,
                 child: Text(
                   "$max SEK",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "Montserrat",
                     fontSize: 12,
                     fontWeight: FontWeight.w700

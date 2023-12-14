@@ -37,10 +37,10 @@ class _GraphCard extends State<GraphCard>{
           Row(
             children: [
               Container(
-                margin: EdgeInsets.only(left: 20, top: 10),
+                margin: const EdgeInsets.only(left: 20, top: 10),
                 child: Text(
                   widget.cardName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontFamily: "Montserrat",
                     fontSize: 14,
@@ -52,10 +52,10 @@ class _GraphCard extends State<GraphCard>{
           Row(
             children: [
               Container(
-                margin: EdgeInsets.only(left: 20),
+                margin: const EdgeInsets.only(left: 20),
                 child: Text(
                   "$sum",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontFamily: "Montserrat",
                     fontSize: 34,
