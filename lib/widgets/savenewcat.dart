@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AddCatButton extends StatelessWidget {
+class NewCatButton extends StatelessWidget {
   final String buttonText;
   final Color colorButton; // New parameter for button color
   final Color colorText; // New parameter for text color
@@ -10,14 +10,13 @@ class AddCatButton extends StatelessWidget {
   final String? fontFamily;
   final VoidCallback onPressed;
 
-  const AddCatButton({
-    super.key, 
-    this.buttonText = "New Cateogory", 
-    this.colorButton = const Color(0xFF535986),
+  const NewCatButton({super.key, 
+    this.buttonText = "Done", 
+    this.colorButton = const Color(0xFFE76201),
     this.colorText = const Color(0xFFFFFFFF),
-    this.widthButton = 191.06,
-    this.heightButton = 44,
-    this.buttonBorder = 15,
+    this.widthButton = 292,
+    this.heightButton = 48,
+    this.buttonBorder = 10,
     this.fontFamily = 'Montserrat',
     required this.onPressed,
     });
@@ -26,7 +25,7 @@ class AddCatButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed:() {
-        print('Fuck');
+        print('You');
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: colorButton,
