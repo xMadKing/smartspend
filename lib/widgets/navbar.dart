@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smartspend/pages/addexpense.dart';
 import 'package:smartspend/pages/homepage.dart';
 import 'package:smartspend/backend/user.dart';
+import 'package:smartspend/pages/myaccountpage.dart';
 
 
 class NavBar extends StatefulWidget {
@@ -19,14 +20,7 @@ class _NavBar extends State<NavBar>{
       client: widget.client,
     ),
     const AddExpensePage(),
-    const Text(
-      'placeholder2',
-      style: TextStyle(
-          fontFamily: 'Montserrat',
-          fontSize: 12,
-          fontWeight: FontWeight.bold
-      ),
-    ),
+    MyAccount(),
   ];
 
   void onTappedItem(int idx) {

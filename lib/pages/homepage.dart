@@ -42,7 +42,6 @@ class _HomePageState extends State<HomePage>{
     for (var element in categories) {
       res += element.currentSpending.toDouble();
     }
-    print(res);
     return res;
   }
 
@@ -90,12 +89,13 @@ class _HomePageState extends State<HomePage>{
               Container(
                 child: Align(
                 alignment: Alignment(1, -0.8),
-                child: IconButton(
-                icon: Icon(Icons.account_circle),
-                iconSize: 40,
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MyAccount()));
-                },
+                  child: IconButton(
+                    icon: Icon(Icons.account_circle),
+                    iconSize: 40,
+                    color: Colors.white60,
+                    onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyAccount()));
+                  },
               )
             )
           ),
