@@ -46,10 +46,10 @@ class CardRowWidget extends StatelessWidget {
                 ),
               ),
             ),
-
+            const Spacer(),
             if(!slider) MyArrow(),
             if(slider) SwitchButton(),
-            const Spacer(),
+            SizedBox(width: 10,)
           ],
         )
     );

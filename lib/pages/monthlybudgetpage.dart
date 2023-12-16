@@ -77,8 +77,9 @@ class MonthlyBudgetPage extends StatelessWidget{
                   ],
                 ),
                 const SizedBox(height: 40),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TrajectoryData(
                       data: [

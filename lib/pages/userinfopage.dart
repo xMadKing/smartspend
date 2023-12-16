@@ -13,17 +13,9 @@ class UserInfo extends StatelessWidget{
       Scaffold(
         body: Stack(
           children: [
-
             Container(
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        Color.fromARGB(255, 21, 7, 52),
-                        Color.fromARGB(255, 26, 26, 42),
-                      ],
-                    )
+                  color: Color(0xFF1E2038),
                 ),
             ),
 
