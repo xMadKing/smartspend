@@ -3,12 +3,11 @@ import 'package:smartspend/widgets/graphcard.dart';
 import 'package:smartspend/widgets/trajectorywidget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:smartspend/backend/category.dart';
-import 'package:smartspend/backend/wyrm/database.dart';
 
 
 class MonthlyBudgetPage extends StatelessWidget{
   final List<Category> categories;
-  MonthlyBudgetPage({super.key, required this.categories});
+  const MonthlyBudgetPage({super.key, required this.categories});
 
   List<Widget> graphs() {
     List<Widget> res = [];
@@ -78,8 +77,9 @@ class MonthlyBudgetPage extends StatelessWidget{
                   ],
                 ),
                 const SizedBox(height: 40),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TrajectoryData(
                       data: [

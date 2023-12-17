@@ -33,7 +33,7 @@ class _TrajectoryData extends State<TrajectoryData> {
       ),
       child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -52,77 +52,72 @@ class _TrajectoryData extends State<TrajectoryData> {
                 ),
               ],
             ),
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  width:  MediaQuery.of(context).size.height * 0.425,
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  child: LineChart(
-                    LineChartData(
-                      titlesData: const FlTitlesData(
-                        show: true,
-                        topTitles: AxisTitles(
+            Container(
+              width:  MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.4,
+              child: LineChart(
+                LineChartData(
+                    titlesData: const FlTitlesData(
+                      show: true,
+                      topTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: false,
                           )
-                        ),
-                        rightTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: false,
-                          )
-                        ),
-                        leftTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: false,
-                          )
-                        ),
                       ),
-                      minX: 0,
-                      maxX: 30,
-                      minY: 0,
-                      maxY: 10000,
-                      gridData: const FlGridData(
-                        show: true,
+                      rightTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: false,
+                          )
                       ),
-                      borderData: FlBorderData(
-                        show: true,
-                        border: Border.all(
+                      leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: false,
+                          )
+                      ),
+                    ),
+                    minX: 0,
+                    maxX: 30,
+                    minY: 0,
+                    maxY: 10000,
+                    gridData: const FlGridData(
+                      show: true,
+                    ),
+                    borderData: FlBorderData(
+                      show: true,
+                      border: Border.all(
                           color: Colors.black26,
                           width: 2,
                           style: BorderStyle.solid
-                        ),
                       ),
-                      lineBarsData: [
-                        LineChartBarData(
-                          spots: widget.data,
-                          isCurved: true,
-                          gradient: const LinearGradient(
+                    ),
+                    lineBarsData: [
+                      LineChartBarData(
+                        spots: widget.data,
+                        isCurved: true,
+                        gradient: const LinearGradient(
+                          begin: Alignment.centerRight,
+                          end: Alignment.centerLeft,
+                          colors: [
+                            Color.fromARGB(255, 46, 86, 246),
+                            Color.fromARGB(255, 61, 166, 62),
+                          ],
+                        ),
+                        barWidth: 5,
+                        belowBarData: BarAreaData(
+                          show:  true,
+                          gradient: LinearGradient(
                             begin: Alignment.centerRight,
                             end: Alignment.centerLeft,
                             colors: [
-                              Color.fromARGB(255, 46, 86, 246),
-                              Color.fromARGB(255, 61, 166, 62),
-                            ],
+                              const Color.fromARGB(255, 46, 86, 246),
+                              const Color.fromARGB(255, 61, 166, 62),
+                            ].map((color) => color.withOpacity(0.3)).toList(),
                           ),
-                          barWidth: 5,
-                          belowBarData: BarAreaData(
-                            show:  true,
-                            gradient: LinearGradient(
-                              begin: Alignment.centerRight,
-                              end: Alignment.centerLeft,
-                              colors: [
-                                const Color.fromARGB(255, 46, 86, 246),
-                                const Color.fromARGB(255, 61, 166, 62),
-                              ].map((color) => color.withOpacity(0.3)).toList(),
-                            ),
-                          ),
-                        )
-                      ]
-                    ),
-                  ),
+                        ),
+                      )
+                    ]
                 ),
-              ],
+              ),
             ),
             Container(
               margin: const EdgeInsets.only(left: 10, top: 5),

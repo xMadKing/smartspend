@@ -158,13 +158,11 @@ class _RegisterPage extends State<RegisterPage>{
                         lastDate: DateTime.now(),
                       );
 
-                      if (date != null){
-                        setState(() {
-                          widget.controllers[1].text =
-                          "${date.day}/${date.month}/${date.year}";
-                        });
-                      }
-                    },
+                      setState(() {
+                        widget.controllers[1].text =
+                        "${date?.day}/${date?.month}/${date?.year}";
+                      });
+                                        },
                     decoration: const InputDecoration(
                       icon: Icon(
                         Icons.date_range_rounded,
@@ -309,7 +307,7 @@ class _RegisterPage extends State<RegisterPage>{
                     ),
                     child: SingleChildScrollView(
                         child: Container(
-                          margin: EdgeInsets.all(40),
+                          margin: const EdgeInsets.all(40),
                           child: Text(
                             widget.tos,
                             style: const TextStyle(

@@ -7,14 +7,14 @@ class CategoryWidget extends StatelessWidget {
   final Color bgColor;
   final double limit;
 
-  CategoryWidget({required this.name, required this.color, required this.number,
+  const CategoryWidget({super.key, required this.name, required this.color, required this.number,
     required this.bgColor, required this.limit});
 
   Color getFontColor(){
     if (number > limit){
       return Colors.red;
     }
-    return Color(0xFF1E2038);
+    return const Color(0xFF1E2038);
   }
 
   @override
@@ -38,7 +38,7 @@ class CategoryWidget extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.centerLeft,
-                margin: EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 child: Icon(
                   Icons.circle_rounded,
                   color: color,
@@ -50,7 +50,7 @@ class CategoryWidget extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xFF1E2038),
                     fontSize: 16,
                     fontWeight: FontWeight.w500,

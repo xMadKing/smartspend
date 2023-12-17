@@ -4,10 +4,9 @@ import 'package:smartspend/pages/passpage.dart';
 import 'package:smartspend/backend/user.dart';
 
 class BoardingPage extends StatefulWidget {
-  const BoardingPage({super.key, required this.title, required this.client});
+  const BoardingPage({super.key, required this.client});
 
   final User client;
-  final String title;
 
   @override
   State<BoardingPage> createState() => _BoardingPageState();

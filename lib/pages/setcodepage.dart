@@ -41,68 +41,70 @@ class _SetCodePage extends State<SetCodePage>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  Color(0xFF1E2038),
-                  Color.fromARGB(255, 26, 26, 42),
-                ],
-              )
-          ),
-          child: Stack(
-            children: [
-              Align(
-                alignment: const Alignment(0,-0.4),
-                child: Text(
-                  widget.displayText,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Montserrat',
-                      color: Colors.white70,
-                      fontWeight: FontWeight.bold
-                  ),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Color(0xFF1E2038),
+                Color.fromARGB(255, 26, 26, 42),
+              ],
+            )
+        ),
+        child: Stack(
+          children: [
+            Align(
+              alignment: const Alignment(0,-0.4),
+              child: Text(
+                widget.displayText,
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'Montserrat',
+                    color: Colors.white70,
+                    fontWeight: FontWeight.bold
                 ),
               ),
-              Align(
-                  alignment: const Alignment(-0.9,-0.9),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      "BACK",
-                      style: TextStyle(
-                          color: Colors.white70,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          fontFamily: "Montserrat"
-                      ),
+            ),
+            Align(
+                alignment: const Alignment(-0.9,-0.9),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "BACK",
+                    style: TextStyle(
+                        color: Colors.white70,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        fontFamily: "Montserrat"
                     ),
-                  )
-              ),
-              Container(
-                  padding: const EdgeInsets.only(top: 300),
-                  child: Stack(
-                    children: [
-                      Align(
-                          alignment: const Alignment(0,0),
-                          child: NumpadWidget(
-                            controller: widget.controller,
-                            pin: widget.pin,
-                            register: true,
-                            setPin: setPin,
-                            route: MaterialPageRoute(builder: (context) => NavBar(
-                              client: widget.client,
-                            )),
-                          )
-                      ),
-                    ],
-                  )
-              ),
-            ],
-          )
+                  ),
+                )
+            ),
+            Container(
+                padding: const EdgeInsets.only(top: 300),
+                child: Stack(
+                  children: [
+                    Align(
+                        alignment: const Alignment(0,0),
+                        child: NumpadWidget(
+                          controller: widget.controller,
+                          pin: widget.pin,
+                          register: true,
+                          setPin: setPin,
+                          route: MaterialPageRoute(builder: (context) => NavBar(
+                            client: widget.client,
+                          )),
+                        )
+                    ),
+                  ],
+                )
+            ),
+          ],
+        )
       ),
     );
   }

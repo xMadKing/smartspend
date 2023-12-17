@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:smartspend/backend/category.dart';
@@ -8,6 +7,7 @@ import 'package:smartspend/widgets/categorywidget.dart';
 import 'package:smartspend/pages/monthlybudgetpage.dart';
 import 'package:smartspend/backend/user.dart';
 import 'package:smartspend/backend/wyrm/database.dart';
+import 'package:smartspend/pages/myaccountpage.dart';
 
 class HomePage extends StatefulWidget {
   final User client;
@@ -42,7 +42,6 @@ class _HomePageState extends State<HomePage>{
     for (var element in categories) {
       res += element.currentSpending.toDouble();
     }
-    print(res);
     return res;
   }
 
@@ -87,6 +86,19 @@ class _HomePageState extends State<HomePage>{
                     color: Color(0xFF1E2038),
                 ),
               ),
+              Container(
+                child: Align(
+                alignment: Alignment(1, -0.8),
+                  child: IconButton(
+                    icon: Icon(Icons.account_circle),
+                    iconSize: 40,
+                    color: Colors.white60,
+                    onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyAccount()));
+                  },
+              )
+            )
+          ),
               Center(
                   child: GestureDetector(
                     onDoubleTap: () async {
