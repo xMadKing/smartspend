@@ -43,8 +43,12 @@ dependencies:
   path_provider: ^2.1.1
   sqflite: ^2.3.0
   path: ^1.8.3
+<<<<<<< HEAD
+  flutter_colorpicker: ^1.0.3
+  =======
   mockito: ^5.4.3
   intl: ^0.19.0
+>>>>>>> 6368f42ffa35fe3fcbd4f5adbc74800ddd008f96
 
 dev_dependencies:
   flutter_test:
@@ -58,7 +62,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.1
+<<<<<<< HEAD
+  flutter_slidable: ^3.0.1
+=======
   test: ^1.24.9
+>>>>>>> 6368f42ffa35fe3fcbd4f5adbc74800ddd008f96
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
