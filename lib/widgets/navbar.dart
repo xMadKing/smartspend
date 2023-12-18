@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smartspend/pages/addexpense.dart';
 import 'package:smartspend/pages/homepage.dart';
 import 'package:smartspend/backend/user.dart';
+import 'package:smartspend/pages/myaccountpage.dart';
 
 
 class NavBar extends StatefulWidget {
@@ -13,25 +14,25 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBar extends State<NavBar>{
+  Color bg_color = Color(0xFF1E2038);
   int index = 0;
   late List<Widget> options = <Widget>[
     HomePage(
       client: widget.client,
     ),
     const AddExpensePage(),
-    const Text(
-      'placeholder2',
-      style: TextStyle(
-          fontFamily: 'Montserrat',
-          fontSize: 12,
-          fontWeight: FontWeight.bold
-      ),
-    ),
+    MyAccount(),
   ];
 
   void onTappedItem(int idx) {
     setState(() {
       index = idx;
+      if(index == 2 || index == 1) {
+        bg_color = Colors.white;
+      }
+      else {
+        bg_color = Color(0xFF1E2038);
+      }
     });
   }
 
@@ -42,7 +43,7 @@ class _NavBar extends State<NavBar>{
         child: options.elementAt(index),
       ),
       bottomNavigationBar: Container(
-          color: const Color(0xFF1E2038),
+          color: bg_color,
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(20),
