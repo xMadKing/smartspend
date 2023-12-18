@@ -46,6 +46,8 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   mockito: ^5.4.3
   intl: ^0.19.0
+  flutter_local_notifications: ^16.2.0
+  restart_app: ^1.2.1
 
 dev_dependencies:
   flutter_test:

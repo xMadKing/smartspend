@@ -60,6 +60,14 @@ class _HomePageState extends State<HomePage>{
     return res;
   }
 
+  List<Color> getColors(){
+    List<Color> res = [];
+    categories.forEach((element) {
+      res.add(Color(element.categoryColor));
+    });
+    return res;
+  }
+
   @override
   Widget build(BuildContext context) {
     if(_loading){
@@ -87,19 +95,6 @@ class _HomePageState extends State<HomePage>{
                     color: Color(0xFF1E2038),
                 ),
               ),
-              Container(
-                child: Align(
-                alignment: Alignment(1, -0.8),
-                  child: IconButton(
-                    icon: Icon(Icons.account_circle),
-                    iconSize: 40,
-                    color: Colors.white60,
-                    onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyAccount()));
-                  },
-              )
-            )
-          ),
               Center(
                   child: GestureDetector(
                     onDoubleTap: () async {
@@ -275,12 +270,8 @@ class _HomePageState extends State<HomePage>{
                                   legendOptions: const LegendOptions(
                                     showLegends: false,
                                   ),
-                                  colorList: [
-                                    Colors.green.shade800,
-                                    Colors.orange.shade800,
-                                    Colors.blueGrey.shade800,
-                                    Colors.blue.shade800
-                                  ],
+                                  colorList: getColors()
+                                  ,
                                 ),
                               ),
                             ),
