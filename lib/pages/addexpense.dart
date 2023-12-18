@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:smartspend/widgets/customtextfield.dart';
 import 'package:smartspend/backend/wyrm/database.dart';
 import 'package:smartspend/backend/category.dart';
@@ -24,7 +25,7 @@ class _AddExpensePageState extends State<AddExpensePage> {
   Wyrm database = Wyrm();
   bool _loading = true;
   bool expenseAdded = false;
-  bool selectingCategory = false; 
+  bool selectingCategory = false;
 
   @override
   void initState(){
@@ -82,10 +83,6 @@ class _AddExpensePageState extends State<AddExpensePage> {
     setState(() {
       _loading = false;
     });
-  }
-
-  void setSelectedCategory() {
-
   }
 
   @override

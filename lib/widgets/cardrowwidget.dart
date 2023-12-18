@@ -87,13 +87,11 @@ class SwitchButton extends StatefulWidget {
 
 class _SwitchButtonState extends State<SwitchButton> {
 
-    bool notif = true;
+  bool notif = true;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 100),
-      alignment: Alignment(4, 0),
       child: SizedBox(
         child: Switch(
           value: notif,
