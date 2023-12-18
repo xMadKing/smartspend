@@ -20,7 +20,7 @@ class _NavBar extends State<NavBar>{
     HomePage(
       client: widget.client,
     ),
-    const AddExpensePage(),
+    AddExpensePage(),
     MyAccount(),
   ];
 

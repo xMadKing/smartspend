@@ -150,7 +150,7 @@ class _RegisterPage extends State<RegisterPage>{
                   child: TextField(
                     readOnly: true,
                     controller: widget.controllers[1],
-                    onTap: () async{
+                    onTap: () async {
                       DateTime? date = await showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
@@ -158,11 +158,11 @@ class _RegisterPage extends State<RegisterPage>{
                         lastDate: DateTime.now(),
                       );
 
-                      setState(() {
-                        widget.controllers[1].text =
-                        "${date?.day}/${date?.month}/${date?.year}";
-                      });
-                                        },
+                        setState(() {
+                          widget.controllers[1].text =
+                          "${date?.day}/${date?.month}/${date?.year}";
+                        });
+                      },
                     decoration: const InputDecoration(
                       icon: Icon(
                         Icons.date_range_rounded,
