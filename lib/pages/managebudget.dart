@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smartspend/widgets/backbutton.dart';
 import 'package:smartspend/widgets/editablebudgetcat.dart';
 import 'package:smartspend/pages/addnewbudget.dart';
+import 'package:smartspend/widgets/addcat.dart';
 
 
 class MainBudget extends StatefulWidget {
@@ -34,6 +35,7 @@ class _MainBudgetState extends State<MainBudget> {
                   fontSize: 50,
                   height: 1,
                   color: Colors.white,
+                  fontWeight: FontWeight.w800
                 )),
                 SizedBox(height: 70),
                 Text('Total Available Budget', style: TextStyle(
@@ -46,6 +48,7 @@ class _MainBudgetState extends State<MainBudget> {
                   fontSize: 30,
                   height: 1.2,
                   color: Colors.white,
+                  fontWeight: FontWeight.w600
                 )),
               ],
             ),
@@ -82,7 +85,7 @@ class LV extends StatelessWidget {
         children : [
           Expanded(
               child: ListView.separated(
-                itemCount: 10,
+                itemCount: 2,
                 separatorBuilder: (context, index) => const Divider(height: 20, color: Color(0xffF5F5F5)),
                 itemBuilder: (BuildContext context, int index) {
                   return EditableBudgetCat(name: 'Food',
@@ -93,14 +96,13 @@ class LV extends StatelessWidget {
           ),
           Container(
               margin: EdgeInsets.only(top: 10, bottom: 10),
-              child: ElevatedButton(
+              child:AddCatButton(
                   onPressed: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => AddNewCat())
                     );
                   },
-                  child: const Text('Add New Budget')
               )
           )
         ]

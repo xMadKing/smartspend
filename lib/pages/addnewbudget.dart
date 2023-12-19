@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:smartspend/widgets/backbutton.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-
-
+import 'package:smartspend/widgets/savenewcat.dart';
+import 'package:smartspend/pages/managebudget.dart';
 
 class AddNewCat extends StatefulWidget {
   @override
@@ -14,6 +14,25 @@ class AddNewCat extends StatefulWidget {
 }
 
 class _AddNewCat extends State<AddNewCat> {
+  FocusNode _textFieldFocusNode = FocusNode();
+  TextEditingController _catNameController = TextEditingController();
+  TextEditingController _amountController = TextEditingController();
+  TextEditingController _descController = TextEditingController();
+
+  bool _isKeyboardAppear = false;
+
+  @override
+  void initState() {
+  super.initState();
+  _catNameController = TextEditingController();
+}
+
+  @override
+  void dispose() {
+    _textFieldFocusNode.dispose();
+    _catNameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +59,7 @@ class _AddNewCat extends State<AddNewCat> {
                     fontSize: 50,
                     height: 1,
                     color: Colors.white,
+                    fontWeight: FontWeight.w600
                   )),
                   SizedBox(height: 70),
                   Text('Total Available Budget', style: TextStyle(
@@ -52,12 +72,17 @@ class _AddNewCat extends State<AddNewCat> {
                     fontSize: 30,
                     height: 1.2,
                     color: Colors.white,
+                    fontWeight: FontWeight.w600
                   )),
                 ],
               ),
             ),
-            Positioned(
-                top: 340,
+            AnimatedPositioned(
+                //top: 340,
+                duration: Duration(milliseconds: 300),
+                bottom: _isKeyboardAppear ? 0 : 0,
+                left: 0,
+                right: 0,
                 child: Container(
                     height: MediaQuery.of(context).size.height - 340,
                     width: MediaQuery.of(context).size.width,
@@ -80,6 +105,7 @@ class _AddNewCat extends State<AddNewCat> {
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: 14,
+                                  fontWeight: FontWeight.w800,
                                   color: Color(0xff2F2F2F)
                               ),
                             ),
@@ -95,13 +121,24 @@ class _AddNewCat extends State<AddNewCat> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
-                              child: const TextField(
+                              child: TextField(
+                                controller: _catNameController, // receive text input 
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat', 
+                                    fontWeight: FontWeight.w600,  
+                                  ),
                                   decoration: InputDecoration(
-                                    hintText: '  Food',
+                                    hintText: 'Category Name',
+                                    hintStyle: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                      color: Color(0xFFBABABA)
+                                    ),
                                     //labelText: widget.label,
                                     border: InputBorder.none,
-                                    contentPadding: EdgeInsets.zero,
-                                  )
+                                    contentPadding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0)
+                                  ),
                               )
                           ),
                           Container(
@@ -110,14 +147,16 @@ class _AddNewCat extends State<AddNewCat> {
                           Row(
                               children: [
                                 Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start, 
                                     children : [
                                       Container(
-                                          margin: const EdgeInsets.only(left:35),
+                                          margin: const EdgeInsets.only(left:30),
                                           child: const Text(
                                             'Amount',
                                             style: TextStyle(
                                                 fontFamily: 'Montserrat',
                                                 fontSize: 14,
+                                                fontWeight: FontWeight.w600,
                                                 color: Color(0xff2F2F2F)
                                             ),
                                           )
@@ -133,26 +172,45 @@ class _AddNewCat extends State<AddNewCat> {
                                             color: Colors.white,
                                             borderRadius: BorderRadius.circular(15.0),
                                           ),
-                                          child: const TextField(
+                                          child: TextField(
+                                              controller: _amountController,
+                                              focusNode: _textFieldFocusNode,
+                                              style: TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                fontWeight: FontWeight.w600,  
+                                              ),
                                               decoration: InputDecoration(
-                                                hintText: '  SEK',
+                                                hintText: 'SEK',
+                                                hintStyle: TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                  color: Color(0xFFBABABA)
+                                                ),
                                                 //labelText: widget.label,
                                                 border: InputBorder.none,
-                                                contentPadding: EdgeInsets.zero,
-                                              )
+                                                contentPadding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0)
+                                              ),
+                                              onTap: () {
+                                                setState(() {
+                                                  _isKeyboardAppear = true;
+                                                });
+                                              },
                                           )
                                       )
                                     ]
                                 ),
                                 Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start, 
                                     children : [
                                       Container(
-                                          margin: const EdgeInsets.only(left:30),
+                                          margin: const EdgeInsets.only(left:20),
                                           child: const Text(
                                             'Color',
                                             style: TextStyle(
                                                 fontFamily: 'Montserrat',
                                                 fontSize: 14,
+                                                fontWeight: FontWeight.w600,
                                                 color: Color(0xff2F2F2F)
                                             ),
                                           )
@@ -162,7 +220,10 @@ class _AddNewCat extends State<AddNewCat> {
                                       ),
                                       Container(
                                           margin: EdgeInsets.only(left:20),
-                                          color: Colors.white,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(15.0), // Adjust the radius as needed
+                                          ),
                                           width: 1.5*desiredWidth/6,
                                           height: desiredHeight,
                                           child: Row(
@@ -198,9 +259,10 @@ class _AddNewCat extends State<AddNewCat> {
                                     child: const Text(
                                       'Description',
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 14,
-                                          color: Color(0xff2F2F2F)
+                                        fontFamily: 'Montserrat',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xff2F2F2F)
                                       ),
                                     )
                                 ),
@@ -215,28 +277,48 @@ class _AddNewCat extends State<AddNewCat> {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(15.0),
                                     ),
-                                    child: const TextField(
+                                    child: TextField(
+                                        controller: _descController,
+                                        style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                        ),
                                         decoration: InputDecoration(
                                           //labelText: widget.label,
                                           border: InputBorder.none,
-                                          contentPadding: EdgeInsets.zero,
+                                          contentPadding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0)
                                         )
                                     )
                                 )
                               ]
                           ),
+                        Container(
+                          padding: const EdgeInsets.only(top: 20),
+                          alignment: Alignment.center,
+                          child: NewCatButton(
+                            onPressed: () {
+                              // Handle button press
+                              // The text here is to be added to the database
+                              print(_catNameController.text);
+                              print(_amountController.text);
+                              print(_descController.text);
+                              // Navigate to Manage Budget page
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                builder: (context) => MainBudget())
+                              );
+                      },
+                    ),
+                  ),
+                        
                         ]
                     )
                 )
-            ),
+            ), 
           ]
       ),
     );
   }
 }
-
-
-
 
 //class for color picker
 class ColorSelect extends StatefulWidget{
@@ -262,6 +344,9 @@ class _ColorSelect extends State<ColorSelect>{
                 setState(() {
                   chosen = color;
                 });
+                /// The hexcode here is to be added to the database
+                String hexCode = chosen.value.toRadixString(16).substring(2);
+                print(hexCode);
               },
             ),
           );
@@ -281,3 +366,4 @@ class _ColorSelect extends State<ColorSelect>{
     );
   }
 }
+
