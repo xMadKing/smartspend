@@ -12,6 +12,7 @@ class AddCatButton extends StatelessWidget {
 
   const AddCatButton({
     super.key, 
+    required this.onPressed,
     this.buttonText = "New Cateogory", 
     this.colorButton = const Color(0xFF535986),
     this.colorText = const Color(0xFFFFFFFF),
@@ -19,15 +20,12 @@ class AddCatButton extends StatelessWidget {
     this.heightButton = 44,
     this.buttonBorder = 15,
     this.fontFamily = 'Montserrat',
-    required this.onPressed,
     });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed:() {
-        print('Fuck');
-      },
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: colorButton,
         minimumSize: Size(widthButton, heightButton),
