@@ -296,7 +296,7 @@ class _AddNewCat extends State<AddNewCat> {
                           child: NewCatButton(
                             onPressed: () {
                               // Handle button press
-                              // The texted here is to be added to the database
+                              // The text here is to be added to the database
                               print(_catNameController.text);
                               print(_amountController.text);
                               print(_descController.text);
@@ -343,6 +343,9 @@ class _ColorSelect extends State<ColorSelect>{
                 setState(() {
                   chosen = color;
                 });
+                /// The hexcode here is to be added to the database
+                String hexCode = chosen.value.toRadixString(16).substring(2);
+                print(hexCode);
               },
             ),
           );
