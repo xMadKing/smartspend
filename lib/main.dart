@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:smartspend/pages/onboardingpage.dart';
 import 'package:smartspend/backend/wyrm/database.dart';
 import 'package:smartspend/backend/user.dart';
@@ -8,8 +9,28 @@ void main() async {
   Wyrm database = Wyrm();
   User client = await initClient(database);
   List<Category> categories = await initCategories(database, client);
+  goFullscreen();
   runApp(MyApp(client: client));
 }
+
+void goFullscreen() async {
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.immersive,
+    overlays: [SystemUiOverlay.top],
+  );
+  while (true) {
+    await SystemChrome.setSystemUIChangeCallback(
+            (systemOverlaysAreVisible) async {
+          await Future.delayed(Duration(seconds: 5));
+          SystemChrome.setEnabledSystemUIMode(
+            SystemUiMode.immersive,
+            overlays: [SystemUiOverlay.top],
+          );
+        }
+    );
+  }
+}
+
 
 class MyApp extends StatelessWidget {
   User client;

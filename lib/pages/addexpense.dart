@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:smartspend/widgets/customtextfield.dart';
 import 'package:smartspend/backend/wyrm/database.dart';
 import 'package:smartspend/backend/category.dart';
@@ -21,15 +22,34 @@ class AddExpensePage extends StatefulWidget {
 class _AddExpensePageState extends State<AddExpensePage> {
   late List<Category> categories;
   late Category selectedCategory;
+  DateTime dateSelected = DateTime.now();
   Wyrm database = Wyrm();
   bool _loading = true;
   bool expenseAdded = false;
-  bool selectingCategory = false; 
+  bool selectingCategory = false;
+  List<String> daysList = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ];
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   @override
   void initState(){
     super.initState();
     initArgs();
+  }
+
+  bool isActivated() {
+    if (widget.controllers[0].text.isNotEmpty
+        && widget.controllers[1].text.isNotEmpty) {
+      return true;
+    }
+    return false;
   }
 
   List<Widget> getCategories(){
@@ -84,14 +104,14 @@ class _AddExpensePageState extends State<AddExpensePage> {
     });
   }
 
-  void setSelectedCategory() {
-
-  }
-
   @override
   Widget build(BuildContext context) {
     if(_loading){
       return const CircularProgressIndicator();
+    }
+    Color buttonColor = Colors.grey;
+    if (isActivated()){
+      buttonColor = Colors.deepOrangeAccent;
     }
     return Scaffold(
       body: SingleChildScrollView(
@@ -188,6 +208,7 @@ class _AddExpensePageState extends State<AddExpensePage> {
                                 setState(() {
                                   widget.controllers[1].text =
                                   "${date?.day}/${date?.month}/${date?.year}";
+                                  dateSelected = date!;
                                 });
                               }
                           ),
@@ -197,7 +218,11 @@ class _AddExpensePageState extends State<AddExpensePage> {
                             controller: widget.controllers[2],
                             inBoxText: "Expense description",
                             icon: Icon(Icons.description),
-                            function: (){},
+                            function: (){
+                              setState(() {
+                                widget.controllers[0] = widget.controllers[0];
+                              });
+                            },
                             width: MediaQuery.of(context).size.width * 0.8,
                             height: MediaQuery.of(context).size.height * 0.12,
                           ),
@@ -206,11 +231,15 @@ class _AddExpensePageState extends State<AddExpensePage> {
                             width: MediaQuery.of(context).size.width * 0.8,
                             height: 50,
                             decoration: BoxDecoration(
-                              color: Colors.deepOrangeAccent,
+                              color: buttonColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: TextButton(
-                              onPressed: () {
+                              onPressed: !isActivated() ? null : () {
+                                selectedCategory.addExpense(
+                                    daysList[dateSelected.weekday-1],
+                                    int.parse(widget.controllers[0].text),
+                                );
                                 setState(() {
                                   expenseAdded = true;
                                 });
@@ -233,8 +262,11 @@ class _AddExpensePageState extends State<AddExpensePage> {
                       child: Visibility(
                         visible: expenseAdded,
                         child: GestureDetector(
-                          onDoubleTap: (){
+                          onTap: (){
                             setState(() {
+                              widget.controllers.forEach((element) {
+                                element.text = "";
+                              });
                               expenseAdded = false;
                             });
                           },
