@@ -2,61 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:smartspend/pages/managebudget.dart';
 import 'package:smartspend/widgets/cardrowwidget.dart';
 import 'package:smartspend/pages/userinfopage.dart';
-
+import "package:flutter_svg/flutter_svg.dart";
 
 
 class MyAccount extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return(
-      Scaffold(
-        body: Stack(
-          children: [
-            Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFF1E2038),
-                ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return PopScope(
+      canPop: false,
+        child: Scaffold(
+            body: Stack(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 30, left: 20),
-                  child: Text(
-                    "Account",
-                    style: TextStyle(
-                      fontFamily: "Montserrat",
-                      fontSize: 60,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    ),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1E2038),
                   ),
                 ),
-                SizedBox(height: 10,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Container(
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          height: MediaQuery.of(context).size.height * 0.25,
-                          child: Image.asset(
-                              'assets/creditcard.png',
-                              fit: BoxFit.cover)
+                    Container(
+                      margin: EdgeInsets.only(top: 30, left: 20),
+                      child: Text(
+                        "Account",
+                        style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 60,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold
+                        ),
                       ),
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Container(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              height: MediaQuery.of(context).size.height * 0.25,
+                              child: SvgPicture.asset("assets/creditcard.svg",),
+                          ),
+                        )
+                      ],
                     )
                   ],
+                ),
+                Container(
+                  child: CardWidget(),
                 )
               ],
-            ),
-            Container(
-              child: CardWidget(),
             )
-          ],
         )
-      )
     );
   }
 

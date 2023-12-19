@@ -113,234 +113,237 @@ class _AddExpensePageState extends State<AddExpensePage> {
     if (isActivated()){
       buttonColor = Colors.deepOrangeAccent;
     }
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  Color(0xFF1E2038),
-                  Color.fromARGB(255, 26, 26, 42),
-                ],
-              )
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 20, top: 40),
-                child: Text(
-                  "Add\nExpense",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 60,
-                    fontFamily: "Montserrat",
-                  ),
-                ),
+    return PopScope(
+      canPop: false,
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      Color(0xFF1E2038),
+                      Color.fromARGB(255, 26, 26, 42),
+                    ],
+                  )
               ),
-              Spacer(),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.7,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(60),
-                      topRight: Radius.circular(60)
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 20, top: 40),
+                    child: Text(
+                      "Add\nExpense",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 60,
+                        fontFamily: "Montserrat",
+                      ),
+                    ),
                   ),
-                ),
-                child: Stack(
-                  children: [
-                    Center(
-                      child: Column(
+                  Spacer(),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(60),
+                            topRight: Radius.circular(60)
+                        ),
+                      ),
+                      child: Stack(
                         children: [
-                          SizedBox(height: 40),
-                          CustomTextField(
-                            topText: "Amount",
-                            icon: Icon(Icons.monetization_on_outlined),
-                            controller: widget.controllers[0],
-                            inBoxText: "SEK",
-                            readOnly: false,
-                            keyboardType: TextInputType.number,
-                            function: () {},
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            height: MediaQuery.of(context).size.height * 0.06,
-                          ),
-                          SizedBox(height: 20),
-                          CustomTextField(
-                            topText: "Category",
-                            controller: widget.controllers[3],
-                            inBoxText: selectedCategory.categoryName,
-                            icon: Icon(
-                              Icons.circle,
-                              color: Color(selectedCategory.categoryColor),
+                          Center(
+                            child: Column(
+                              children: [
+                                SizedBox(height: 40),
+                                CustomTextField(
+                                  topText: "Amount",
+                                  icon: Icon(Icons.monetization_on_outlined),
+                                  controller: widget.controllers[0],
+                                  inBoxText: "SEK",
+                                  readOnly: false,
+                                  keyboardType: TextInputType.number,
+                                  function: () {},
+                                  width: MediaQuery.of(context).size.width * 0.8,
+                                  height: MediaQuery.of(context).size.height * 0.06,
+                                ),
+                                SizedBox(height: 20),
+                                CustomTextField(
+                                  topText: "Category",
+                                  controller: widget.controllers[3],
+                                  inBoxText: selectedCategory.categoryName,
+                                  icon: Icon(
+                                    Icons.circle,
+                                    color: Color(selectedCategory.categoryColor),
+                                  ),
+                                  readOnly: true,
+                                  function: (){
+                                    setState(() {
+                                      selectingCategory = true;
+                                    });
+                                  },
+                                  width: MediaQuery.of(context).size.width * 0.8,
+                                  height: MediaQuery.of(context).size.height * 0.06,
+                                ),
+                                SizedBox(height: 20),
+                                CustomTextField(
+                                    topText: "Date",
+                                    icon: Icon(Icons.date_range),
+                                    controller: widget.controllers[1],
+                                    inBoxText: "Transaction date",
+                                    readOnly: true,
+                                    width: MediaQuery.of(context).size.width * 0.8,
+                                    height: MediaQuery.of(context).size.height * 0.06,
+                                    keyboardType: TextInputType.datetime,
+                                    function: () async {
+                                      DateTime? date = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime.now(),
+                                      );
+                                      setState(() {
+                                        widget.controllers[1].text =
+                                        "${date?.day}/${date?.month}/${date?.year}";
+                                        dateSelected = date!;
+                                      });
+                                    }
+                                ),
+                                SizedBox(height: 20),
+                                CustomTextField(
+                                  topText: "Description",
+                                  controller: widget.controllers[2],
+                                  inBoxText: "Expense description",
+                                  icon: Icon(Icons.description),
+                                  function: (){
+                                    setState(() {
+                                      widget.controllers[0] = widget.controllers[0];
+                                    });
+                                  },
+                                  width: MediaQuery.of(context).size.width * 0.8,
+                                  height: MediaQuery.of(context).size.height * 0.12,
+                                ),
+                                SizedBox(height: 20),
+                                Container(
+                                  width: MediaQuery.of(context).size.width * 0.8,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: buttonColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: TextButton(
+                                    onPressed: !isActivated() ? null : () {
+                                      selectedCategory.addExpense(
+                                        daysList[dateSelected.weekday-1],
+                                        int.parse(widget.controllers[0].text),
+                                      );
+                                      setState(() {
+                                        expenseAdded = true;
+                                      });
+                                    },
+                                    child: const Text(
+                                      "Add Expense",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: "Montserrat",
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            readOnly: true,
-                            function: (){
-                              setState(() {
-                                selectingCategory = true;
-                              });
-                            },
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            height: MediaQuery.of(context).size.height * 0.06,
                           ),
-                          SizedBox(height: 20),
-                          CustomTextField(
-                              topText: "Date",
-                              icon: Icon(Icons.date_range),
-                              controller: widget.controllers[1],
-                              inBoxText: "Transaction date",
-                              readOnly: true,
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              height: MediaQuery.of(context).size.height * 0.06,
-                              keyboardType: TextInputType.datetime,
-                              function: () async {
-                                DateTime? date = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(1900),
-                                  lastDate: DateTime.now(),
-                                );
-                                setState(() {
-                                  widget.controllers[1].text =
-                                  "${date?.day}/${date?.month}/${date?.year}";
-                                  dateSelected = date!;
-                                });
-                              }
-                          ),
-                          SizedBox(height: 20),
-                          CustomTextField(
-                            topText: "Description",
-                            controller: widget.controllers[2],
-                            inBoxText: "Expense description",
-                            icon: Icon(Icons.description),
-                            function: (){
-                              setState(() {
-                                widget.controllers[0] = widget.controllers[0];
-                              });
-                            },
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            height: MediaQuery.of(context).size.height * 0.12,
-                          ),
-                          SizedBox(height: 20),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: buttonColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: TextButton(
-                              onPressed: !isActivated() ? null : () {
-                                selectedCategory.addExpense(
-                                    daysList[dateSelected.weekday-1],
-                                    int.parse(widget.controllers[0].text),
-                                );
-                                setState(() {
-                                  expenseAdded = true;
-                                });
-                              },
-                              child: const Text(
-                                "Add Expense",
-                                style: TextStyle(
+                          Center(
+                            child: Visibility(
+                              visible: expenseAdded,
+                              child: GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    widget.controllers.forEach((element) {
+                                      element.text = "";
+                                    });
+                                    expenseAdded = false;
+                                  });
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * 0.81,
+                                  height: MediaQuery.of(context).size.height * 0.6,
+                                  decoration: BoxDecoration(
                                     color: Colors.white,
-                                    fontFamily: "Montserrat",
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.check_circle_rounded,
+                                          color: Colors.green,
+                                          size: 60,
+                                        ),
+                                        Text(
+                                          "Yay!\nExpense added.",
+                                          style: TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 16,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
+                            ),
+                          ),
+                          Center(
+                            child: Visibility (
+                              visible: selectingCategory,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(80),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 10,
+                                        color: Color.fromRGBO(0, 0, 0, 0.5),
+                                      ),
+                                    ]
+                                ),
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: Visibility (
+                                visible: selectingCategory,
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  margin: EdgeInsets.all(10),
+                                  width: MediaQuery.of(context).size.width * 0.81,
+                                  height: categories.length * 50,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                  child: Column(
+                                    children: getCategories(),
+                                  ),
+                                )
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                    Center(
-                      child: Visibility(
-                        visible: expenseAdded,
-                        child: GestureDetector(
-                          onTap: (){
-                            setState(() {
-                              widget.controllers.forEach((element) {
-                                element.text = "";
-                              });
-                              expenseAdded = false;
-                            });
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.81,
-                            height: MediaQuery.of(context).size.height * 0.6,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.check_circle_rounded,
-                                    color: Colors.green,
-                                    size: 60,
-                                  ),
-                                  Text(
-                                    "Yay!\nExpense added.",
-                                    style: TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 16,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Visibility (
-                          visible: selectingCategory,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(80),
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 10,
-                                  color: Color.fromRGBO(0, 0, 0, 0.5),
-                                ),
-                              ]
-                            ),
-                          ),
-                      ),
-                    ),
-                    Center(
-                      child: Visibility (
-                        visible: selectingCategory,
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.all(10),
-                          width: MediaQuery.of(context).size.width * 0.81,
-                          height: categories.length * 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey.shade300,
-                          ),
-                          child: Column(
-                            children: getCategories(),
-                          ),
-                        )
-                      ),
-                    ),
-                  ],
-                )
-              )
-            ],
+                      )
+                  )
+                ],
+              ),
+            ),
           ),
         ),
-      ),
     );
   }
 }
