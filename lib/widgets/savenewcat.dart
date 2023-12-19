@@ -14,7 +14,7 @@ class NewCatButton extends StatelessWidget {
     this.buttonText = "Done", 
     this.colorButton = const Color(0xFFE76201),
     this.colorText = const Color(0xFFFFFFFF),
-    this.widthButton = 292,
+    this.widthButton = 330,
     this.heightButton = 48,
     this.buttonBorder = 10,
     this.fontFamily = 'Montserrat',
@@ -24,9 +24,7 @@ class NewCatButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed:() {
-        print('You');
-      },
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: colorButton,
         minimumSize: Size(widthButton, heightButton),

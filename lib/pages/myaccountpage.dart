@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartspend/pages/managebudget.dart';
 import 'package:smartspend/widgets/cardrowwidget.dart';
 import 'package:smartspend/pages/userinfopage.dart';
 
@@ -100,6 +101,10 @@ class CardWidget extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MainBudget()));
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),

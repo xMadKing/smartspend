@@ -110,7 +110,7 @@ class _EditableBudgetCat extends State<EditableBudgetCat> {
                           margin: const EdgeInsets.only(left:50.0),
                           child: Text(
                             widget.name,
-                            style: const TextStyle(fontSize:16.0, fontFamily: 'Montserrat', color: Color(0xff2F2F2F)),
+                            style: const TextStyle(fontSize:16.0, fontFamily: 'Montserrat', color: Color(0xff2F2F2F), fontWeight: FontWeight.w600),
                           )
                       ),
                       Container(
@@ -120,7 +120,7 @@ class _EditableBudgetCat extends State<EditableBudgetCat> {
                                   margin: const EdgeInsets.only(right: 10),
                                   child: Text(
                                     widget.number.toString(),
-                                    style: const TextStyle(fontSize:16.0, fontFamily: 'Montserrat', color: Color(0xff2F2F2F)),
+                                    style: const TextStyle(fontSize:16.0, fontFamily: 'Montserrat', color: Color(0xff2F2F2F),fontWeight: FontWeight.w600),
                                   )
                               )
                           )
