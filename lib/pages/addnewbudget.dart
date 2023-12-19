@@ -197,54 +197,12 @@ class _AddNewCat extends State<AddNewCat> {
                                                 });
                                               },
                                           )
-                                      )
+                                      ),
                                     ]
                                 ),
-                                Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start, 
-                                    children : [
-                                      Container(
-                                          margin: const EdgeInsets.only(left:20),
-                                          child: const Text(
-                                            'Color',
-                                            style: TextStyle(
-                                                fontFamily: 'Montserrat',
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                                color: Color(0xff2F2F2F)
-                                            ),
-                                          )
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.only(top:5),
-                                      ),
-                                      Container(
-                                          margin: EdgeInsets.only(left:20),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(15.0), // Adjust the radius as needed
-                                          ),
-                                          width: 1.5*desiredWidth/6,
-                                          height: desiredHeight,
-                                          child: Row(
-                                              children: [
-                                                Container(
-                                                    margin: const EdgeInsets.only(left:15),
-                                                    width: desiredHeight/2,
-                                                    height: desiredHeight/2,
-                                                    child: ClipRRect(
-                                                        borderRadius: BorderRadius.circular(desiredHeight/2),
-                                                        child: ColorSelect()
-                                                    )
-                                                ),
-                                                const Padding(
-                                                  padding: EdgeInsets.only(left: 10),
-                                                ),
-                                                const Icon(Icons.arrow_drop_down_outlined, color: Color(0xFF2F2F2F))
-                                              ]
-                                          )
-                                      )
-                                    ]
+                                ColorSelect(
+                                    desiredH: desiredHeight,
+                                    desiredW: desiredWidth
                                 ),
                               ]
                           ),
@@ -322,8 +280,10 @@ class _AddNewCat extends State<AddNewCat> {
 
 //class for color picker
 class ColorSelect extends StatefulWidget{
+  double desiredW;
+  double desiredH;
 
-  ColorSelect({super.key});
+  ColorSelect({super.key, required this.desiredH, required this.desiredW});
 
   @override
   State<StatefulWidget> createState() => _ColorSelect();
@@ -344,7 +304,7 @@ class _ColorSelect extends State<ColorSelect>{
                 setState(() {
                   chosen = color;
                 });
-                /// The hexcode here is to be added to the database
+                // The hexcode here is to be added to the database
                 String hexCode = chosen.value.toRadixString(16).substring(2);
                 print(hexCode);
               },
@@ -356,13 +316,60 @@ class _ColorSelect extends State<ColorSelect>{
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-        onTap: ColorPickerpop,
-        child: Container(
-          width: 50,
-          height: 50,
-          color: chosen,
-        )
+    return  GestureDetector(
+      onTap: () => ColorPickerpop(),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children : [
+            Container(
+                margin: const EdgeInsets.only(left:20),
+                child: const Text(
+                  'Color',
+                  style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xff2F2F2F)
+                  ),
+                )
+            ),
+            Container(
+              padding: const EdgeInsets.only(top:5),
+            ),
+            Container(
+                margin: EdgeInsets.only(left:20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15.0), // Adjust the radius as needed
+                ),
+                width: 1.5*widget.desiredW/6,
+                height: widget.desiredH,
+                child: Row(
+                    children: [
+                      Container(
+                          margin: const EdgeInsets.only(left:15),
+                          width: widget.desiredH/2,
+                          height: widget.desiredH/2,
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(widget.desiredH/2),
+                              child: InkWell(
+                                  child: Container(
+                                    width: 50,
+                                    height: 50,
+                                    color: chosen,
+                                  )
+                              )
+                          )
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 10),
+                      ),
+                      const Icon(Icons.arrow_drop_down_outlined, color: Color(0xFF2F2F2F))
+                    ]
+                )
+            )
+          ]
+      ),
     );
   }
 }
