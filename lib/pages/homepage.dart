@@ -99,12 +99,8 @@ class _HomePageState extends State<HomePage>{
                   child: GestureDetector(
                     onDoubleTap: () async {
                       List<Category> categories = await database.categories();
-                      for (var category in categories) {
-                        await category.loadSpending();
-                      }
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => MonthlyBudgetPage(
-                            categories: categories,
                           )));
                     },
                     child: Container(
@@ -180,13 +176,9 @@ class _HomePageState extends State<HomePage>{
                             GestureDetector(
                               onTap: () async {
                                 List<Category> categories = await database.categories();
-                                for (var category in categories) {
-                                  await category.loadSpending();
-                                }
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context)
                                     => MonthlyBudgetPage(
-                                      categories: categories,
                                     )));
                               },
                               child: Container(
@@ -218,13 +210,9 @@ class _HomePageState extends State<HomePage>{
                                           child: IconButton(
                                               onPressed: () async {
                                                 List<Category> categories = await database.categories();
-                                                for (var category in categories) {
-                                                  await category.loadSpending();
-                                                }
                                                 Navigator.push(context,
                                                     MaterialPageRoute(builder:
                                                         (context) => MonthlyBudgetPage(
-                                                          categories: categories,
                                                         )));
                                               },
                                               icon: const Icon(

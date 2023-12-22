@@ -109,17 +109,6 @@ Future<List<Category>> initCategories(Wyrm database, User client) async {
     ];
     for (int i = 0; i < categories.length; i++){
       await database.insertToTable(categories[i], 'category');
-      await database.insertToTable({
-        "categoryID" : categories[i].categoryID,
-        "Monday" : 1,
-        "Tuesday" : 1,
-        "Wednesday" : 1,
-        "Thursday" : 1,
-        "Friday" : 1,
-        "Saturday" : 1,
-        "Sunday" : 1,
-      },
-      "weeklyspending");
     }
   }
   return categories;

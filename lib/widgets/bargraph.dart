@@ -9,20 +9,63 @@ class BarChart extends StatelessWidget{
   BarChart({super.key, required this.dataMap, required this.width, required this.barColor});
 
   num normalizeData(){
+    print(dataMap);
     List<String> keys = dataMap.keys.toList();
     List<num> vals = dataMap.values.toList();
     vals.sort();
     num min = 0;
     num max = vals[vals.length-1];
+    if(max.isNaN || max == 0){
+      return 1;
+    }
     for(int i = 0; i < keys.length; i++){
       values.add(((dataMap[keys[i]] !- min) / (max - min)));
     }
     return max;
   }
 
+  List<Widget> graphBars(double wi, double hi){
+    List<String> keys = dataMap.keys.toList();
+    double factor = 1;
+    List<Widget> bars = [];
+    print(values);
+    for(int i = 0; i < keys.length; i++){
+      if(values.length == 0){
+        values = [0,0,0,0,0,0,0];
+      }
+      bars.add(
+        Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(5),
+                    topRight: Radius.circular(5)
+                ),
+                color: barColor,
+              ),
+              width: wi * 0.08,
+              height: values[i] * (hi * 0.15),
+            ),
+            Container(
+              child: Text(
+                keys[i],
+                style: const TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+          ],
+        )
+      );
+    }
+    return bars;
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<String> keys = dataMap.keys.toList();
     num max = normalizeData();
     return SizedBox(
       width: width * 0.95,
@@ -36,178 +79,10 @@ class BarChart extends StatelessWidget{
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5)
-                          ),
-                          color: barColor,
-                        ),
-                        width: MediaQuery.of(context).size.width * 0.08,
-                        height: values[0] * (MediaQuery.of(context).size.height * 0.15),
-                      ),
-                      Container(
-                        child: Text(keys[0].substring(0, 3),
-                          style: const TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5)
-                          ),
-                          color: barColor,
-                        ),
-                        width: MediaQuery.of(context).size.width * 0.08,
-                        height: values[1] * (MediaQuery.of(context).size.height * 0.15),
-                      ),
-                      Container(
-                        child: Text(keys[1].substring(0, 3),
-                          style: const TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5)
-                          ),
-                          color: barColor,
-                        ),
-                        width: MediaQuery.of(context).size.width * 0.08,
-                        height: values[2] * (MediaQuery.of(context).size.height * 0.15),
-                      ),
-                      Container(
-                        child: Text(keys[2].substring(0, 3),
-                          style: const TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5)
-                          ),
-                          color: barColor,
-                        ),
-                        width: MediaQuery.of(context).size.width * 0.08,
-                        height: values[3] * (MediaQuery.of(context).size.height * 0.15),
-                      ),
-                      Container(
-                        child: Text(keys[3].substring(0, 3),
-                          style: const TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5)
-                          ),
-                          color: barColor,
-                        ),
-                        width: MediaQuery.of(context).size.width * 0.08,
-                        height: values[4] * (MediaQuery.of(context).size.height * 0.15),
-                      ),
-                      Container(
-                        child: Text(keys[4].substring(0, 3),
-                          style: const TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5)
-                          ),
-                          color: barColor,
-                        ),
-                        width: MediaQuery.of(context).size.width * 0.08,
-                        height: values[5] * (MediaQuery.of(context).size.height * 0.15),
-                      ),
-                      Container(
-                        child: Text(
-                          keys[5].substring(0, 3),
-                          style: const TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5)
-                          ),
-                          color: barColor,
-                        ),
-                        width: MediaQuery.of(context).size.width * 0.08,
-                        height: values[6] * (MediaQuery.of(context).size.height * 0.15),
-                      ),
-                      Container(
-                        child: Text(
-                          keys[6].substring(0, 3),
-                          style: const TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                children: graphBars(
+                  MediaQuery.of(context).size.width,
+                  MediaQuery.of(context).size.height,
+                ),
               ),
               Positioned(
                 bottom: 15,

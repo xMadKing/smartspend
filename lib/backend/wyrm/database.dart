@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
+import 'package:smartspend/backend/payments.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:smartspend/backend/user.dart';
 import 'package:smartspend/backend/category.dart';
@@ -20,39 +21,62 @@ class Wyrm {
       join(await getDatabasesPath(), '$name.db'),
       onCreate: (db, version) async {
         await db.execute(
-            'CREATE TABLE user'
-            '(userID INT PRIMARY KEY,'
-            'name TEXT,'
-            'passcode TEXT,'
-            'birthDate TEXT,'
-            'isNewUser TINYINT,'
-            'monthlyincome DECIMAL)'
+          'CREATE TABLE user'
+          '(userID INT PRIMARY KEY,'
+          'name TEXT,'
+          'passcode TEXT,'
+          'birthDate TEXT,'
+          'isNewUser TINYINT,'
+          'monthlyincome DECIMAL)'
         );
         await db.execute(
-            'CREATE TABLE category'
-            '(categoryID INT PRIMARY KEY,'
-            'userID INT,'
-            'categoryName TEXT,'
-            'spendingLimit DECIMAL,'
-            'currentSpending DECIMAL,'
-            'categoryColor INT)'
+          'CREATE TABLE category'
+          '(categoryID INT PRIMARY KEY,'
+          'userID INT,'
+          'categoryName TEXT,'
+          'spendingLimit DECIMAL,'
+          'currentSpending DECIMAL,'
+          'categoryColor INT)'
         );
         await db.execute(
-          'CREATE TABLE weeklyspending('
+          'CREATE TABLE payment('
+          'paymentID INT,'
           'categoryID INT,'
-          'Monday DECIMAL,'
-          'Tuesday DECIMAL,'
-          'Wednesday DECIMAL,'
-          'Thursday DECIMAL,'
-          'Friday DECIMAL,'
-          'Saturday DECIMAL,'
-          'Sunday DECIMAL,'
-          'FOREIGN KEY (categoryID) REFERENCES category(categoryID))'
+          'paymentDate STRING,'
+          'paymentAmount DECIMAL)'
         );
         return;
       },
       version: 1,
     );
+  }
+
+  Future<List<List<Payment>>> getPaymentsByDate
+      (List<DateTime> dates, int categoryID) async {
+    await initDB();
+    final db = database;
+
+    final List<List<Payment>> res = [];
+
+     for(int j = 0; j < dates.length; j++){
+      final List<Map<String, dynamic>> data = await db.query(
+        'payment',
+        where: "paymentDate=? and categoryID=? ",
+        whereArgs: ["${dates[j].year}-${dates[j].month}-${dates[j].day}".toString(), categoryID],
+      );
+      List<Payment> tmp = [];
+      for (int i = 0; i < data.length; i++){
+        tmp.add(Payment(
+          paymentID: data[i]['paymentID'] as int,
+          categoryID: data[i]['categoryID'] as int ,
+          paymentDate: data[i]['paymentDate'] as String,
+          paymentAmount: data[i]['paymentAmount'] as num,
+        ));
+      }
+      res.add(tmp);
+    }
+
+    return res;
   }
 
   Future<void> insertToTable(dynamic entry, String table) async {
@@ -73,27 +97,6 @@ class Wyrm {
     );
   }
 
-  Future<List<Map<String, num>>> weeklySpending(int categoryID) async {
-    await initDB();
-    final db = database;
-
-    final List<Map<String, dynamic>> maps = await db.query('weeklyspending',
-    where: 'categoryID = ?', whereArgs: [categoryID]);
-
-    return List.generate(maps.length, (i) {
-      return {
-        "categoryID" : maps[i]['categoryID'] as int,
-        "Monday" : maps[i]['Monday'] as num,
-        "Tuesday" : maps[i]['Tuesday'] as num,
-        "Wednesday" : maps[i]['Wednesday'] as num,
-        "Thursday" : maps[i]['Thursday'] as num,
-        "Friday" : maps[i]['Friday'] as num,
-        "Saturday" : maps[i]['Saturday'] as num,
-        "Sunday" : maps[i]['Sunday'] as num,
-      };
-    });
-  }
-
   Future<List<Category>> categories() async {
     await initDB();
     final db = database;
@@ -108,6 +111,22 @@ class Wyrm {
           categoryColor: maps[i]['categoryColor'] as int,
           spendingLimit: maps[i]['spendingLimit'] as num,
           currentSpending: maps[i]['currentSpending'] as num,
+      );
+    });
+  }
+
+  Future<List<Payment>> payments() async {
+    await initDB();
+    final db = database;
+
+    final List<Map<String, dynamic>> maps = await db.query("payment");
+
+    return List.generate(maps.length, (i) {
+      return Payment(
+          paymentID: maps[i]['paymentID'] as int,
+          categoryID: maps[i]['categoryID'] as int ,
+          paymentDate: maps[i]['paymentDate'] as String,
+          paymentAmount: maps[i]['paymentAmount'] as num,
       );
     });
   }

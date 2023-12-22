@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:graphic/graphic.dart';
 import 'wyrm/database.dart';
+import 'package:smartspend/backend/payments.dart';
 
 class Category {
   static final Wyrm database = Wyrm();
@@ -9,15 +11,6 @@ class Category {
   late num currentSpending;
   late int categoryColor;
   late String categoryName;
-  late Map<String, num> lastWeekSpending = {
-    "Monday" : 1,
-    "Tuesday" : 1,
-    "Wednesday" : 1,
-    "Thursday" : 1,
-    "Friday" : 1,
-    "Saturday" : 1,
-    "Sunday" : 1 ,
-  };
 
   Category({
     required this.userID,
@@ -39,24 +32,53 @@ class Category {
     };
   }
 
-  Future<void> addExpense(String day, num expense) async {
-    await loadSpending();
-    lastWeekSpending[day] = lastWeekSpending[day] !+ expense;
-    currentSpending += expense;
-
-    Map<String, dynamic> data = {
-      "categoryID" : categoryID,
-    };
-
-    for (var key in lastWeekSpending.keys) {
-      data[key] = lastWeekSpending[key];
+  static List<DateTime> getWeekDates() {
+    final List<DateTime> res = [];
+    DateTime mostRecentWeekday(DateTime date, int weekday) => //code from stackoverflow, thanks Irn
+        DateTime(date.year, date.month, date.day - (date.weekday - weekday) % 7);
+    DateTime monday = mostRecentWeekday(DateTime.now(), 1);
+    res.add(monday);
+    for(int i = 1; i < 7; i++){
+      res.add(monday.add(Duration(days: i)));
     }
+    return res;
+  }
 
-    await database.updateEntryInTable(
-        'weeklyspending',
-        'categoryID',
-        categoryID,
-        data,
+  Future<Map<String, num>> getWeekSpending() async {
+    final Map<String, num> res = {};
+    final List<DateTime> thisWeekDates = getWeekDates();
+    List<List<Payment>> paymentsPerDay = await database.getPaymentsByDate(thisWeekDates, categoryID);
+
+    for(int i = 0; i < paymentsPerDay.length; i++){
+      String date;
+      try {
+        date = DateTime.parse(paymentsPerDay[i].first.paymentDate).day.toString();
+      } catch (e) {
+        date = thisWeekDates[i].day.toString();
+      }
+
+      num amountSpent = 0;
+      for(int j = 0; j < paymentsPerDay[i].length; j++){
+        amountSpent += paymentsPerDay[i][j].paymentAmount;
+      }
+      res[date] = amountSpent;
+    }
+    return res;
+  }
+
+  Future<void> addExpense(String date, num amount) async {
+    currentSpending += amount;
+
+    Payment expense = Payment(
+        paymentID: DateTime.now().millisecondsSinceEpoch.toInt(),
+        categoryID: categoryID,
+        paymentDate: date,
+        paymentAmount: amount,
+    );
+
+    await database.insertToTable(
+        expense,
+        'payment'
     );
 
     await database.updateEntryInTable(
@@ -68,24 +90,11 @@ class Category {
 
   }
 
-  Future<void> loadSpending() async {
-    Map<String, dynamic> data = (await database.weeklySpending(categoryID)).first;
-    lastWeekSpending = {
-      "Monday" : data['Monday'],
-      "Tuesday" : data['Tuesday'],
-      "Wednesday" : data['Wednesday'],
-      "Thursday" : data['Thursday'],
-      "Friday" : data['Friday'],
-      "Saturday" : data['Saturday'],
-      "Sunday" : data['Sunday'],
-    };
-  }
-
   @override
   String toString() {
     Color tmp = Color(categoryColor);
     return "Category{ID: $categoryID, userID: $userID, Color: $tmp, "
         "Category Name: $categoryName, Spending Limit: $spendingLimit, "
-        "Current Spending: $currentSpending, weekly: $lastWeekSpending}";
+        "Current Spending: $currentSpending}";
   }
 }

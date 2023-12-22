@@ -27,15 +27,6 @@ class _AddExpensePageState extends State<AddExpensePage> {
   bool _loading = true;
   bool expenseAdded = false;
   bool selectingCategory = false;
-  List<String> daysList = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday"
-  ];
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   @override
@@ -209,7 +200,7 @@ class _AddExpensePageState extends State<AddExpensePage> {
                                       );
                                       setState(() {
                                         widget.controllers[1].text =
-                                        "${date?.day}/${date?.month}/${date?.year}";
+                                        "${date?.year}-${date?.month}-${date?.day}";
                                         dateSelected = date!;
                                       });
                                     }
@@ -239,7 +230,7 @@ class _AddExpensePageState extends State<AddExpensePage> {
                                   child: TextButton(
                                     onPressed: !isActivated() ? null : () {
                                       selectedCategory.addExpense(
-                                        daysList[dateSelected.weekday-1],
+                                        widget.controllers[1].text,
                                         int.parse(widget.controllers[0].text),
                                       );
                                       setState(() {

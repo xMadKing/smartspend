@@ -3,11 +3,44 @@ import 'package:smartspend/widgets/graphcard.dart';
 import 'package:smartspend/widgets/trajectorywidget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:smartspend/backend/category.dart';
+import 'package:smartspend/backend/wyrm/database.dart';
 
+class MonthlyBudgetPage extends StatefulWidget {
+  MonthlyBudgetPage({super.key});
 
-class MonthlyBudgetPage extends StatelessWidget{
-  final List<Category> categories;
-  const MonthlyBudgetPage({super.key, required this.categories});
+  @override
+  State<MonthlyBudgetPage> createState() => _MonthlyBudgetPage();
+}
+
+class _MonthlyBudgetPage extends State<MonthlyBudgetPage>{
+  late final List<Category> categories;
+  late final List<Map<String, num>> data;
+  Wyrm database = Wyrm();
+  bool _loading = true;
+
+  Future<List<Map<String, num>>> initGraphs() async {
+    List<Map<String, num>> maps = [];
+    for(int i = 0; i < categories.length; i++){
+      Map<String, num> map = await categories[i].getWeekSpending();
+      maps.add(map);
+    }
+    return maps;
+  }
+
+  Future<void> initArgs() async {
+    categories = await database.categories();
+    data = await initGraphs();
+
+    setState(() {
+      _loading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initArgs();
+  }
 
   List<Widget> graphs() {
     List<Widget> res = [];
@@ -18,7 +51,7 @@ class MonthlyBudgetPage extends StatelessWidget{
           child: GraphCard(
             cardName: categories[i].categoryName,
             barColor: Color(categories[i].categoryColor),
-            dataMap: categories[i].lastWeekSpending,
+            dataMap: data[i],
           )
         )
       );
@@ -28,6 +61,9 @@ class MonthlyBudgetPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
+    if (_loading) {
+      return const CircularProgressIndicator();
+    }
     return Scaffold(
       body: Stack(
         children: [
