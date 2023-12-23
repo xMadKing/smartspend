@@ -6,6 +6,7 @@ class ProgressBarWidget extends StatefulWidget {
   final Color bgColor;
   final double width;
   final String text;
+  final String totalSpending;
 
   const ProgressBarWidget({super.key,
     required this.barColor,
@@ -13,6 +14,7 @@ class ProgressBarWidget extends StatefulWidget {
     required this.bgColor,
     required this.width,
     required this.text,
+    required this.totalSpending,
   });
 
   @override
@@ -50,6 +52,7 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
                     top: 15,
                     child: SizedBox(
                       height: 15,
+                      width: (MediaQuery.of(context).size.width * 0.8),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -61,8 +64,18 @@ class _ProgressBarWidget extends State<ProgressBarWidget>{
                               color: Color(0xFF1E2038),
                               fontSize: 12,
                               fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w500,
                               height: 0,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            widget.totalSpending,
+                            style: TextStyle(
+                                color: Color(0xFF1E2038),
+                                fontSize: 12,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w700,
+                                height: 0,
                             ),
                           ),
                         ],

@@ -9,7 +9,6 @@ class BarChart extends StatelessWidget{
   BarChart({super.key, required this.dataMap, required this.width, required this.barColor});
 
   num normalizeData(){
-    print(dataMap);
     List<String> keys = dataMap.keys.toList();
     List<num> vals = dataMap.values.toList();
     vals.sort();
@@ -28,7 +27,6 @@ class BarChart extends StatelessWidget{
     List<String> keys = dataMap.keys.toList();
     double factor = 1;
     List<Widget> bars = [];
-    print(values);
     for(int i = 0; i < keys.length; i++){
       if(values.length == 0){
         values = [0,0,0,0,0,0,0];

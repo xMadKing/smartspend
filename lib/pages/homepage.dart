@@ -110,9 +110,10 @@ class _HomePageState extends State<HomePage>{
                         child: ProgressBarWidget(
                           width: width,
                           bgColor: const Color(0xFFF5F5F5),
-                          barColor: Colors.purple.shade300,
+                          barColor: Colors.grey,
                           barFillColor: barColor,
                           text: "Monthly Budget",
+                          totalSpending: getTotalSpending().toString(),
                         ),
                       ),
                     ),

@@ -79,6 +79,33 @@ class Wyrm {
     return res;
   }
 
+  Future<List<List<Payment>>> getMonthlyPayments(List<DateTime> dates) async {
+    await initDB();
+    final db = database;
+
+    final List<List<Payment>> res = [];
+
+    for(int j = 0; j < dates.length; j++){
+      final List<Map<String, dynamic>> data = await db.query(
+        'payment',
+        where: "paymentDate=?",
+        whereArgs: ["${dates[j].year}-${dates[j].month}-${dates[j].day}".toString()],
+      );
+      List<Payment> tmp = [];
+      for (int i = 0; i < data.length; i++){
+        tmp.add(Payment(
+          paymentID: data[i]['paymentID'] as int,
+          categoryID: data[i]['categoryID'] as int ,
+          paymentDate: data[i]['paymentDate'] as String,
+          paymentAmount: data[i]['paymentAmount'] as num,
+        ));
+      }
+      res.add(tmp);
+    }
+
+    return res;
+  }
+
   Future<void> insertToTable(dynamic entry, String table) async {
     await initDB();
     final db = database;

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:smartspend/backend/user.dart';
 
 class TrajectoryData extends StatefulWidget {
   final List<FlSpot> data;
+  final User client;
 
-  const TrajectoryData({super.key, required this.data});
+  const TrajectoryData({super.key, required this.data, required this.client});
 
   @override
   State<TrajectoryData> createState() => _TrajectoryData();
@@ -12,18 +14,47 @@ class TrajectoryData extends StatefulWidget {
 
 class _TrajectoryData extends State<TrajectoryData> {
 
+  double getMax(){
+    List<double> tmp = [];
+    for(int i = 0; i < widget.data.length; i++){
+      tmp.add(widget.data[i].y);
+    }
+    tmp.sort();
+    return tmp.last;
+  }
+
+  int getDaysLeft(){
+    double spendingPerDay = getAvgSpending();
+    double budget = widget.client.monthlyIncome.toDouble();
+    double currentSpending = 0;
+    for(int i = 0; i < widget.data.length; i++){
+      currentSpending += widget.data[i].y;
+    }
+    double daysLeft;
+    try {
+      daysLeft = (budget-currentSpending)/spendingPerDay;
+      daysLeft.round();
+    } catch (e){
+      daysLeft = 0;
+    }
+
+    return daysLeft.toInt();
+  }
+
   double getAvgSpending(){
     double sum = 0;
-    for (var element in widget.data) {
-      sum += element.y;
+    int date = DateTime.now().month.toInt();
+    for(int i = 0; i < date; i++){
+      sum += widget.data[i].y;
     }
-    double res = sum / widget.data.length;
+    double res = sum / date;
     return res.roundToDouble();
   }
 
   @override
   Widget build(BuildContext context){
-    double avgspending = getAvgSpending();
+    double avgSpending = getAvgSpending();
+    int daysLeft = getDaysLeft();
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
       height: MediaQuery.of(context).size.width * 1.05,
@@ -78,7 +109,7 @@ class _TrajectoryData extends State<TrajectoryData> {
                     minX: 0,
                     maxX: 30,
                     minY: 0,
-                    maxY: 10000,
+                    maxY: getMax(),
                     gridData: const FlGridData(
                       show: true,
                     ),
@@ -132,13 +163,13 @@ class _TrajectoryData extends State<TrajectoryData> {
                       ),
                   ),
                   const SizedBox(width: 10),
-                  Text("$avgspending /day"),
+                  Text("$avgSpending /day"),
                 ],
               )
             ),
             Container(
               margin: const EdgeInsets.only(left: 10, top: 5),
-              child: const Row(
+              child: Row(
                 children: [
                   Text(
                     "Projected to run out of money in:",
@@ -149,7 +180,7 @@ class _TrajectoryData extends State<TrajectoryData> {
                     ),
                   ),
                   SizedBox(width: 10),
-                  Text("10 days")
+                  Text("$daysLeft")
                 ],
               )
             )
