@@ -2,6 +2,7 @@ import 'package:restart_app/restart_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:smartspend/widgets/customtextfield.dart';
+import 'package:smartspend/widgets/backbutton.dart';
 import 'package:smartspend/backend/user.dart';
 import 'package:smartspend/backend/wyrm/database.dart';
 
@@ -39,12 +40,18 @@ class _UserInfo extends State<UserInfo>{
     }
     return(
       Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
             Container(
                 decoration: BoxDecoration(
                   color: Color(0xFF1E2038),
                 ),
+            ),
+            Positioned(
+              top: 40,
+              left: 20,
+              child: CustomizedBackButton()
             ),
             Container(
                 child: Align(
@@ -55,6 +62,7 @@ class _UserInfo extends State<UserInfo>{
                       fontFamily: 'Montserrat',
                       color: Colors.white,
                       fontSize: 50,
+                      fontWeight: FontWeight.w800
                     ),
                   ),
                 ),
@@ -121,7 +129,7 @@ class CardWidget extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 75),
+                    margin: EdgeInsets.only(top: 50),
                     width: MediaQuery.of(context).size.width * 0.75,
                     child: CustomTextField(
                       topText: "Name",
