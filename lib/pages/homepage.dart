@@ -11,15 +11,14 @@ import 'package:smartspend/backend/wyrm/database.dart';
 import 'package:smartspend/pages/myaccountpage.dart';
 
 class HomePage extends StatefulWidget {
-  final User client;
-
-  const HomePage({super.key, required this.client});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage>{
+  late User client;
   late List<Category> categories;
   Map<String, double> dataMap = {};
   bool _loading = true;
@@ -33,6 +32,7 @@ class _HomePageState extends State<HomePage>{
 
   Future<void> initArgs() async {
     categories = await database.categories();
+    client = (await database.users()).first;
     setState(() {
       _loading = false;
     });
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage>{
     for (var element in categories) {
       dataMap.addEntries([MapEntry(element.categoryName, element.currentSpending.toDouble())]);
     }
-    double width = getTotalSpending() / widget.client.monthlyIncome;
+    double width = getTotalSpending() / client.monthlyIncome;
     Color barColor = Colors.purple.shade800;
     if(width >= 0.8){
       barColor = Colors.red.shade700;
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage>{
         width = 1;
       }
     }
-    String name = widget.client.name;
+    String name = client.name;
     return PopScope(
       canPop: false,
         child: Scaffold(

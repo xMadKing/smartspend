@@ -17,9 +17,7 @@ class _NavBar extends State<NavBar>{
   Color bg_color = Color(0xFF1E2038);
   int index = 0;
   late List<Widget> options = <Widget>[
-    HomePage(
-      client: widget.client,
-    ),
+    HomePage(),
     AddExpensePage(),
     MyAccount(),
   ];

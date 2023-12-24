@@ -22,7 +22,7 @@ class CategoryWidget extends StatelessWidget {
     Color fontColor = getFontColor();
     return GestureDetector(
       onTap: () {
-        print("HELLOTHERE");
+        //we can maybe add future functionality here
       },
       child: Container(
           margin: const EdgeInsets.all(5),
