@@ -38,68 +38,93 @@ class _UserInfo extends State<UserInfo>{
     if(_loading){
       return const CircularProgressIndicator();
     }
-    return(
-      Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFF1E2038),
-                ),
-            ),
-            Positioned(
-              top: 40,
-              left: 20,
-              child: CustomizedBackButton()
-            ),
-            Container(
-                child: Align(
-                  alignment: Alignment(-0.9, -0.8),
-                  child: Text(
-                    "User\nInformation",
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                      fontSize: 50,
-                      fontWeight: FontWeight.w800
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            color: Color(0xFF1E2038),
+          ),
+          child: Stack(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(top: 30, left: 20),
+                      child: CustomizedBackButton()
+                  ),
+                  SizedBox(height: 10,),
+                  Container(
+                    child: Align(
+                      alignment: Alignment(-0.9, -0.8),
+                      child: Text(
+                        "User\nInformation",
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            color: Colors.white,
+                            fontSize: 50,
+                            fontWeight: FontWeight.w800
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(height: 70,),
+                  Container(
+                    child: CardWidget(
+                      client: client,
+                    ),
+                  ),
+                ],
               ),
-            Container(
-              child: CardWidget(
-                client: client,
+              Container(
+                  alignment: Alignment(0,-0.23),
+                  child: Profile(
+                    name: client.name,
+                  )
               ),
-            ),
-
-            Align(child: Profile(
-              name: client.name,
-            )),
-          ],
-        )
+            ],
+          ),
+        ),
       )
     );
   }
 
 }
+class CardWidget extends StatefulWidget {
+  final User client;
 
 
-class CardWidget extends StatelessWidget {
+  CardWidget({super.key, required this.client});
+
+  @override
+  State<StatefulWidget> createState() => _CardWidget();
+}
+
+class _CardWidget extends State<CardWidget> {
+  Wyrm database = Wyrm();
   final List<TextEditingController> controllers = [
     TextEditingController(),
     TextEditingController(),
+    TextEditingController()
   ];
-  final User client;
-  Wyrm database = Wyrm();
+  bool changedArgs = false;
+  bool _loading = true;
 
-  CardWidget({
-    super.key,
-    required this.client,
-  });
+  @override
+  void initState() {
+    setState(() {
+      _loading = false;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    if(_loading) {
+      return CircularProgressIndicator();
+    }
     return Align(
       alignment: Alignment.bottomCenter,
       child: ClipRRect(
@@ -116,7 +141,7 @@ class CardWidget extends StatelessWidget {
               ),
             ),
             width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.5,
+            height: MediaQuery.of(context).size.height * 0.6,
             child: Column(
                 children: [
                   Container(
@@ -136,9 +161,10 @@ class CardWidget extends StatelessWidget {
                       height: 50,
                       width: MediaQuery.of(context).size.width * 0.75,
                       controller: controllers[0],
+                      keyboardType: TextInputType.text,
                       function: (){},
                       icon: Icon(Icons.person),
-                      inBoxText: client.name,
+                      inBoxText: widget.client.name,
                     )
                   ),
                   Container(
@@ -152,18 +178,35 @@ class CardWidget extends StatelessWidget {
                         controller: controllers[1],
                         function: (){},
                         icon: Icon(Icons.date_range),
-                        inBoxText: client.birthDate,
+                        inBoxText: widget.client.birthDate,
                       )
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
-                    child: Text(
-                      "THIS ACTION WILL RESTART THE APPLICATION!",
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                        fontFamily: "Montserrat",
+                      margin: EdgeInsets.only(top: 20),
+                      width: MediaQuery.of(context).size.width * 0.75,
+                      child: CustomTextField(
+                        topText: "Monthly Income",
+                        height: 50,
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        controller: controllers[2],
+                        keyboardType: TextInputType.number,
+                        function: (){},
+                        icon: Icon(Icons.monetization_on_outlined),
+                        inBoxText: widget.client.monthlyIncome.toString(),
+                      )
+                  ),
+                  Visibility(
+                    visible: changedArgs,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: Text(
+                        "SUCESS!",
+                        style: TextStyle(
+                          color: Colors.green.shade600,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          fontFamily: "Montserrat",
+                        ),
                       ),
                     ),
                   ),
@@ -177,14 +220,16 @@ class CardWidget extends StatelessWidget {
                     ),
                     child: TextButton(
                       onPressed: () async {
-                        client.name = controllers[0].text;
-                        print(client.name);
-                        database.updateEntryInTable(
+                        widget.client.name = controllers[0].text;
+                        widget.client.monthlyIncome = double.parse(controllers[2].text);
+                        await database.updateEntryInTable(
                             'user',
                             'userID',
-                            client.userID,
-                            client);
-                        Restart.restartApp();
+                            widget.client.userID,
+                            widget.client);
+                        setState(() {
+                          changedArgs = true;
+                        });
                       },
                       child: const Text(
                         "Save",

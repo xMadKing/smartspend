@@ -5,20 +5,31 @@ class CustomizedBackButton extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      color: Colors.transparent,
-      icon: const Expanded(
-          child: Row(
-              children: [
-                Icon(Icons.arrow_back_ios_new, color: Color(0xffFFFFFF), size: 15),
-                SizedBox(width: 5),
-                Text('Back', style: TextStyle(fontFamily: 'Montserrat', fontSize: 15, color: Color(0xffFFFFFF)))
-              ]
-          )
-      ),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
+    //old implementation used expanded, expanded should not be used inside a stack.
+    return Row(
+      children: [
+        Container(
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+              size: 24,
+            ),
+          ),
+        ),
+        Text(
+          "BACK",
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 24,
+            fontFamily: 'Montserrat',
+            color: Colors.white
+         ),
+        )
+      ],
     );
   }
 }
