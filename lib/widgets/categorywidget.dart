@@ -1,25 +1,74 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 
-class CategoryWidget extends StatelessWidget {
+
+class CategoryWidget extends StatefulWidget{
   final String name;
   final Color color;
   final double number;
-  final Color bgColor;
   final double limit;
+  bool notificationSent = false;
 
-  const CategoryWidget({super.key, required this.name, required this.color, required this.number,
-    required this.bgColor, required this.limit});
+  CategoryWidget({
+    super.key,
+    required this.name,
+    required this.color,
+    required this.number,
+    required this.limit
+  });
 
-  Color getFontColor(){
-    if (number > limit){
-      return Colors.red;
+  @override
+  State<StatefulWidget> createState() => _CategoryWidget();
+
+}
+
+class _CategoryWidget extends State<CategoryWidget>{
+  static late Color bgColor;
+  static late Color fontColor;
+  static bool _loading = true;
+
+
+  Future<void> sendNotification() async {
+    if (widget.number > widget.limit && !widget.notificationSent){
+      widget.notificationSent = true;
+      await AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: 1,
+          channelKey: 'smartspend_notification_channel',
+          actionType: ActionType.Default,
+          title: 'SmartSpend: Limit Exceeded!',
+          body: 'The ${widget.name} budget has been exceeded! Current spending: ${widget.number}',
+        ),
+        schedule: NotificationInterval(interval: 30,repeats: false)
+      );
     }
-    return const Color(0xFF1E2038);
+  }
+
+  Future<void> initArgs() async {
+    await sendNotification();
+    setState(() {
+      _loading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    initArgs();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Color fontColor = getFontColor();
+    if(_loading) {
+      return LinearProgressIndicator();
+    }
+    if (widget.number > widget.limit){
+      bgColor = Colors.red.shade400;
+      fontColor = Colors.white;
+    } else {
+      bgColor = Colors.white;
+      fontColor = Colors.black;
+    }
     return GestureDetector(
       onTap: () {
         //we can maybe add future functionality here
@@ -41,7 +90,7 @@ class CategoryWidget extends StatelessWidget {
                 margin: const EdgeInsets.all(10),
                 child: Icon(
                   Icons.circle_rounded,
-                  color: color,
+                  color: widget.color,
                   size: 32,
                 )
               ),
@@ -49,9 +98,9 @@ class CategoryWidget extends StatelessWidget {
                 margin: const EdgeInsets.only(left: 20),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  name,
-                  style: const TextStyle(
-                    color: Color(0xFF1E2038),
+                  widget.name,
+                  style: TextStyle(
+                    color: fontColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     fontFamily: 'Montserrat',
@@ -63,10 +112,9 @@ class CategoryWidget extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-
                   },
                   child: Text(
-                    "$number",
+                    "${widget.number}",
                     style: TextStyle(
                       color: fontColor,
                       fontSize: 16,

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:smartspend/backend/category.dart';
@@ -8,7 +7,6 @@ import 'package:smartspend/widgets/categorywidget.dart';
 import 'package:smartspend/pages/monthlybudgetpage.dart';
 import 'package:smartspend/backend/user.dart';
 import 'package:smartspend/backend/wyrm/database.dart';
-import 'package:smartspend/pages/myaccountpage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -52,7 +50,6 @@ class _HomePageState extends State<HomePage>{
       res.add(CategoryWidget(
         name: element.categoryName,
         color: Color(element.categoryColor),
-        bgColor: Colors.white,
         number: element.currentSpending.toDouble(),
         limit: element.spendingLimit.toDouble(),
       ));
@@ -209,8 +206,7 @@ class _HomePageState extends State<HomePage>{
                                           margin: const EdgeInsets.only(right: 10),
                                           alignment: Alignment.centerRight,
                                           child: IconButton(
-                                              onPressed: () async {
-                                                List<Category> categories = await database.categories();
+                                              onPressed: () {
                                                 Navigator.push(context,
                                                     MaterialPageRoute(builder:
                                                         (context) => MonthlyBudgetPage(

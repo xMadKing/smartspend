@@ -4,13 +4,39 @@ import 'package:smartspend/pages/onboardingpage.dart';
 import 'package:smartspend/backend/wyrm/database.dart';
 import 'package:smartspend/backend/user.dart';
 import 'package:smartspend/backend/category.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
+
+import 'backend/notifications.dart';
 
 void main() async {
   Wyrm database = Wyrm();
   User client = await initClient(database);
-  List<Category> categories = await initCategories(database, client);
+  await initCategories(database, client);
+  await initNotifications();
   goFullscreen();
   runApp(MyApp(client: client));
+}
+
+Future<void> initNotifications() async { //this code is based on the documentation from the package
+  AwesomeNotifications().initialize(
+    // set the icon to null if you want to use the default app icon
+      'assets/logo.png',
+      [
+        NotificationChannel(
+            channelGroupKey: 'smartspend_notification_group',
+            channelKey: 'smartspend_notification_channel',
+            channelName: 'Smartspend Notifications',
+            channelDescription: 'Notification channel for Smartspend app',
+            defaultColor: Color(0xFF9D50DD),
+            ledColor: Colors.white)
+      ],
+      debug: true
+  );
+  AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+    if (!isAllowed) {
+      AwesomeNotifications().requestPermissionToSendNotifications();
+    }
+  });
 }
 
 void goFullscreen() async {
@@ -31,11 +57,32 @@ void goFullscreen() async {
   }
 }
 
-
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   User client;
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   MyApp({super.key, required this.client});
+
+  @override
+  State<StatefulWidget> createState() => _MyApp();
+}
+
+class _MyApp extends State<MyApp> {
+
+
+  @override
+  void initState() {
+
+    // Only after at least the action method is set, the notification events are delivered
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod:         NotificationController.onActionReceivedMethod,
+        onNotificationCreatedMethod:    NotificationController.onNotificationCreatedMethod,
+        onNotificationDisplayedMethod:  NotificationController.onNotificationDisplayedMethod,
+        onDismissActionReceivedMethod:  NotificationController.onDismissActionReceivedMethod
+    );
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +91,9 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+      navigatorKey: MyApp.navigatorKey,
       home: BoardingPage(
-        client: client,
+        client: widget.client,
       ),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
