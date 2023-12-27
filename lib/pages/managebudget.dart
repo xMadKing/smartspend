@@ -15,9 +15,6 @@ class MainBudget extends StatefulWidget {
 
 class _MainBudgetState extends State<MainBudget> {
 
-  //calculate available budget in acc
-  //double available = ;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,12 +40,12 @@ class _MainBudgetState extends State<MainBudget> {
                     fontWeight: FontWeight.w800
                 )),
                 SizedBox(height: 70),
-                Text('Total Available Budget', style: TextStyle(
+                Text('Slide category to delete', style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 12,
                   color: Colors.white,
                 )),
-                Text("Available", style: TextStyle(          //should be the number of money available in the account
+                Text("Your categories", style: TextStyle(          //should be the number of money available in the account
                     fontFamily: 'Montserrat',
                     fontSize: 30,
                     height: 1.2,
@@ -114,6 +111,7 @@ class _LV extends State<LV> {
         name: "No category founded", // Access the property of Category
         color: Colors.red,
         number: 0,
+        categoryID: -1,
       );
     }
     return Column(
@@ -131,6 +129,7 @@ class _LV extends State<LV> {
                 name: categories[index].categoryName, // Access the property of Category
                 color: Color(categories[index].categoryColor),
                 number: categories[index].spendingLimit,
+                categoryID: categories[index].categoryID,
               );
             },
           ),

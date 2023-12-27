@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smartspend/backend/category.dart';
+import 'package:smartspend/backend/wyrm/database.dart';
 import 'package:smartspend/widgets/backbutton.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:smartspend/widgets/savenewcat.dart';
@@ -13,12 +15,21 @@ class AddNewCat extends StatefulWidget {
 }
 
 class _AddNewCat extends State<AddNewCat> {
+  Color selectedColor = Color(0xff3B9A2C);
   FocusNode _textFieldFocusNode = FocusNode();
   TextEditingController _catNameController = TextEditingController();
   TextEditingController _amountController = TextEditingController();
   TextEditingController _descController = TextEditingController();
 
   bool _isKeyboardAppear = false;
+  bool categoryAdded = false;
+
+  void setColor(Color newColor){
+    setState(() {
+      selectedColor = newColor;
+    });
+    print(newColor);
+  }
 
   @override
   void initState() {
@@ -61,12 +72,7 @@ class _AddNewCat extends State<AddNewCat> {
                     fontWeight: FontWeight.w600
                   )),
                   SizedBox(height: 70),
-                  Text('Total Available Budget', style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 12,
-                    color: Colors.white,
-                  )),
-                  Text('FROM USER DATA', style: TextStyle(          //should be the number of money available in the account
+                  Text('Add a category', style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 30,
                     height: 1.2,
@@ -174,6 +180,7 @@ class _AddNewCat extends State<AddNewCat> {
                                           child: TextField(
                                               controller: _amountController,
                                               focusNode: _textFieldFocusNode,
+                                              keyboardType: TextInputType.number,
                                               style: TextStyle(
                                                 fontFamily: 'Montserrat',
                                                 fontWeight: FontWeight.w600,  
@@ -201,7 +208,8 @@ class _AddNewCat extends State<AddNewCat> {
                                 ),
                                 ColorSelect(
                                     desiredH: desiredHeight,
-                                    desiredW: desiredWidth
+                                    desiredW: desiredWidth,
+                                    updateColor: setColor,
                                 ),
                               ]
                           ),
@@ -248,26 +256,53 @@ class _AddNewCat extends State<AddNewCat> {
                                 )
                               ]
                           ),
-                        Container(
-                          padding: const EdgeInsets.only(top: 20),
-                          alignment: Alignment.center,
-                          child: NewCatButton(
-                            onPressed: () {
-                              // Handle button press
-                              // The text here is to be added to the database
-                              print(_catNameController.text);
-                              print(_amountController.text);
-                              print(_descController.text);
-                              // Navigate to Manage Budget page
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                builder: (context) => MainBudget())
-                              );
-                      },
-                    ),
-                  ),
-                        
-                        ]
+                          Visibility(
+                            visible: categoryAdded,
+                            child: Center(
+                              child: Container(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Icon(
+                                  Icons.check_circle_rounded,
+                                  color: Colors.green,
+                                  size: 50,
+                                ),
+                              )
+                            ),
+                          ),
+                        Visibility(
+                          visible: !categoryAdded,
+                          child: Container(
+                            padding: const EdgeInsets.only(top: 20),
+                            alignment: Alignment.center,
+                            child: NewCatButton(
+                              onPressed: () async {
+                                // Handle button press
+                                // The text here is to be added to the database
+                                Category newCategory = Category(
+                                  categoryColor: selectedColor.value,
+                                  categoryID: DateTime.now().millisecondsSinceEpoch,
+                                  categoryName: _catNameController.text,
+                                  spendingLimit: int.parse(_amountController.text),
+                                  userID: 1,
+                                );
+                                Wyrm database = Wyrm();
+                                database.insertToTable(newCategory, 'category');
+                                setState(() {
+                                  _amountController.text = "";
+                                  _catNameController.text = "";
+                                  _catNameController.text = "";
+                                  _descController.text = "";
+                                  categoryAdded = true;
+                                });
+                                await Future.delayed(Duration(seconds: 1));
+                                setState(() {
+                                  categoryAdded = false;
+                                });
+                              },
+                            ),
+                          ),
+                        )
+                      ]
                     )
                 )
             ), 
@@ -281,8 +316,14 @@ class _AddNewCat extends State<AddNewCat> {
 class ColorSelect extends StatefulWidget{
   final double desiredW;
   final double desiredH;
+  final Function(Color) updateColor;
 
-  ColorSelect({super.key, required this.desiredH, required this.desiredW});
+  ColorSelect({
+    super.key,
+    required this.desiredH,
+    required this.desiredW,
+    required this.updateColor
+  });
 
   @override
   State<StatefulWidget> createState() => _ColorSelect();
@@ -300,6 +341,7 @@ class _ColorSelect extends State<ColorSelect>{
             child: BlockPicker(
               pickerColor: chosen,
               onColorChanged: (color) {
+                widget.updateColor(color);
                 setState(() {
                   chosen = color;
                 });

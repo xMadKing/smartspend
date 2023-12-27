@@ -1,24 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:smartspend/backend/wyrm/database.dart';
 
 class EditableBudgetCat extends StatefulWidget{
   final String name;
   final Color color;
   final num number;
+  final int categoryID;
 
-  const EditableBudgetCat({super.key, required this.name, required this.color, required this.number});
+  const EditableBudgetCat({super.key,
+    required this.name,
+    required this.color,
+    required this.number,
+    required this.categoryID});
 
   @override
   State<EditableBudgetCat> createState() => _EditableBudgetCat();
 }
 
 class _EditableBudgetCat extends State<EditableBudgetCat> {
-  //should access the database and instead of the list
+  bool deleted = false;
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height / 14;
     double width = MediaQuery.of(context).size.width /1.2;
+
+    if(deleted){
+      return Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.red,
+        ),
+        child: Center(
+          child: Text(
+              "DELETED",
+            style: TextStyle(
+              fontFamily: "Montserrat",
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        )
+      );
+    }
 
     return Stack(
       //crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +70,17 @@ class _EditableBudgetCat extends State<EditableBudgetCat> {
                       child: Align(
                           alignment: Alignment.centerRight,
                           child: InkWell(
-                              onTap: () {},
+                              onTap: () async {
+                                Wyrm database = Wyrm();
+                                await database.deleteFromTable(
+                                    "categoryID",
+                                    'category',
+                                    widget.categoryID
+                                );
+                                setState(() {
+                                  deleted = true;
+                                });
+                              },
                               child: Container(
                                   alignment: Alignment.center,
                                   width: 120,
