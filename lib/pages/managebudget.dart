@@ -3,7 +3,8 @@ import 'package:smartspend/widgets/backbutton.dart';
 import 'package:smartspend/widgets/editablebudgetcat.dart';
 import 'package:smartspend/pages/addnewbudget.dart';
 import 'package:smartspend/widgets/addcat.dart';
-
+import 'package:smartspend/backend/category.dart';
+import 'package:smartspend/backend/wyrm/database.dart';
 
 class MainBudget extends StatefulWidget {
   const MainBudget({super.key});
@@ -13,6 +14,10 @@ class MainBudget extends StatefulWidget {
 }
 
 class _MainBudgetState extends State<MainBudget> {
+
+  //calculate available budget in acc
+  //double available = ;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,18 +29,18 @@ class _MainBudgetState extends State<MainBudget> {
             left: 20,
             child: CustomizedBackButton(),
           ),
-          const Positioned(
+          Positioned(
             top: 100,
             left: 30,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Manage\nBudget", style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 50,
-                  height: 1,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800
+                    fontFamily: 'Montserrat',
+                    fontSize: 50,
+                    height: 1,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800
                 )),
                 SizedBox(height: 70),
                 Text('Total Available Budget', style: TextStyle(
@@ -43,12 +48,12 @@ class _MainBudgetState extends State<MainBudget> {
                   fontSize: 12,
                   color: Colors.white,
                 )),
-                Text('FROM USER DATA', style: TextStyle(          //should be the number of money available in the account
-                  fontFamily: 'Montserrat',
-                  fontSize: 30,
-                  height: 1.2,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600
+                Text("Available", style: TextStyle(          //should be the number of money available in the account
+                    fontFamily: 'Montserrat',
+                    fontSize: 30,
+                    height: 1.2,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600
                 )),
               ],
             ),
@@ -76,36 +81,73 @@ class _MainBudgetState extends State<MainBudget> {
 
 
 
-class LV extends StatelessWidget {
+class LV extends StatefulWidget {
   const LV({super.key});
 
   @override
+  _LV createState() => _LV();
+}
+
+class _LV extends State<LV> {
+  late List<Category> categories;
+  Wyrm database = Wyrm();
+  bool load = false;
+
+  Future<void> initArgs() async {
+    categories = await database.categories();
+
+    setState(() {
+      load = true;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initArgs();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (load == false) {
+      return EditableBudgetCat(
+        name: "No category founded", // Access the property of Category
+        color: Colors.red,
+        number: 0,
+      );
+    }
     return Column(
-        children : [
-          Expanded(
-              child: ListView.separated(
-                itemCount: 2,
-                separatorBuilder: (context, index) => const Divider(height: 20, color: Color(0xffF5F5F5)),
-                itemBuilder: (BuildContext context, int index) {
-                  return EditableBudgetCat(name: 'Food',
-                      color: Colors.deepOrange,
-                      number: 4500);
-                },
-              )
+      children: [
+        Padding(
+            padding: EdgeInsets.only(top: 10)
+        ),
+        Expanded(
+          child: ListView.separated(
+            itemCount: categories.length,
+            separatorBuilder: (context, index) =>
+            const Divider(height: 20, color: Color(0xffF5F5F5)),
+            itemBuilder: (BuildContext context, int index) {
+              return EditableBudgetCat(
+                name: categories[index].categoryName, // Access the property of Category
+                color: Color(categories[index].categoryColor),
+                number: categories[index].spendingLimit,
+              );
+            },
           ),
-          Container(
-              margin: EdgeInsets.only(top: 10, bottom: 10),
-              child:AddCatButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => AddNewCat())
-                    );
-                  },
-              )
-          )
-        ]
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 10, bottom: 10),
+          child: AddCatButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AddNewCat(),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

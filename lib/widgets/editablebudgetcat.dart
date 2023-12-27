@@ -4,7 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 class EditableBudgetCat extends StatefulWidget{
   final String name;
   final Color color;
-  final double number;
+  final num number;
 
   const EditableBudgetCat({super.key, required this.name, required this.color, required this.number});
 
@@ -38,27 +38,6 @@ class _EditableBudgetCat extends State<EditableBudgetCat> {
                 motion: const BehindMotion(),
                 extentRatio: 0.35,
                 children: [
-                  Expanded(
-                      child: Align(
-                          alignment: Alignment.centerRight,
-                          child: InkWell(
-                              onTap: () {},
-                              child: Container(
-                                  alignment: Alignment.center,
-                                  width: 60,
-                                  height: height,
-                                  decoration: const BoxDecoration(
-                                    color:Colors.white,
-                                    //borderRadius: BorderRadius.circular(20.0)
-                                  ),
-                                  child: const Icon(
-                                    Icons.edit_document,
-                                    color: Color(0xffBABABA),
-                                  )
-                              )
-                          )
-                      )
-                  ),
                   Expanded(
                       child: Align(
                           alignment: Alignment.centerRight,

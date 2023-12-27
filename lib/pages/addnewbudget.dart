@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:smartspend/widgets/backbutton.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:smartspend/widgets/savenewcat.dart';
@@ -152,7 +151,7 @@ class _AddNewCat extends State<AddNewCat> {
                                       Container(
                                           margin: const EdgeInsets.only(left:30),
                                           child: const Text(
-                                            'Amount',
+                                            'Limit',
                                             style: TextStyle(
                                                 fontFamily: 'Montserrat',
                                                 fontSize: 14,
@@ -280,8 +279,8 @@ class _AddNewCat extends State<AddNewCat> {
 
 //class for color picker
 class ColorSelect extends StatefulWidget{
-  double desiredW;
-  double desiredH;
+  final double desiredW;
+  final double desiredH;
 
   ColorSelect({super.key, required this.desiredH, required this.desiredW});
 
