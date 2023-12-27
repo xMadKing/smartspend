@@ -1,4 +1,3 @@
-import 'package:restart_app/restart_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:smartspend/widgets/customtextfield.dart';

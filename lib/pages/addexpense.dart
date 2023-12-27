@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:smartspend/widgets/customtextfield.dart';
 import 'package:smartspend/backend/wyrm/database.dart';
 import 'package:smartspend/backend/category.dart';
@@ -27,7 +26,6 @@ class _AddExpensePageState extends State<AddExpensePage> {
   bool _loading = true;
   bool expenseAdded = false;
   bool selectingCategory = false;
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   @override
   void initState(){
