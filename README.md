@@ -35,13 +35,22 @@ However, the main gist of it is:
 ## Packages & Tools Used
 
 sqflite: https://pub.dev/packages/sqflite
+
 pie_cart: https://pub.dev/packages/pie_chart
+
 fl_chart: https://pub.dev/packages/fl_chart
+
 graphic: https://pub.dev/packages/graphic
+
 shared_preferences: https://pub.dev/packages/shared_preferences
+
 path_provider: https://pub.dev/packages/path_provider
+
 path: https://pub.dev/packages/path
+
 flutter_svg: https://pub.dev/packages/flutter_svg
+
 quiver: https://pub.dev/packages/quiver
+
 awesome_notifications: https://pub.dev/packages/awesome_notifications
 

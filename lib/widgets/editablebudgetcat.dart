@@ -77,6 +77,10 @@ class _EditableBudgetCat extends State<EditableBudgetCat> {
                                     'category',
                                     widget.categoryID
                                 );
+                                await database.deleteFromTable(
+                                    'categoryID',
+                                    'payment',
+                                    widget.categoryID);
                                 setState(() {
                                   deleted = true;
                                 });
