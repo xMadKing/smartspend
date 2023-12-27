@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:quiver/time.dart';
 import 'package:smartspend/backend/user.dart';
 
 class TrajectoryData extends StatefulWidget {
@@ -43,7 +44,7 @@ class _TrajectoryData extends State<TrajectoryData> {
 
   double getAvgSpending(){
     double sum = 0;
-    int date = DateTime.now().month.toInt();
+    int date = daysInMonth(DateTime.now().year.toInt(), DateTime.now().month.toInt());
     for(int i = 0; i < date; i++){
       sum += widget.data[i].y;
     }
