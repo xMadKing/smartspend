@@ -27,3 +27,7 @@ However, the main gist of it is:
 2. App has 4 default categories, which you can add more to, you adjust the spending limit for each category, as well as other settings.
 3. Start logging payments in each category.
 4. The app will do the rest!
+
+## System Architecture
+
+![architecture.png](assets%2Farchitecture.png)
