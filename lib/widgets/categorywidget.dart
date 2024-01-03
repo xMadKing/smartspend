@@ -31,15 +31,15 @@ class _CategoryWidget extends State<CategoryWidget>{
   Future<void> sendNotification() async {
     if (widget.number > widget.limit && !widget.notificationSent){
       widget.notificationSent = true;
-      await AwesomeNotifications().createNotification(
+      AwesomeNotifications().createNotification(
         content: NotificationContent(
           id: 1,
           channelKey: 'smartspend_notification_channel',
           actionType: ActionType.Default,
           title: 'SmartSpend: Limit Exceeded!',
-          body: 'The ${widget.name} budget has been exceeded! Current spending: ${widget.number}',
+          body: 'Limit on ${widget.name} has been exceeded! Current Spending ${widget.number}.'
         ),
-        schedule: NotificationInterval(interval: 30,repeats: false)
+        schedule: NotificationInterval(interval: 5, repeats: false),
       );
     }
   }

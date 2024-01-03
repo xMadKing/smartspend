@@ -20,7 +20,7 @@ void main() async {
 Future<void> initNotifications() async { //this code is based on the documentation from the package
   AwesomeNotifications().initialize(
     // set the icon to null if you want to use the default app icon
-      'assets/logo.png',
+      null,
       [
         NotificationChannel(
             channelGroupKey: 'smartspend_notification_group',
